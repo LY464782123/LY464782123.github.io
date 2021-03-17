@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Flink,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、安装 Scala 插件Flink 分别提供了基于 Java 语言和 Scala 语言的 API ，如果想要使用 Scala 语言来开发 Flink 程序，可以通过在 IDEA 中安装 Scala 插件来提供语法提示，代码高亮等功能。打开 IDEA , 依次点击 File =&amp;gt; settings =&amp;gt; plugins 打开插件安装页面，搜索 Scala 插件并进行安装，安装完成后，重">
+<meta name="keywords" content="Flink">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flink 开发环境搭建">
+<meta property="og:url" content="http://yoursite.com/2021/03/17/Flink开发环境搭建/index.html">
+<meta property="og:site_name" content="菜鸟@进阶记">
+<meta property="og:description" content="一、安装 Scala 插件Flink 分别提供了基于 Java 语言和 Scala 语言的 API ，如果想要使用 Scala 语言来开发 Flink 程序，可以通过在 IDEA 中安装 Scala 插件来提供语法提示，代码高亮等功能。打开 IDEA , 依次点击 File =&amp;gt; settings =&amp;gt; plugins 打开插件安装页面，搜索 Scala 插件并进行安装，安装完成后，重">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/scala-plugin.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-maven.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-maven-new.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-basis-project.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-lib.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-maven-profile.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-word-count.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-download.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-scala-shell.png">
+<meta property="og:updated_time" content="2021-03-17T14:03:33.232Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flink 开发环境搭建">
+<meta name="twitter:description" content="一、安装 Scala 插件Flink 分别提供了基于 Java 语言和 Scala 语言的 API ，如果想要使用 Scala 语言来开发 Flink 程序，可以通过在 IDEA 中安装 Scala 插件来提供语法提示，代码高亮等功能。打开 IDEA , 依次点击 File =&amp;gt; settings =&amp;gt; plugins 打开插件安装页面，搜索 Scala 插件并进行安装，安装完成后，重">
+<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/scala-plugin.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+  (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/17/Flink开发环境搭建/">
+
+
+
+
+
+  <title>Flink 开发环境搭建 | 菜鸟@进阶记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+   <a href="https://github.com/LY464782123"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">菜鸟@进阶记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-edit"></i> <br>
+            
+            笔记
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-codes">
+          <a href="/codes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br>
+            
+            编程
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-search"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Flink开发环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.刘">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜鸟@进阶记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Flink 开发环境搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:00:00+08:00">
+                2021-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/Flink/" itemprop="url" rel="index">
+                    <span itemprop="name">Flink</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/03/17/Flink开发环境搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Flink开发环境搭建/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、安装-Scala-插件"><a href="#一、安装-Scala-插件" class="headerlink" title="一、安装 Scala 插件"></a>一、安装 Scala 插件</h2><p>Flink 分别提供了基于 Java 语言和 Scala 语言的 API ，如果想要使用 Scala 语言来开发 Flink 程序，可以通过在 IDEA 中安装 Scala 插件来提供语法提示，代码高亮等功能。打开 IDEA , 依次点击 <code>File =&gt; settings =&gt; plugins</code> 打开插件安装页面，搜索 Scala 插件并进行安装，安装完成后，重启 IDEA 即可生效。  </p>
+<div align="center"> <img src="../pictures/scala-plugin.png"> </div>
+
+<h2 id="二、Flink-项目初始化"><a href="#二、Flink-项目初始化" class="headerlink" title="二、Flink 项目初始化"></a>二、Flink 项目初始化</h2><h3 id="2-1-使用官方脚本构建"><a href="#2-1-使用官方脚本构建" class="headerlink" title="2.1 使用官方脚本构建"></a>2.1 使用官方脚本构建</h3><p>Flink 官方支持使用 Maven 和 Gradle 两种构建工具来构建基于 Java 语言的 Flink 项目；支持使用 SBT 和 Maven 两种构建工具来构建基于 Scala 语言的 Flink 项目。 这里以 Maven 为例进行说明，因为其可以同时支持 Java 语言和 Scala 语言项目的构建。需要注意的是 Flink 1.9 只支持 Maven 3.0.4 以上的版本，Maven 安装完成后，可以通过以下两种方式来构建项目：</p>
+<p><strong>1. 直接基于 Maven Archetype 构建</strong></p>
+<p>直接使用下面的 mvn 语句来进行构建，然后根据交互信息的提示，依次输入 groupId , artifactId 以及包名等信息后等待初始化的完成： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mvn archetype:generate                               \</span><br><span class="line">      -DarchetypeGroupId=org.apache.flink              \</span><br><span class="line">      -DarchetypeArtifactId=flink-quickstart-java      \</span><br><span class="line">      -DarchetypeVersion=1.9.0</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：如果想要创建基于 Scala 语言的项目，只需要将 flink-quickstart-java 换成 flink-quickstart-scala 即可，后文亦同。</p>
+</blockquote>
+<p><strong>2. 使用官方脚本快速构建</strong></p>
+<p>为了更方便的初始化项目，官方提供了快速构建脚本，可以直接通过以下命令来进行调用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl https://flink.apache.org/q/quickstart.sh | bash -s 1.9.0</span></span><br></pre></td></tr></table></figure>
+<p>该方式其实也是通过执行 maven archetype 命令来进行初始化，其脚本内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PACKAGE=quickstart</span><br><span class="line"></span><br><span class="line">mvn archetype:generate \</span><br><span class="line">  -DarchetypeGroupId=org.apache.flink \</span><br><span class="line">  -DarchetypeArtifactId=flink-quickstart-java \</span><br><span class="line">  -DarchetypeVersion=$&#123;1:-1.8.0&#125; \</span><br><span class="line">  -DgroupId=org.myorg.quickstart \</span><br><span class="line">  -DartifactId=$PACKAGE	\</span><br><span class="line">  -Dversion=0.1 \</span><br><span class="line">  -Dpackage=org.myorg.quickstart \</span><br><span class="line">  -DinteractiveMode=false</span><br></pre></td></tr></table></figure>
+<p>可以看到相比于第一种方式，该种方式只是直接指定好了 groupId ，artifactId ，version 等信息而已。</p>
+<h3 id="2-2-使用-IDEA-构建"><a href="#2-2-使用-IDEA-构建" class="headerlink" title="2.2 使用 IDEA 构建"></a>2.2 使用 IDEA 构建</h3><p>如果你使用的是开发工具是 IDEA ，可以直接在项目创建页面选择 Maven Flink Archetype 进行项目初始化：</p>
+<div align="center"> <img src="../pictures/flink-maven.png"> </div>
+
+<p>如果你的 IDEA 没有上述 Archetype， 可以通过点击右上角的 <code>ADD ARCHETYPE</code> ，来进行添加，依次填入所需信息，这些信息都可以从上述的 <code>archetype:generate</code> 语句中获取。点击  <code>OK</code> 保存后，该 Archetype 就会一直存在于你的 IDEA 中，之后每次创建项目时，只需要直接选择该 Archetype 即可：</p>
+<div align="center"> <img src="../pictures/flink-maven-new.png"> </div>
+
+<p>选中 Flink Archetype ，然后点击 <code>NEXT</code> 按钮，之后的所有步骤都和正常的 Maven 工程相同。</p>
+<h2 id="三、项目结构"><a href="#三、项目结构" class="headerlink" title="三、项目结构"></a>三、项目结构</h2><h3 id="3-1-项目结构"><a href="#3-1-项目结构" class="headerlink" title="3.1 项目结构"></a>3.1 项目结构</h3><p>创建完成后的自动生成的项目结构如下：</p>
+<div align="center"> <img src="../pictures/flink-basis-project.png"> </div>
+
+<p>其中 BatchJob 为批处理的样例代码，源码如下：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.flink.api.scala._</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">BatchJob</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="keyword">val</span> env = <span class="type">ExecutionEnvironment</span>.getExecutionEnvironment</span><br><span class="line">      ....</span><br><span class="line">    env.execute(<span class="string">"Flink Batch Scala API Skeleton"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>getExecutionEnvironment 代表获取批处理的执行环境，如果是本地运行则获取到的就是本地的执行环境；如果在集群上运行，得到的就是集群的执行环境。如果想要获取流处理的执行环境，则只需要将 <code>ExecutionEnvironment</code> 替换为 <code>StreamExecutionEnvironment</code>， 对应的代码样例在 StreamingJob 中：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.scala._</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">StreamingJob</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="keyword">val</span> env = <span class="type">StreamExecutionEnvironment</span>.getExecutionEnvironment</span><br><span class="line">      ...</span><br><span class="line">    env.execute(<span class="string">"Flink Streaming Scala API Skeleton"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是对于流处理项目 <code>env.execute()</code> 这句代码是必须的，否则流处理程序就不会被执行，但是对于批处理项目则是可选的。</p>
+<h3 id="3-2-主要依赖"><a href="#3-2-主要依赖" class="headerlink" title="3.2 主要依赖"></a>3.2 主要依赖</h3><p>基于 Maven 骨架创建的项目主要提供了以下核心依赖：其中 <code>flink-scala</code> 用于支持开发批处理程序 ；<code>flink-streaming-scala</code> 用于支持开发流处理程序 ；<code>scala-library</code> 用于提供 Scala 语言所需要的类库。如果在使用 Maven 骨架创建时选择的是 Java 语言，则默认提供的则是 <code>flink-java</code> 和 <code>flink-streaming-java</code> 依赖。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Apache Flink dependencies --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- These dependencies are provided, because they should not be packaged into the JAR file. --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.flink<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flink-scala_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;flink.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.flink<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flink-streaming-scala_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;flink.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Scala Library, provided by Flink as well. --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.scala-lang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>scala-library<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;scala.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>需要特别注意的以上依赖的 <code>scope</code> 标签全部被标识为 provided ，这意味着这些依赖都不会被打入最终的 JAR 包。因为 Flink 的安装包中已经提供了这些依赖，位于其 lib 目录下，名为  <code>flink-dist_*.jar</code>  ，它包含了 Flink 的所有核心类和依赖：</p>
+<div align="center"> <img src="../pictures/flink-lib.png"> </div>
+
+<p> <code>scope</code> 标签被标识为 provided 会导致你在 IDEA 中启动项目时会抛出 ClassNotFoundException 异常。基于这个原因，在使用 IDEA 创建项目时还自动生成了以下 profile 配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- This profile helps to make things run out of the box in IntelliJ --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Its adds Flink's core classes to the runtime class path. --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Otherwise they are missing in IntelliJ, because the dependency is 'provided' --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>add-dependencies-for-IDEA<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>idea.version<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.flink<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flink-scala_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;flink.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.flink<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flink-streaming-scala_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;flink.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.scala-lang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>scala-library<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;scala.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在 id 为 <code>add-dependencies-for-IDEA</code> 的 profile 中，所有的核心依赖都被标识为 compile，此时你可以无需改动任何代码，只需要在 IDEA 的 Maven 面板中勾选该 profile，即可直接在 IDEA 中运行 Flink 项目：</p>
+<div align="center"> <img src="../pictures/flink-maven-profile.png"> </div>
+
+<h2 id="四、词频统计案例"><a href="#四、词频统计案例" class="headerlink" title="四、词频统计案例"></a>四、词频统计案例</h2><p>项目创建完成后，可以先书写一个简单的词频统计的案例来尝试运行 Flink 项目，以下以 Scala 语言为例，分别介绍流处理程序和批处理程序的编程示例：</p>
+<h3 id="4-1-批处理示例"><a href="#4-1-批处理示例" class="headerlink" title="4.1 批处理示例"></a>4.1 批处理示例</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.flink.api.scala._</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">WordCountBatch</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> benv = <span class="type">ExecutionEnvironment</span>.getExecutionEnvironment</span><br><span class="line">    <span class="keyword">val</span> dataSet = benv.readTextFile(<span class="string">"D:\\wordcount.txt"</span>)</span><br><span class="line">    dataSet.flatMap &#123; _.toLowerCase.split(<span class="string">","</span>)&#125;</span><br><span class="line">            .filter (_.nonEmpty)</span><br><span class="line">            .map &#123; (_, <span class="number">1</span>) &#125;</span><br><span class="line">            .groupBy(<span class="number">0</span>)</span><br><span class="line">            .sum(<span class="number">1</span>)</span><br><span class="line">            .print()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>wordcount.txt</code> 中的内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a,a,a,a,a</span><br><span class="line">b,b,b</span><br><span class="line">c,c</span><br><span class="line">d,d</span><br></pre></td></tr></table></figure>
+<p>本机不需要配置其他任何的 Flink 环境，直接运行 Main 方法即可，结果如下：</p>
+<div align="center"> <img src="../pictures/flink-word-count.png"> </div>
+
+<h3 id="4-2-流处理示例"><a href="#4-2-流处理示例" class="headerlink" title="4.2 流处理示例"></a>4.2 流处理示例</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.scala._</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.windowing.time.<span class="type">Time</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">WordCountStreaming</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> senv = <span class="type">StreamExecutionEnvironment</span>.getExecutionEnvironment</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> dataStream: <span class="type">DataStream</span>[<span class="type">String</span>] = senv.socketTextStream(<span class="string">"192.168.0.229"</span>, <span class="number">9999</span>, '\n')</span><br><span class="line">    dataStream.flatMap &#123; line =&gt; line.toLowerCase.split(<span class="string">","</span>) &#125;</span><br><span class="line">              .filter(_.nonEmpty)</span><br><span class="line">              .map &#123; word =&gt; (word, <span class="number">1</span>) &#125;</span><br><span class="line">              .keyBy(<span class="number">0</span>)</span><br><span class="line">              .timeWindow(<span class="type">Time</span>.seconds(<span class="number">3</span>))</span><br><span class="line">              .sum(<span class="number">1</span>)</span><br><span class="line">              .print()</span><br><span class="line">    senv.execute(<span class="string">"Streaming WordCount"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里以监听指定端口号上的内容为例，使用以下命令来开启端口服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lk 9999</span><br></pre></td></tr></table></figure>
+<p>之后输入测试数据即可观察到流处理程序的处理情况。</p>
+<h2 id="五、使用-Scala-Shell"><a href="#五、使用-Scala-Shell" class="headerlink" title="五、使用 Scala Shell"></a>五、使用 Scala Shell</h2><p>对于日常的 Demo 项目，如果你不想频繁地启动 IDEA 来观察测试结果，可以像 Spark 一样，直接使用 Scala Shell 来运行程序，这对于日常的学习来说，效果更加直观，也更省时。Flink 安装包的下载地址如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://flink.apache.org/downloads.html</span><br></pre></td></tr></table></figure>
+<p>Flink 大多数版本都提供有 Scala 2.11 和 Scala 2.12 两个版本的安装包可供下载：</p>
+<div align="center"> <img src="../pictures/flink-download.png"> </div>
+
+<p>下载完成后进行解压即可，Scala Shell 位于安装目录的 bin 目录下，直接使用以下命令即可以本地模式启动：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./start-scala-shell.sh local</span><br></pre></td></tr></table></figure>
+<p>命令行启动完成后，其已经提供了批处理 （benv 和 btenv）和流处理（senv 和 stenv）的运行环境，可以直接运行 Scala Flink 程序，示例如下：</p>
+<div align="center"> <img src="../pictures/flink-scala-shell.png"> </div>
+
+<p>最后解释一个常见的异常：这里我使用的 Flink 版本为 1.9.1，启动时会抛出如下异常。这里因为按照官方的说明，目前所有 Scala 2.12 版本的安装包暂时都不支持 Scala Shell，所以如果想要使用 Scala Shell，只能选择 Scala 2.11 版本的安装包。 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 bin]# ./start-scala-shell.sh local</span><br><span class="line">错误: 找不到或无法加载主类 org.apache.flink.api.scala.FlinkShell</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+        	-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------
+        </div>
+    
+    
+    	<div style="text-align:left;color: #ccc;font-size:12px;">
+    		作者：Mr.刘 <br>
+    		来源：GitHub <br>
+			原文：https://ly464782123.github.io <br>
+			版权声明：本文为博主原创文章，转载请附上博文链接,谢谢(*￣︶￣)！
+    	</div>
+    
+</div>
+      </div>
+    
+
+    
+      <div>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Flink/" rel="tag"># Flink</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/17/Flink_Data_Sink/" rel="next" title="Flink Sink">
+                <i class="fa fa-chevron-left"></i> Flink Sink
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/17/Flink_Data_Source/" rel="prev" title="Flink Data Source">
+                Flink Data Source <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.gif" alt="Mr.刘">
+            
+              <p class="site-author-name" itemprop="name">Mr.刘</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LY464782123" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:464782123@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、安装-Scala-插件"><span class="nav-number">1.</span> <span class="nav-text">一、安装 Scala 插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Flink-项目初始化"><span class="nav-number">2.</span> <span class="nav-text">二、Flink 项目初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-使用官方脚本构建"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 使用官方脚本构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-使用-IDEA-构建"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 使用 IDEA 构建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、项目结构"><span class="nav-number">3.</span> <span class="nav-text">三、项目结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-项目结构"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 项目结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-主要依赖"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 主要依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、词频统计案例"><span class="nav-number">4.</span> <span class="nav-text">四、词频统计案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-批处理示例"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 批处理示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-流处理示例"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 流处理示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、使用-Scala-Shell"><span class="nav-number">5.</span> <span class="nav-text">五、使用 Scala Shell</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.刘</span>
+
+  
+  
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  <!--<div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>-->
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访问数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'nMqf9jn6wQxm15s5uFHXVJFE-gzGzoHsz',
+        appKey: '3tyIVLem7Iy9uN4vY8BjbLlG',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/clickLove.js"></script>

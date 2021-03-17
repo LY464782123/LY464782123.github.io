@@ -428,11 +428,11 @@
       
 
       
-        <h2 id="一、Sqoop-基本命令"><a href="#一、Sqoop-基本命令" class="headerlink" title="一、Sqoop 基本命令"></a>一、Sqoop 基本命令</h2><h3 id="1-查看所有命令"><a href="#1-查看所有命令" class="headerlink" title="1. 查看所有命令"></a>1. 查看所有命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> sqoop help</span><br></pre></td></tr></table></figure>
+        <h2 id="一、Sqoop-基本命令"><a href="#一、Sqoop-基本命令" class="headerlink" title="一、Sqoop 基本命令"></a>一、Sqoop 基本命令</h2><h3 id="1-查看所有命令"><a href="#1-查看所有命令" class="headerlink" title="1. 查看所有命令"></a>1. 查看所有命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sqoop <span class="built_in">help</span></span></span><br></pre></td></tr></table></figure>
 <div align="center"> <img src="../pictures/sqoop-help.png"> </div>
 
 <p><br></p>
-<h3 id="2-查看某条命令的具体使用方法"><a href="#2-查看某条命令的具体使用方法" class="headerlink" title="2. 查看某条命令的具体使用方法"></a>2. 查看某条命令的具体使用方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> sqoop help 命令名</span><br></pre></td></tr></table></figure>
+<h3 id="2-查看某条命令的具体使用方法"><a href="#2-查看某条命令的具体使用方法" class="headerlink" title="2. 查看某条命令的具体使用方法"></a>2. 查看某条命令的具体使用方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sqoop <span class="built_in">help</span> 命令名</span></span><br></pre></td></tr></table></figure>
 <h2 id="二、Sqoop-与-MySQL"><a href="#二、Sqoop-与-MySQL" class="headerlink" title="二、Sqoop 与 MySQL"></a>二、Sqoop 与 MySQL</h2><h3 id="1-查询MySQL所有数据库"><a href="#1-查询MySQL所有数据库" class="headerlink" title="1. 查询MySQL所有数据库"></a>1. 查询MySQL所有数据库</h3><p>通常用于 Sqoop 与 MySQL 连通测试：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sqoop list-databases \</span><br><span class="line">--connect jdbc:mysql://hadoop001:3306/ \</span><br><span class="line">--username root \</span><br><span class="line">--password root</span><br></pre></td></tr></table></figure>
 <div align="center"> <img src="../pictures/sqoop-list-databases.png"> </div>
@@ -451,7 +451,7 @@
 </ul>
 <div align="center"> <img src="../pictures/sqoop-map-task.png"> </div>
 
-<h4 id="2-导入验证"><a href="#2-导入验证" class="headerlink" title="2. 导入验证"></a>2. 导入验证</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看导入后的目录</span><br><span class="line">hadoop fs -ls  -R /sqoop</span><br><span class="line"><span class="meta">#</span> 查看导入内容</span><br><span class="line">hadoop fs -text  /sqoop/part-m-00000</span><br></pre></td></tr></table></figure>
+<h4 id="2-导入验证"><a href="#2-导入验证" class="headerlink" title="2. 导入验证"></a>2. 导入验证</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看导入后的目录</span></span><br><span class="line">hadoop fs -ls  -R /sqoop</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看导入内容</span></span><br><span class="line">hadoop fs -text  /sqoop/part-m-00000</span><br></pre></td></tr></table></figure>
 <p>查看 HDFS 导入目录,可以看到表中数据被分为 3 部分进行存储，这是由指定的并行度决定的。</p>
 <div align="center"> <img src="../pictures/sqoop_hdfs_ls.png"> </div>
 
@@ -462,8 +462,8 @@
 <h2 id="四、Sqoop-与-Hive"><a href="#四、Sqoop-与-Hive" class="headerlink" title="四、Sqoop 与 Hive"></a>四、Sqoop 与 Hive</h2><h3 id="4-1-MySQL数据导入到Hive"><a href="#4-1-MySQL数据导入到Hive" class="headerlink" title="4.1 MySQL数据导入到Hive"></a>4.1 MySQL数据导入到Hive</h3><p>Sqoop 导入数据到 Hive 是通过先将数据导入到 HDFS 上的临时目录，然后再将数据从 HDFS 上 <code>Load</code> 到 Hive 中，最后将临时目录删除。可以使用 <code>target-dir</code> 来指定临时目录。</p>
 <h4 id="1-导入命令-1"><a href="#1-导入命令-1" class="headerlink" title="1. 导入命令"></a>1. 导入命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">  --connect jdbc:mysql://hadoop001:3306/mysql \</span><br><span class="line">  --username root \</span><br><span class="line">  --password root \</span><br><span class="line">  --table help_keyword \        # 待导入的表     </span><br><span class="line">  --delete-target-dir \         # 如果临时目录存在删除</span><br><span class="line">  --target-dir /sqoop_hive  \   # 临时目录位置</span><br><span class="line">  --hive-database sqoop_test \  # 导入到 Hive 的 sqoop_test 数据库，数据库需要预先创建。不指定则默认为 default 库</span><br><span class="line">  --hive-import \               # 导入到 Hive</span><br><span class="line">  --hive-overwrite \            # 如果 Hive 表中有数据则覆盖，这会清除表中原有的数据，然后再写入</span><br><span class="line">  -m 3                          # 并行度</span><br></pre></td></tr></table></figure>
 <p>导入到 Hive 中的 <code>sqoop_test</code> 数据库需要预先创建，不指定则默认使用 Hive 中的 <code>default</code> 库。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看 hive 中的所有数据库</span><br><span class="line"><span class="meta">hive&gt;</span>  SHOW DATABASES;</span><br><span class="line"><span class="meta">#</span> 创建 sqoop_test 数据库</span><br><span class="line"><span class="meta">hive&gt;</span>  CREATE DATABASE sqoop_test;</span><br></pre></td></tr></table></figure>
-<h4 id="2-导入验证-1"><a href="#2-导入验证-1" class="headerlink" title="2. 导入验证"></a>2. 导入验证</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看 sqoop_test 数据库的所有表</span><br><span class="line"><span class="meta"> hive&gt;</span>  SHOW  TABLES  IN  sqoop_test;</span><br><span class="line"><span class="meta">#</span> 查看表中数据</span><br><span class="line"><span class="meta"> hive&gt;</span> SELECT * FROM sqoop_test.help_keyword;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看 hive 中的所有数据库</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash">  SHOW DATABASES;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建 sqoop_test 数据库</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash">  CREATE DATABASE sqoop_test;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-导入验证-1"><a href="#2-导入验证-1" class="headerlink" title="2. 导入验证"></a>2. 导入验证</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看 sqoop_test 数据库的所有表</span></span><br><span class="line"><span class="meta"> hive&gt;</span><span class="bash">  SHOW  TABLES  IN  sqoop_test;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看表中数据</span></span><br><span class="line"><span class="meta"> hive&gt;</span><span class="bash"> SELECT * FROM sqoop_test.help_keyword;</span></span><br></pre></td></tr></table></figure>
 <div align="center"> <img src="../pictures/sqoop_hive_tables.png"> </div>
 
 <h4 id="3-可能出现的问题"><a href="#3-可能出现的问题" class="headerlink" title="3. 可能出现的问题"></a>3. 可能出现的问题</h4><div align="center"> <img src="../pictures/sqoop_hive_error.png"> </div>
@@ -473,7 +473,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 lib]# ll hive-exec-*</span><br><span class="line">-rw-r--r--. 1 1106 4001 19632031 11 月 13 21:45 hive-exec-1.1.0-cdh5.15.2.jar</span><br><span class="line">[root@hadoop001 lib]# cp hive-exec-1.1.0-cdh5.15.2.jar  $&#123;SQOOP_HOME&#125;/lib</span><br></pre></td></tr></table></figure>
 <p><br></p>
 <h3 id="4-2-Hive-导出数据到MySQL"><a href="#4-2-Hive-导出数据到MySQL" class="headerlink" title="4.2 Hive 导出数据到MySQL"></a>4.2 Hive 导出数据到MySQL</h3><p>由于 Hive 的数据是存储在 HDFS 上的，所以 Hive 导入数据到 MySQL，实际上就是 HDFS 导入数据到 MySQL。</p>
-<h4 id="1-查看Hive表在HDFS的存储位置"><a href="#1-查看Hive表在HDFS的存储位置" class="headerlink" title="1. 查看Hive表在HDFS的存储位置"></a>1. 查看Hive表在HDFS的存储位置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 进入对应的数据库</span><br><span class="line"><span class="meta">hive&gt;</span> use sqoop_test;</span><br><span class="line"><span class="meta">#</span> 查看表信息</span><br><span class="line"><span class="meta">hive&gt;</span> desc formatted help_keyword;</span><br></pre></td></tr></table></figure>
+<h4 id="1-查看Hive表在HDFS的存储位置"><a href="#1-查看Hive表在HDFS的存储位置" class="headerlink" title="1. 查看Hive表在HDFS的存储位置"></a>1. 查看Hive表在HDFS的存储位置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 进入对应的数据库</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> use sqoop_test;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看表信息</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> desc formatted help_keyword;</span></span><br></pre></td></tr></table></figure>
 <p><code>Location</code> 属性为其存储位置：</p>
 <div align="center"> <img src="../pictures/sqoop-hive-location.png"> </div>
 
@@ -489,7 +489,7 @@
 <h3 id="5-1-MySQL导入数据到HBase"><a href="#5-1-MySQL导入数据到HBase" class="headerlink" title="5.1 MySQL导入数据到HBase"></a>5.1 MySQL导入数据到HBase</h3><h4 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1. 导入数据"></a>1. 导入数据</h4><p>将 <code>help_keyword</code> 表中数据导入到 HBase 上的 <code>help_keyword_hbase</code> 表中，使用原表的主键 <code>help_keyword_id</code> 作为 <code>RowKey</code>，原表的所有列都会在 <code>keywordInfo</code> 列族下，目前只支持全部导入到一个列族下，不支持分别指定列族。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">    --connect jdbc:mysql://hadoop001:3306/mysql \</span><br><span class="line">    --username root \</span><br><span class="line">    --password root \</span><br><span class="line">    --table help_keyword \              # 待导入的表</span><br><span class="line">    --hbase-table help_keyword_hbase \  # hbase 表名称，表需要预先创建</span><br><span class="line">    --column-family keywordInfo \       # 所有列导入到 keywordInfo 列族下 </span><br><span class="line">    --hbase-row-key help_keyword_id     # 使用原表的 help_keyword_id 作为 RowKey</span><br></pre></td></tr></table></figure>
 <p>导入的 HBase 表需要预先创建：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看所有表</span><br><span class="line"><span class="meta">hbase&gt;</span> list</span><br><span class="line"><span class="meta">#</span> 创建表</span><br><span class="line"><span class="meta">hbase&gt;</span> create 'help_keyword_hbase', 'keywordInfo'</span><br><span class="line"><span class="meta">#</span> 查看表信息</span><br><span class="line"><span class="meta">hbase&gt;</span> desc 'help_keyword_hbase'</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看所有表</span></span><br><span class="line"><span class="meta">hbase&gt;</span><span class="bash"> list</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建表</span></span><br><span class="line"><span class="meta">hbase&gt;</span><span class="bash"> create <span class="string">'help_keyword_hbase'</span>, <span class="string">'keywordInfo'</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看表信息</span></span><br><span class="line"><span class="meta">hbase&gt;</span><span class="bash"> desc <span class="string">'help_keyword_hbase'</span></span></span><br></pre></td></tr></table></figure>
 <h4 id="2-导入验证-2"><a href="#2-导入验证-2" class="headerlink" title="2. 导入验证"></a>2. 导入验证</h4><p>使用 <code>scan</code> 查看表数据：</p>
 <div align="center"> <img src="../pictures/sqoop_hbase.png"> </div>
 
@@ -601,6 +601,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/03/17/Zookeeper简介及核心概念/" rel="prev" title="Zookeeper简介及核心概念">
+                Zookeeper简介及核心概念 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -681,7 +685,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -692,7 +696,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -703,7 +707,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -870,12 +874,7 @@
   
 
 
-  
 
-
-
-  
-  
 
 
 
@@ -913,21 +912,6 @@
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
   
 
 
