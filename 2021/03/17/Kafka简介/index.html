@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="kafka,">
 
 
 
@@ -79,17 +79,23 @@
 
 
 
-<meta name="description" content="Hello，什么鬼，我是测试！">
+<meta name="description" content="一、简介ApacheKafka 是一个分布式的流处理平台。它具有以下特点：  支持消息的发布和订阅，类似于 RabbtMQ、ActiveMQ 等消息队列； 支持数据实时处理； 能保证消息的可靠性投递； 支持消息的持久化存储，并通过多副本分布式的存储方案来保证消息的容错； 高吞吐率，单 Broker 可以轻松处理数千个分区以及每秒百万级的消息量。  二、基本概念2.1 Messages And Ba">
+<meta name="keywords" content="kafka">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Welcome to 我的世界，这里是菜鸟进阶第一篇文章……">
-<meta property="og:url" content="http://yoursite.com/2021/03/15/test/index.html">
+<meta property="og:title" content="Kafka简介">
+<meta property="og:url" content="http://yoursite.com/2021/03/17/Kafka简介/index.html">
 <meta property="og:site_name" content="菜鸟@进阶记">
-<meta property="og:description" content="Hello，什么鬼，我是测试！">
+<meta property="og:description" content="一、简介ApacheKafka 是一个分布式的流处理平台。它具有以下特点：  支持消息的发布和订阅，类似于 RabbtMQ、ActiveMQ 等消息队列； 支持数据实时处理； 能保证消息的可靠性投递； 支持消息的持久化存储，并通过多副本分布式的存储方案来保证消息的容错； 高吞吐率，单 Broker 可以轻松处理数千个分区以及每秒百万级的消息量。  二、基本概念2.1 Messages And Ba">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-17T08:26:40.966Z">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/kafka-topic.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/kafka-producer-consumer.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/kafka消费者.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/kafka-cluster.png">
+<meta property="og:updated_time" content="2021-03-17T10:58:47.706Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Welcome to 我的世界，这里是菜鸟进阶第一篇文章……">
-<meta name="twitter:description" content="Hello，什么鬼，我是测试！">
+<meta name="twitter:title" content="Kafka简介">
+<meta name="twitter:description" content="一、简介ApacheKafka 是一个分布式的流处理平台。它具有以下特点：  支持消息的发布和订阅，类似于 RabbtMQ、ActiveMQ 等消息队列； 支持数据实时处理； 能保证消息的可靠性投递； 支持消息的持久化存储，并通过多副本分布式的存储方案来保证消息的容错； 高吞吐率，单 Broker 可以轻松处理数千个分区以及每秒百万级的消息量。  二、基本概念2.1 Messages And Ba">
+<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/kafka-topic.png">
 
 
 
@@ -116,8 +122,8 @@
     }
   };
   (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
+        if('password'){
+            if (prompt('请输入文章密码') !== 'password'){
                 alert('密码错误！');
                 history.back();
             }
@@ -127,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/03/15/test/">
+  <link rel="canonical" href="http://yoursite.com/2021/03/17/Kafka简介/">
 
 
 
 
 
-  <title>Welcome to 我的世界，这里是菜鸟进阶第一篇文章…… | 菜鸟@进阶记</title>
+  <title>Kafka简介 | 菜鸟@进阶记</title>
   
 
 
@@ -297,12 +303,12 @@
   
   
 
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/15/test/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Kafka简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -319,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Welcome to 我的世界，这里是菜鸟进阶第一篇文章……</h1>
+          <h1 class="post-title" itemprop="name headline">Kafka简介</h1>
         
 
         <div class="post-meta">
@@ -331,8 +337,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-15T22:40:15+08:00">
-                2021-03-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T15:47:18+08:00">
+                2021-03-17
               </time>
             
 
@@ -354,8 +360,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/测试ing……/" itemprop="url" rel="index">
-                    <span itemprop="name">测试ing……</span>
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/kafka/" itemprop="url" rel="index">
+                    <span itemprop="name">kafka</span>
                   </a>
                 </span>
 
@@ -372,8 +389,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/15/test/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/15/test/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Kafka简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Kafka简介/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +423,34 @@
       
 
       
-        <p>Hello，什么鬼，我是测试！</p>
+        <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>ApacheKafka 是一个分布式的流处理平台。它具有以下特点：</p>
+<ul>
+<li>支持消息的发布和订阅，类似于 RabbtMQ、ActiveMQ 等消息队列；</li>
+<li>支持数据实时处理；</li>
+<li>能保证消息的可靠性投递；</li>
+<li>支持消息的持久化存储，并通过多副本分布式的存储方案来保证消息的容错；</li>
+<li>高吞吐率，单 Broker 可以轻松处理数千个分区以及每秒百万级的消息量。</li>
+</ul>
+<h2 id="二、基本概念"><a href="#二、基本概念" class="headerlink" title="二、基本概念"></a>二、基本概念</h2><h3 id="2-1-Messages-And-Batches"><a href="#2-1-Messages-And-Batches" class="headerlink" title="2.1 Messages And Batches"></a>2.1 Messages And Batches</h3><p>Kafka 的基本数据单元被称为 message(消息)，为减少网络开销，提高效率，多个消息会被放入同一批次 (Batch) 中后再写入。</p>
+<h3 id="2-2-Topics-And-Partitions"><a href="#2-2-Topics-And-Partitions" class="headerlink" title="2.2 Topics And Partitions"></a>2.2 Topics And Partitions</h3><p>Kafka 的消息通过 Topics(主题) 进行分类，一个主题可以被分为若干个 Partitions(分区)，一个分区就是一个提交日志 (commit log)。消息以追加的方式写入分区，然后以先入先出的顺序读取。Kafka 通过分区来实现数据的冗余和伸缩性，分区可以分布在不同的服务器上，这意味着一个 Topic 可以横跨多个服务器，以提供比单个服务器更强大的性能。</p>
+<p>由于一个 Topic 包含多个分区，因此无法在整个 Topic 范围内保证消息的顺序性，但可以保证消息在单个分区内的顺序性。</p>
+<div align="center"> <img src="../pictures/kafka-topic.png"> </div>
+
+<h3 id="2-3-Producers-And-Consumers"><a href="#2-3-Producers-And-Consumers" class="headerlink" title="2.3 Producers And Consumers"></a>2.3 Producers And Consumers</h3><h4 id="1-生产者"><a href="#1-生产者" class="headerlink" title="1. 生产者"></a>1. 生产者</h4><p>生产者负责创建消息。一般情况下，生产者在把消息均衡地分布到在主题的所有分区上，而并不关心消息会被写到哪个分区。如果我们想要把消息写到指定的分区，可以通过自定义分区器来实现。</p>
+<h4 id="2-消费者"><a href="#2-消费者" class="headerlink" title="2. 消费者"></a>2. 消费者</h4><p>消费者是消费者群组的一部分，消费者负责消费消息。消费者可以订阅一个或者多个主题，并按照消息生成的顺序来读取它们。消费者通过检查消息的偏移量 (offset) 来区分读取过的消息。偏移量是一个不断递增的数值，在创建消息时，Kafka 会把它添加到其中，在给定的分区里，每个消息的偏移量都是唯一的。消费者把每个分区最后读取的偏移量保存在 Zookeeper 或 Kafka 上，如果消费者关闭或者重启，它还可以重新获取该偏移量，以保证读取状态不会丢失。</p>
+<div align="center"> <img src="../pictures/kafka-producer-consumer.png"> </div>
+
+<p>一个分区只能被同一个消费者群组里面的一个消费者读取，但可以被不同消费者群组中所组成的多个消费者共同读取。多个消费者群组中消费者共同读取同一个主题时，彼此之间互不影响。</p>
+<div align="center"> <img src="../pictures/kafka消费者.png"> </div>
+
+<h3 id="2-4-Brokers-And-Clusters"><a href="#2-4-Brokers-And-Clusters" class="headerlink" title="2.4 Brokers And Clusters"></a>2.4 Brokers And Clusters</h3><p>一个独立的 Kafka 服务器被称为 Broker。Broker 接收来自生产者的消息，为消息设置偏移量，并提交消息到磁盘保存。Broker 为消费者提供服务，对读取分区的请求做出响应，返回已经提交到磁盘的消息。</p>
+<p>Broker 是集群 (Cluster) 的组成部分。每一个集群都会选举出一个 Broker 作为集群控制器 (Controller)，集群控制器负责管理工作，包括将分区分配给 Broker 和监控 Broker。</p>
+<p>在集群中，一个分区 (Partition) 从属一个 Broker，该 Broker 被称为分区的首领 (Leader)。一个分区可以分配给多个 Brokers，这个时候会发生分区复制。这种复制机制为分区提供了消息冗余，如果有一个 Broker 失效，其他 Broker 可以接管领导权。</p>
+<div align="center"> <img src="../pictures/kafka-cluster.png"> </div>
+
+
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>Neha Narkhede, Gwen Shapira ,Todd Palino(著) , 薛命灯 (译) . Kafka 权威指南 . 人民邮电出版社 . 2017-12-26</p>
 
       
     </div>
@@ -448,6 +492,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/kafka/" rel="tag"># kafka</a>
+          
+        </div>
+      
 
       
       
@@ -457,8 +507,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/15/ormosia/" rel="next" title="散文欣赏">
-                <i class="fa fa-chevron-left"></i> 散文欣赏
+              <a href="/2021/03/15/test/" rel="next" title="Welcome to 我的世界，这里是菜鸟进阶第一篇文章……">
+                <i class="fa fa-chevron-left"></i> Welcome to 我的世界，这里是菜鸟进阶第一篇文章……
               </a>
             
           </div>
@@ -467,8 +517,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/Kafka简介/" rel="prev" title="Kafka简介">
-                Kafka简介 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/Kafka深入理解分区副本机制/" rel="prev" title="深入理解Kafka副本机制">
+                深入理解Kafka副本机制 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -524,8 +574,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -603,6 +662,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简介"><span class="nav-number">1.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、基本概念"><span class="nav-number">2.</span> <span class="nav-text">二、基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Messages-And-Batches"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Messages And Batches</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Topics-And-Partitions"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Topics And Partitions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Producers-And-Consumers"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Producers And Consumers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-生产者"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. 生产者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-消费者"><span class="nav-number">2.3.2.</span> <span class="nav-text">2. 消费者</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Brokers-And-Clusters"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Brokers And Clusters</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
