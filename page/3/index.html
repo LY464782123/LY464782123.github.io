@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hadoop-HDFS/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL常用聚合函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -318,7 +318,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hadoop-HDFS/" itemprop="url">Hadoop分布式文件系统——HDFS</a></h1>
+                <a class="post-title-link" href="/2021/03/17/SparkSQL常用聚合函数/" itemprop="url">聚合函数Aggregations</a></h1>
         
 
         <div class="post-meta">
@@ -330,7 +330,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:57:15+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -364,8 +364,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -382,8 +382,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hadoop-HDFS/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hadoop-HDFS/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/SparkSQL常用聚合函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL常用聚合函数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -413,14 +413,11 @@
       
         
           
-          一、介绍HDFS （Hadoop Distributed File System）是 Hadoop 下的分布式文件系统，具有高容错、高吞吐量等特性，可以部署在低成本的硬件上。
-二、HDFS 设计原理  
-
-2.1 HDFS 架构HDFS 遵循主/从架构，由单个 NameNode(NN) 和多个 Da
+          一、简单聚合1.1 数据准备12345678// 需要导入 spark sql 内置的函数包import org.apache.spark.sql.functions._val spark = SparkSession.builder().appName("aggregations").master
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hadoop-HDFS/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/SparkSQL常用聚合函数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -475,7 +472,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hadoop-YARN/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming与流处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -494,7 +491,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hadoop-YARN/" itemprop="url">集群资源管理器——YARN</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark_Streaming与流处理/" itemprop="url">Spark Streaming与流处理</a></h1>
         
 
         <div class="post-meta">
@@ -506,7 +503,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:57:15+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -540,8 +537,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -558,8 +555,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hadoop-YARN/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hadoop-YARN/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark_Streaming与流处理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming与流处理/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -589,18 +586,16 @@
       
         
           
-          一、hadoop yarn 简介Apache YARN (Yet Another Resource Negotiator)  是 hadoop 2.0 引入的集群资源管理系统。用户可以将各种服务框架部署在 YARN 上，由 YARN 进行统一地管理和资源分配。
+          一、流处理1.1 静态数据处理在流处理之前，数据通常存储在数据库，文件系统或其他形式的存储系统中。应用程序根据需要查询数据或计算数据。这就是传统的静态数据处理架构。Hadoop 采用 HDFS 进行数据存储，采用 MapReduce 进行数据查询或分析，这就是典型的静态数据处理架构。
   
 
 
-
-二、YARN架构  
 
 1
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hadoop-YARN/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark_Streaming与流处理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -655,7 +650,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Flume简介及基本使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_RDD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -674,7 +669,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Flume简介及基本使用/" itemprop="url">Flume 简介及基本使用</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark_RDD/" itemprop="url">弹性式数据集RDDs</a></h1>
         
 
         <div class="post-meta">
@@ -686,7 +681,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:06:06+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -720,8 +715,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Flume/" itemprop="url" rel="index">
-                    <span itemprop="name">Flume</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -738,8 +733,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Flume简介及基本使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Flume简介及基本使用/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark_RDD/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_RDD/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -769,11 +764,13 @@
       
         
           
-          一、Flume简介Apache Flume 是一个分布式，高可用的数据收集系统。它可以从不同的数据源收集数据，经过聚合后发送到存储系统中，通常用于日志数据的收集。Flume 分为 NG 和 OG (1.0 之前) 两个版本，NG 在 OG 的基础上进行了完全的重构，是目前使用最为广泛的版本。下面的介
+          一、RDD简介RDD 全称为 Resilient Distributed Datasets，是 Spark 最基本的数据抽象，它是只读的、分区记录的集合，支持并行操作，可以由外部数据集或其他 RDD 转换而来，它具有以下特性：
+
+一个 RDD 由一个或者多个分区（Partitions）组成。对于 R
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Flume简介及基本使用/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark_RDD/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -828,7 +825,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Flume整合Kafka/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL联结操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -847,7 +844,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Flume整合Kafka/" itemprop="url">Flume 整合 Kafka</a></h1>
+                <a class="post-title-link" href="/2021/03/17/SparkSQL联结操作/" itemprop="url">Spark SQL JOIN</a></h1>
         
 
         <div class="post-meta">
@@ -859,7 +856,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:06:06+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -893,8 +890,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Flume/" itemprop="url" rel="index">
-                    <span itemprop="name">Flume</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -911,8 +908,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Flume整合Kafka/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Flume整合Kafka/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/SparkSQL联结操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL联结操作/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -942,12 +939,12 @@
       
         
           
-          一、背景先说一下，为什么要使用 Flume + Kafka？
-以实时流处理项目为例，由于采集的数据量可能存在峰值和峰谷，假设是一个电商项目，那么峰值通常出现在秒杀时，这时如果直接将 Flume 聚合后的数据输入到 Storm 等分布式计算框架中，可能就会超过集群的处理能力，这时采用 Kafka 就可
+          一、 数据准备本文主要介绍 Spark SQL 的多表连接，需要预先准备测试数据。分别创建员工和部门的 Datafame，并注册为临时视图，代码如下：
+1234567val spark = SparkSession.builder().appName("aggregations").master("
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Flume整合Kafka/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/SparkSQL联结操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1002,7 +999,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Flink_Data_Transformation/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming整合Flume/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1021,7 +1018,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Flink_Data_Transformation/" itemprop="url">Flink Transformation</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark_Streaming整合Flume/" itemprop="url">Spark Streaming 整合 Flume</a></h1>
         
 
         <div class="post-meta">
@@ -1033,7 +1030,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -1067,8 +1064,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Flink/" itemprop="url" rel="index">
-                    <span itemprop="name">Flink</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -1085,8 +1082,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Flink_Data_Transformation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Flink_Data_Transformation/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark_Streaming整合Flume/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming整合Flume/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1116,14 +1113,12 @@
       
         
           
-          一、Transformations 分类Flink 的 Transformations 操作主要用于将一个和多个 DataStream 按需转换成新的 DataStream。它主要分为以下三类：
-
-DataStream Transformations：进行数据流相关转换操作；
-Physical pa
+          一、简介Apache Flume 是一个分布式，高可用的数据收集系统，可以从不同的数据源收集数据，经过聚合后发送到分布式计算框架或者存储系统中。Spark Straming 提供了以下两种方式用于 Flume 的整合。
+二、推送式方法在推送式方法 (Flume-style Push-based Ap
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Flink_Data_Transformation/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark_Streaming整合Flume/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1178,7 +1173,7 @@ Physical pa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Flink_Data_Source/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming基本操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1197,7 +1192,7 @@ Physical pa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Flink_Data_Source/" itemprop="url">Flink Data Source</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark_Streaming基本操作/" itemprop="url">Spark Streaming 基本操作</a></h1>
         
 
         <div class="post-meta">
@@ -1209,7 +1204,7 @@ Physical pa
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -1243,8 +1238,8 @@ Physical pa
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Flink/" itemprop="url" rel="index">
-                    <span itemprop="name">Flink</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -1261,8 +1256,8 @@ Physical pa
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Flink_Data_Source/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Flink_Data_Source/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark_Streaming基本操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming基本操作/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1292,12 +1287,12 @@ Physical pa
       
         
           
-          一、内置 Data SourceFlink Data Source 用于定义 Flink 程序的数据来源，Flink 官方提供了多种数据获取方法，用于帮助开发者简单快速地构建输入流，具体如下：
-1.1 基于文件构建1. readTextFile(path)：按照 TextInputFormat 格式
+          一、案例引入这里先引入一个基本的案例来演示流的创建：获取指定端口上的数据并进行词频统计。项目依赖和代码实现如下：
+12345&lt;dependency&gt;    &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;    &lt;artifactId&
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Flink_Data_Source/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark_Streaming基本操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1352,7 +1347,7 @@ Physical pa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Flink开发环境搭建/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming整合Kafka/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1371,7 +1366,7 @@ Physical pa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Flink开发环境搭建/" itemprop="url">Flink 开发环境搭建</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark_Streaming整合Kafka/" itemprop="url">Spark Streaming 整合 Kafka</a></h1>
         
 
         <div class="post-meta">
@@ -1383,7 +1378,7 @@ Physical pa
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -1417,8 +1412,8 @@ Physical pa
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Flink/" itemprop="url" rel="index">
-                    <span itemprop="name">Flink</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -1435,8 +1430,8 @@ Physical pa
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Flink开发环境搭建/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Flink开发环境搭建/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark_Streaming整合Kafka/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming整合Kafka/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1466,11 +1461,17 @@ Physical pa
       
         
           
-          一、安装 Scala 插件Flink 分别提供了基于 Java 语言和 Scala 语言的 API ，如果想要使用 Scala 语言来开发 Flink 程序，可以通过在 IDEA 中安装 Scala 插件来提供语法提示，代码高亮等功能。打开 IDEA , 依次点击 File =&gt; settin
+          一、版本说明Spark 针对 Kafka 的不同版本，提供了两套整合方案：spark-streaming-kafka-0-8 和 spark-streaming-kafka-0-10，其主要区别如下：
+
+
+
+
+spark-streaming-kafka-0-8
+spark-streaming-kaf
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Flink开发环境搭建/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark_Streaming整合Kafka/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1525,7 +1526,7 @@ Physical pa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Flink_Data_Sink/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Structured_API的基本使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1544,7 +1545,7 @@ Physical pa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Flink_Data_Sink/" itemprop="url">Flink Sink</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark_Structured_API的基本使用/" itemprop="url">Structured API基本使用</a></h1>
         
 
         <div class="post-meta">
@@ -1556,7 +1557,7 @@ Physical pa
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -1590,8 +1591,8 @@ Physical pa
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Flink/" itemprop="url" rel="index">
-                    <span itemprop="name">Flink</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -1608,8 +1609,8 @@ Physical pa
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Flink_Data_Sink/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Flink_Data_Sink/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark_Structured_API的基本使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Structured_API的基本使用/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1639,11 +1640,11 @@ Physical pa
       
         
           
-          一、Data Sinks在使用 Flink 进行数据处理时，数据经 Data Source 流入，然后通过系列 Transformations 的转化，最终可以通过 Sink 将计算结果进行输出，Flink Data Sinks 就是用于定义数据流最终的输出位置。Flink 提供了几个较为简单的 S
+          一、创建DataFrame和Dataset1.1 创建DataFrameSpark 中所有功能的入口点是 SparkSession，可以使用 SparkSession.builder() 创建。创建后应用程序就可以从现有 RDD，Hive 表或 Spark 数据源创建 DataFrame。示例如下：
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Flink_Data_Sink/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark_Structured_API的基本使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1698,7 +1699,7 @@ Physical pa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Flink_Windows/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Transformation和Action算子/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1717,7 +1718,7 @@ Physical pa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Flink_Windows/" itemprop="url">Flink Windows</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark_Transformation和Action算子/" itemprop="url">Transformation 和 Action 常用算子</a></h1>
         
 
         <div class="post-meta">
@@ -1729,7 +1730,7 @@ Physical pa
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -1763,8 +1764,8 @@ Physical pa
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Flink/" itemprop="url" rel="index">
-                    <span itemprop="name">Flink</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -1781,8 +1782,8 @@ Physical pa
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Flink_Windows/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Flink_Windows/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark_Transformation和Action算子/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Transformation和Action算子/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1812,11 +1813,26 @@ Physical pa
       
         
           
-          一、窗口概念在大多数场景下，我们需要统计的数据流都是无界的，因此我们无法等待整个数据流终止后才进行统计。通常情况下，我们只需要对某个时间范围或者数量范围内的数据进行统计分析：如每隔五分钟统计一次过去一小时内所有商品的点击量；或者每发生1000次点击后，都去统计一下每个商品点击率的占比。在 Flink
+          一、Transformationspark 常用的 Transformation 算子如下表：
+
+
+
+Transformation 算子
+Meaning（含义）
+
+
+
+
+map(func)
+对原 RDD 中每个元素运用 func 函数，并生成新的 RDD
+
+
+filter(func)
+对原 RDD 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Flink_Windows/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark_Transformation和Action算子/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1871,7 +1887,7 @@ Physical pa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Flink核心概念综述/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark累加器与广播变量/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1890,7 +1906,7 @@ Physical pa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Flink核心概念综述/" itemprop="url">Flink 核心概念综述</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark累加器与广播变量/" itemprop="url">Spark 累加器与广播变量</a></h1>
         
 
         <div class="post-meta">
@@ -1902,7 +1918,7 @@ Physical pa
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -1936,8 +1952,8 @@ Physical pa
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Flink/" itemprop="url" rel="index">
-                    <span itemprop="name">Flink</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -1954,8 +1970,8 @@ Physical pa
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Flink核心概念综述/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Flink核心概念综述/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark累加器与广播变量/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark累加器与广播变量/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1985,11 +2001,16 @@ Physical pa
       
         
           
-          一、Flink 简介Apache Flink 诞生于柏林工业大学的一个研究性项目，原名 StratoSphere 。2014 年，由 StratoSphere 项目孵化出 Flink，并于同年捐赠 Apache，之后成为 Apache 的顶级项目。2019 年 1 年，阿里巴巴收购了 Flink 的
+          一、简介在 Spark 中，提供了两种类型的共享变量：累加器 (accumulator) 与广播变量 (broadcast variable)：
+
+累加器：用来对信息进行聚合，主要用于累计计数等场景；
+广播变量：主要用于在节点间高效分发大对象。
+
+二、累加器这里先看一个具体的场景，对于正常的累计求和
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Flink核心概念综述/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark累加器与广播变量/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2035,7 +2056,7 @@ Physical pa
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2083,7 +2104,7 @@ Physical pa
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2094,7 +2115,7 @@ Physical pa
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2105,7 +2126,7 @@ Physical pa
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

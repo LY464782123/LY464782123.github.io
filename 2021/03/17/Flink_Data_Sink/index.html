@@ -461,7 +461,7 @@
 <h2 id="三、整合-Kafka-Sink"><a href="#三、整合-Kafka-Sink" class="headerlink" title="三、整合 Kafka Sink"></a>三、整合 Kafka Sink</h2><h3 id="3-1-addSink"><a href="#3-1-addSink" class="headerlink" title="3.1 addSink"></a>3.1 addSink</h3><p>Flink 提供了 addSink 方法用来调用自定义的 Sink 或者第三方的连接器，想要将计算结果写出到 Kafka，需要使用该方法来调用 Kafka 的生产者 FlinkKafkaProducer，具体代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.指定Kafka的相关配置属性</span></span><br><span class="line">Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">properties.setProperty(<span class="string">"bootstrap.servers"</span>, <span class="string">"192.168.200.0:9092"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.接收Kafka上的数据</span></span><br><span class="line">DataStream&lt;String&gt; stream = env</span><br><span class="line">    .addSource(<span class="keyword">new</span> FlinkKafkaConsumer&lt;&gt;(<span class="string">"flink-stream-in-topic"</span>, <span class="keyword">new</span> SimpleStringSchema(), properties));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.定义计算结果到 Kafka ProducerRecord 的转换</span></span><br><span class="line">KafkaSerializationSchema&lt;String&gt; kafkaSerializationSchema = <span class="keyword">new</span> KafkaSerializationSchema&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ProducerRecord&lt;<span class="keyword">byte</span>[], <span class="keyword">byte</span>[]&gt; serialize(String element, <span class="meta">@Nullable</span> Long timestamp) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProducerRecord&lt;&gt;(<span class="string">"flink-stream-out-topic"</span>, element.getBytes());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 4. 定义Flink Kafka生产者</span></span><br><span class="line">FlinkKafkaProducer&lt;String&gt; kafkaProducer = <span class="keyword">new</span> FlinkKafkaProducer&lt;&gt;(<span class="string">"flink-stream-out-topic"</span>,</span><br><span class="line">                                                                    kafkaSerializationSchema,</span><br><span class="line">                                                                    properties,</span><br><span class="line">                                               FlinkKafkaProducer.Semantic.AT_LEAST_ONCE, <span class="number">5</span>);</span><br><span class="line"><span class="comment">// 5. 将接收到输入元素*2后写出到Kafka</span></span><br><span class="line">stream.map((MapFunction&lt;String, String&gt;) value -&gt; value + value).addSink(kafkaProducer);</span><br><span class="line">env.execute(<span class="string">"Flink Streaming"</span>);</span><br></pre></td></tr></table></figure>
 <h3 id="3-2-创建输出主题"><a href="#3-2-创建输出主题" class="headerlink" title="3.2 创建输出主题"></a>3.2 创建输出主题</h3><p>创建用于输出测试的主题：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --create \</span><br><span class="line">                    --bootstrap-server hadoop001:9092 \</span><br><span class="line">                    --replication-factor 1 \</span><br><span class="line">                    --partitions 1  \</span><br><span class="line">                    --topic flink-stream-out-topic</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有主题</span></span><br><span class="line"> bin/kafka-topics.sh --list --bootstrap-server hadoop001:9092</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --create \</span><br><span class="line">                    --bootstrap-server hadoop001:9092 \</span><br><span class="line">                    --replication-factor 1 \</span><br><span class="line">                    --partitions 1  \</span><br><span class="line">                    --topic flink-stream-out-topic</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看所有主题</span><br><span class="line"> bin/kafka-topics.sh --list --bootstrap-server hadoop001:9092</span><br></pre></td></tr></table></figure>
 <h3 id="3-3-启动消费者"><a href="#3-3-启动消费者" class="headerlink" title="3.3 启动消费者"></a>3.3 启动消费者</h3><p>启动一个 Kafka 消费者，用于查看 Flink 程序的输出情况：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server hadoop001:<span class="number">9092</span> --topic flink-stream-out-topic</span><br></pre></td></tr></table></figure>
 <h3 id="3-4-测试结果"><a href="#3-4-测试结果" class="headerlink" title="3.4 测试结果"></a>3.4 测试结果</h3><p>在 Kafka 生产者上发送消息到 Flink 程序，观察 Flink 程序转换后的输出情况，具体如下：</p>
@@ -549,8 +549,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Flink_Windows/" rel="next" title="Flink Windows">
-                <i class="fa fa-chevron-left"></i> Flink Windows
+              <a href="/2021/03/17/Flink_Data_Transformation/" rel="next" title="Flink Transformation">
+                <i class="fa fa-chevron-left"></i> Flink Transformation
               </a>
             
           </div>
@@ -559,8 +559,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/Flink开发环境搭建/" rel="prev" title="Flink 开发环境搭建">
-                Flink 开发环境搭建 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/Flume整合Kafka/" rel="prev" title="Flume 整合 Kafka">
+                Flume 整合 Kafka <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -643,7 +643,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -654,7 +654,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -665,7 +665,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

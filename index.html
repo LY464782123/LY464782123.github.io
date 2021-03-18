@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL外部数据源/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Hive分区表和分桶表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -318,7 +318,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/SparkSQL外部数据源/" itemprop="url">Spark SQL 外部数据源</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Hive分区表和分桶表/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T09:52:46+08:00">
+                2021-03-18
               </time>
             
 
@@ -341,39 +341,6 @@
           </span>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/" itemprop="url" rel="index">
-                    <span itemprop="name">notes</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -382,8 +349,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/SparkSQL外部数据源/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL外部数据源/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Hive分区表和分桶表/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Hive分区表和分桶表/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -413,21 +380,15 @@
       
         
           
-          一、简介1.1 多数据源支持Spark 支持以下六个核心数据源，同时 Spark 社区还提供了多达上百种数据源的读取方式，能够满足绝大部分使用场景。
-
-CSV
-JSON
-Parquet
-ORC
-JDBC/ODBC connections
-Plain-text files
+          Hive分区表和分桶表一、分区表二、分桶表三、分区表和分桶表结合使用
 
 
-注：以下所有测试文件均可
+一、分区表1.1 概念Hive 中的表对应为 HDFS 上的指定目录，在查询数据时候，默认会对全表进行扫描，这样时间和性能的消耗都非常大。
+分区为 HDFS 上表目录的子目录，数据按照分区存储在子目录中。如果查询的 where
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/SparkSQL外部数据源/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Hive分区表和分桶表/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -482,7 +443,7 @@ Plain-text files
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/HiveCLI和Beeline命令行的基本使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -501,7 +462,7 @@ Plain-text files
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark简介/" itemprop="url">Spark简介</a></h1>
+                <a class="post-title-link" href="/2021/03/18/HiveCLI和Beeline命令行的基本使用/" itemprop="url">Hive CLI和Beeline命令行的基本使用</a></h1>
         
 
         <div class="post-meta">
@@ -513,8 +474,8 @@ Plain-text files
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T09:52:46+08:00">
+                2021-03-18
               </time>
             
 
@@ -547,8 +508,8 @@ Plain-text files
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
                   </a>
                 </span>
 
@@ -565,8 +526,8 @@ Plain-text files
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark简介/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark简介/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/HiveCLI和Beeline命令行的基本使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/HiveCLI和Beeline命令行的基本使用/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -596,11 +557,12 @@ Plain-text files
       
         
           
-          一、简介Spark 于 2009 年诞生于加州大学伯克利分校 AMPLab，2013 年被捐赠给 Apache 软件基金会，2014 年 2 月成为 Apache 的顶级项目。相对于 MapReduce 的批处理计算，Spark 可以带来上百倍的性能提升，因此它成为继 MapReduce 之后，最为
+          一、Hive CLI1.1 Help使用 hive -H 或者 hive --help 命令可以查看所有命令的帮助，显示如下：
+12345678910111213usage: hive -d,--define &lt;key=value&gt;          Variable subsituti
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark简介/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/HiveCLI和Beeline命令行的基本使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -655,7 +617,7 @@ Plain-text files
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark部署模式与作业提交/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Hive常用DDL操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -674,7 +636,7 @@ Plain-text files
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark部署模式与作业提交/" itemprop="url">Spark部署模式与作业提交</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Hive常用DDL操作/" itemprop="url">Hive常用DDL操作</a></h1>
         
 
         <div class="post-meta">
@@ -686,8 +648,8 @@ Plain-text files
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T09:52:46+08:00">
+                2021-03-18
               </time>
             
 
@@ -720,8 +682,8 @@ Plain-text files
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
                   </a>
                 </span>
 
@@ -738,8 +700,8 @@ Plain-text files
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark部署模式与作业提交/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark部署模式与作业提交/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Hive常用DDL操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Hive常用DDL操作/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -769,12 +731,16 @@ Plain-text files
       
         
           
-          一、作业提交1.1  spark-submitSpark 所有模式均使用 spark-submit 命令提交作业，其格式如下：
-12345678./bin/spark-submit \  --class &lt;main-class&gt; \        # 应用程序主入口类  --master
+          一、Database1.1 查看数据列表1show databases;
+  
+
+1.2 使用数据库1USE database_name;
+1.3 新建数据库语法：
+1234CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name   --DATA
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark部署模式与作业提交/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Hive常用DDL操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -829,7 +795,7 @@ Plain-text files
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL_Dataset和DataFrame简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Hive简介及核心概念/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -848,7 +814,7 @@ Plain-text files
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/SparkSQL_Dataset和DataFrame简介/" itemprop="url">DataFrame和Dataset简介</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Hive简介及核心概念/" itemprop="url">Hive简介及核心概念</a></h1>
         
 
         <div class="post-meta">
@@ -860,8 +826,8 @@ Plain-text files
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T09:52:46+08:00">
+                2021-03-18
               </time>
             
 
@@ -894,8 +860,8 @@ Plain-text files
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
                   </a>
                 </span>
 
@@ -912,8 +878,8 @@ Plain-text files
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/SparkSQL_Dataset和DataFrame简介/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL_Dataset和DataFrame简介/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Hive简介及核心概念/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Hive简介及核心概念/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -943,15 +909,14 @@ Plain-text files
       
         
           
-          一、Spark SQL简介Spark SQL 是 Spark 中的一个子模块，主要用于操作结构化数据。它具有以下特点：
+          一、简介Hive 是一个构建在 Hadoop 之上的数据仓库，它可以将结构化的数据文件映射成表，并提供类 SQL 查询功能，用于查询的 SQL 语句会被转化为 MapReduce 作业，然后提交到 Hadoop 上运行。
+特点：
 
-能够将 SQL 查询与 Spark 程序无缝混合，允许您使用 SQL 或 DataFrame API 对结构化数据进行查询；
-支持多种开发语言；
-支持多达上百种的外部数据源，包括
+简单、容易上手 (提供了类似 sql 的查询语言 hql)，使得精通
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/SparkSQL_Dataset和DataFrame简介/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Hive简介及核心概念/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1006,7 +971,7 @@ Plain-text files
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL常用聚合函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Hive常用DML操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1025,7 +990,7 @@ Plain-text files
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/SparkSQL常用聚合函数/" itemprop="url">聚合函数Aggregations</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Hive常用DML操作/" itemprop="url">Hive 常用DML操作</a></h1>
         
 
         <div class="post-meta">
@@ -1037,8 +1002,8 @@ Plain-text files
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T09:52:46+08:00">
+                2021-03-18
               </time>
             
 
@@ -1071,8 +1036,8 @@ Plain-text files
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
                   </a>
                 </span>
 
@@ -1089,8 +1054,8 @@ Plain-text files
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/SparkSQL常用聚合函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL常用聚合函数/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Hive常用DML操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Hive常用DML操作/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1120,11 +1085,13 @@ Plain-text files
       
         
           
-          一、简单聚合1.1 数据准备12345678// 需要导入 spark sql 内置的函数包import org.apache.spark.sql.functions._val spark = SparkSession.builder().appName("aggregations").master
+          一、加载文件数据到表1.1 语法12LOAD DATA [LOCAL] INPATH 'filepath' [OVERWRITE] INTO TABLE tablename [PARTITION (partcol1=val1, partcol2=val2 ...)]
+
+LOCAL 关键字代表从本地文
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/SparkSQL常用聚合函数/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Hive常用DML操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1179,7 +1146,7 @@ Plain-text files
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming与流处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Hive视图和索引/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1198,7 +1165,7 @@ Plain-text files
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark_Streaming与流处理/" itemprop="url">Spark Streaming与流处理</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Hive视图和索引/" itemprop="url">Hive 视图和索引</a></h1>
         
 
         <div class="post-meta">
@@ -1210,8 +1177,8 @@ Plain-text files
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T09:52:46+08:00">
+                2021-03-18
               </time>
             
 
@@ -1244,8 +1211,8 @@ Plain-text files
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
                   </a>
                 </span>
 
@@ -1262,8 +1229,8 @@ Plain-text files
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark_Streaming与流处理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming与流处理/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Hive视图和索引/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Hive视图和索引/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1293,16 +1260,11 @@ Plain-text files
       
         
           
-          一、流处理1.1 静态数据处理在流处理之前，数据通常存储在数据库，文件系统或其他形式的存储系统中。应用程序根据需要查询数据或计算数据。这就是传统的静态数据处理架构。Hadoop 采用 HDFS 进行数据存储，采用 MapReduce 进行数据查询或分析，这就是典型的静态数据处理架构。
-  
-
-
-
-1
+          一、视图1.1 简介Hive 中的视图和 RDBMS 中视图的概念一致，都是一组数据的逻辑表示，本质上就是一条 SELECT 语句的结果集。视图是纯粹的逻辑对象，没有关联的存储 (Hive 3.0.0 引入的物化视图除外)，当查询引用视图时，Hive 可以将视图的定义与查询结合起来，例如将查询中的过
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark_Streaming与流处理/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Hive视图和索引/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1357,7 +1319,7 @@ Plain-text files
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL联结操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Hive数据查询详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1376,7 +1338,7 @@ Plain-text files
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/SparkSQL联结操作/" itemprop="url">Spark SQL JOIN</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Hive数据查询详解/" itemprop="url">Hive数据查询详解</a></h1>
         
 
         <div class="post-meta">
@@ -1388,8 +1350,8 @@ Plain-text files
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T09:52:46+08:00">
+                2021-03-18
               </time>
             
 
@@ -1422,8 +1384,8 @@ Plain-text files
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
                   </a>
                 </span>
 
@@ -1440,8 +1402,8 @@ Plain-text files
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/SparkSQL联结操作/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL联结操作/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Hive数据查询详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Hive数据查询详解/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1471,12 +1433,15 @@ Plain-text files
       
         
           
-          一、 数据准备本文主要介绍 Spark SQL 的多表连接，需要预先准备测试数据。分别创建员工和部门的 Datafame，并注册为临时视图，代码如下：
-1234567val spark = SparkSession.builder().appName("aggregations").master("
+          一、数据准备为了演示查询操作，这里需要预先创建三张表，并加载测试数据。
+
+数据文件 emp.txt 和 dept.txt 可以从本仓库的resources 目录下载。
+
+1.1 员工表1234567891011121314 -- 建表语句 CREATE TABLE emp(     empno IN
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/SparkSQL联结操作/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Hive数据查询详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1531,7 +1496,7 @@ Plain-text files
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_RDD/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase系统架构及数据结构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1550,7 +1515,7 @@ Plain-text files
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark_RDD/" itemprop="url">弹性式数据集RDDs</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Hbase系统架构及数据结构/" itemprop="url">Hbase系统架构及数据结构</a></h1>
         
 
         <div class="post-meta">
@@ -1562,7 +1527,7 @@ Plain-text files
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
                 2021-03-17
               </time>
             
@@ -1596,8 +1561,8 @@ Plain-text files
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
                   </a>
                 </span>
 
@@ -1614,8 +1579,8 @@ Plain-text files
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark_RDD/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_RDD/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Hbase系统架构及数据结构/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase系统架构及数据结构/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1645,13 +1610,18 @@ Plain-text files
       
         
           
-          一、RDD简介RDD 全称为 Resilient Distributed Datasets，是 Spark 最基本的数据抽象，它是只读的、分区记录的集合，支持并行操作，可以由外部数据集或其他 RDD 转换而来，它具有以下特性：
+          一、基本概念一个典型的 Hbase Table 表如下：
+  
 
-一个 RDD 由一个或者多个分区（Partitions）组成。对于 R
+1.1 Row Key (行键)Row Key 是用来检索记录的主键。想要访问 HBase Table 中的数据，只有以下三种方式：
+
+通过指定的 Row Key 进行访问；
+
+通过 Row Key 的 range 进行访问，即访问指
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark_RDD/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Hbase系统架构及数据结构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1706,7 +1676,7 @@ Plain-text files
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming基本操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase容灾与备份/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1725,7 +1695,7 @@ Plain-text files
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark_Streaming基本操作/" itemprop="url">Spark Streaming 基本操作</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Hbase容灾与备份/" itemprop="url">Hbase容灾与备份</a></h1>
         
 
         <div class="post-meta">
@@ -1737,7 +1707,7 @@ Plain-text files
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
                 2021-03-17
               </time>
             
@@ -1771,8 +1741,8 @@ Plain-text files
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
                   </a>
                 </span>
 
@@ -1789,8 +1759,8 @@ Plain-text files
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark_Streaming基本操作/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming基本操作/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Hbase容灾与备份/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase容灾与备份/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1820,12 +1790,14 @@ Plain-text files
       
         
           
-          一、案例引入这里先引入一个基本的案例来演示流的创建：获取指定端口上的数据并进行词频统计。项目依赖和代码实现如下：
-12345&lt;dependency&gt;    &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;    &lt;artifactId&
+          一、前言本文主要介绍 Hbase 常用的三种简单的容灾备份方案，即CopyTable、Export/Import、Snapshot。分别介绍如下：
+二、CopyTable2.1 简介CopyTable可以将现有表的数据复制到新表中，具有以下特点：
+
+支持时间区间 、row 区间 、改变表名称 、改变
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark_Streaming基本操作/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Hbase容灾与备份/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1880,7 +1852,7 @@ Plain-text files
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming整合Kafka/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1899,7 +1871,7 @@ Plain-text files
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark_Streaming整合Kafka/" itemprop="url">Spark Streaming 整合 Kafka</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Hbase简介/" itemprop="url">HBase简介</a></h1>
         
 
         <div class="post-meta">
@@ -1911,7 +1883,7 @@ Plain-text files
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
                 2021-03-17
               </time>
             
@@ -1945,8 +1917,8 @@ Plain-text files
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
                   </a>
                 </span>
 
@@ -1963,8 +1935,8 @@ Plain-text files
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark_Streaming整合Kafka/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming整合Kafka/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Hbase简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase简介/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1994,17 +1966,14 @@ Plain-text files
       
         
           
-          一、版本说明Spark 针对 Kafka 的不同版本，提供了两套整合方案：spark-streaming-kafka-0-8 和 spark-streaming-kafka-0-10，其主要区别如下：
+          一、Hadoop的局限HBase 是一个构建在 Hadoop 文件系统之上的面向列的数据库管理系统。
+  
 
-
-
-
-spark-streaming-kafka-0-8
-spark-streaming-kaf
+要想明白为什么产生 HBase，就需要先了解一下 Hadoop 存在的限制？Hadoop 可以通过 HDFS 来存储结构化、半结构甚至非结构化的数据，它是传统数据库的补充，是海量数据存储的最
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark_Streaming整合Kafka/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Hbase简介/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2050,7 +2019,7 @@ spark-streaming-kaf
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2098,7 +2067,7 @@ spark-streaming-kaf
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2109,7 +2078,7 @@ spark-streaming-kaf
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2120,7 +2089,7 @@ spark-streaming-kaf
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

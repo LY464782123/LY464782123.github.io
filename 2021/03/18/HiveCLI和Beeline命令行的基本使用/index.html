@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hive,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、Hive CLI1.1 Help使用 hive -H 或者 hive --help 命令可以查看所有命令的帮助，显示如下： 12345678910111213usage: hive -d,--define &amp;lt;key=value&amp;gt;          Variable subsitution to apply to hive">
+<meta name="keywords" content="Hive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive CLI和Beeline命令行的基本使用">
+<meta property="og:url" content="http://yoursite.com/2021/03/18/HiveCLI和Beeline命令行的基本使用/index.html">
+<meta property="og:site_name" content="菜鸟@进阶记">
+<meta property="og:description" content="一、Hive CLI1.1 Help使用 hive -H 或者 hive --help 命令可以查看所有命令的帮助，显示如下： 12345678910111213usage: hive -d,--define &amp;lt;key=value&amp;gt;          Variable subsitution to apply to hive">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-e.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-n-j.png">
+<meta property="og:updated_time" content="2021-03-18T01:53:38.099Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hive CLI和Beeline命令行的基本使用">
+<meta name="twitter:description" content="一、Hive CLI1.1 Help使用 hive -H 或者 hive --help 命令可以查看所有命令的帮助，显示如下： 12345678910111213usage: hive -d,--define &amp;lt;key=value&amp;gt;          Variable subsitution to apply to hive">
+<meta name="twitter:image" content="http://yoursite.com/2021/03/18/pictures/hive-e.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+  (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/18/HiveCLI和Beeline命令行的基本使用/">
+
+
+
+
+
+  <title>Hive CLI和Beeline命令行的基本使用 | 菜鸟@进阶记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+   <a href="https://github.com/LY464782123"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">菜鸟@进阶记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-edit"></i> <br>
+            
+            笔记
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-codes">
+          <a href="/codes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br>
+            
+            编程
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-search"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/HiveCLI和Beeline命令行的基本使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.刘">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜鸟@进阶记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hive CLI和Beeline命令行的基本使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T09:52:46+08:00">
+                2021-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/03/18/HiveCLI和Beeline命令行的基本使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/HiveCLI和Beeline命令行的基本使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、Hive-CLI"><a href="#一、Hive-CLI" class="headerlink" title="一、Hive CLI"></a>一、Hive CLI</h2><h3 id="1-1-Help"><a href="#1-1-Help" class="headerlink" title="1.1 Help"></a>1.1 Help</h3><p>使用 <code>hive -H</code> 或者 <code>hive --help</code> 命令可以查看所有命令的帮助，显示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">usage: hive</span><br><span class="line"> -d,--define &lt;key=value&gt;          Variable subsitution to apply to hive </span><br><span class="line">                                  commands. e.g. -d A=B or --define A=B  --定义用户自定义变量</span><br><span class="line">    --database &lt;databasename&gt;     Specify the database to use  -- 指定使用的数据库</span><br><span class="line"> -e &lt;quoted-query-string&gt;         SQL from command line   -- 执行指定的 SQL</span><br><span class="line"> -f &lt;filename&gt;                    SQL from files   --执行 SQL 脚本</span><br><span class="line"> -H,--help                        Print help information  -- 打印帮助信息</span><br><span class="line">    --hiveconf &lt;property=value&gt;   Use value for given property    --自定义配置</span><br><span class="line">    --hivevar &lt;key=value&gt;         Variable subsitution to apply to hive  --自定义变量</span><br><span class="line">                                  commands. e.g. --hivevar A=B</span><br><span class="line"> -i &lt;filename&gt;                    Initialization SQL file  --在进入交互模式之前运行初始化脚本</span><br><span class="line"> -S,--silent                      Silent mode in interactive shell    --静默模式</span><br><span class="line"> -v,--verbose                     Verbose mode (echo executed SQL to the  console)  --详细模式</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-交互式命令行"><a href="#1-2-交互式命令行" class="headerlink" title="1.2 交互式命令行"></a>1.2 交互式命令行</h3><p>直接使用 <code>Hive</code> 命令，不加任何参数，即可进入交互式命令行。</p>
+<h3 id="1-3-执行SQL命令"><a href="#1-3-执行SQL命令" class="headerlink" title="1.3 执行SQL命令"></a>1.3 执行SQL命令</h3><p>在不进入交互式命令行的情况下，可以使用 <code>hive -e</code> 执行 SQL 命令。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive -e '<span class="keyword">select</span> * <span class="keyword">from</span> emp<span class="string">';</span></span><br></pre></td></tr></table></figure>
+<div align="center"> <img width="700px" src="../pictures/hive-e.png"> </div>
+
+
+
+<h3 id="1-4-执行SQL脚本"><a href="#1-4-执行SQL脚本" class="headerlink" title="1.4 执行SQL脚本"></a>1.4 执行SQL脚本</h3><p>用于执行的 sql 脚本可以在本地文件系统，也可以在 HDFS 上。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 本地文件系统</span></span><br><span class="line">hive -f /usr/file/simple.sql;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> HDFS文件系统</span></span><br><span class="line">hive -f hdfs://hadoop001:8020/tmp/simple.sql;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>simple.sql</code> 内容如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp;</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-配置Hive变量"><a href="#1-5-配置Hive变量" class="headerlink" title="1.5 配置Hive变量"></a>1.5 配置Hive变量</h3><p>可以使用 <code>--hiveconf</code> 设置 Hive 运行时的变量。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive -e '<span class="keyword">select</span> * <span class="keyword">from</span> emp<span class="string">' \</span></span><br><span class="line"><span class="string">--hiveconf hive.exec.scratchdir=/tmp/hive_scratch  \</span></span><br><span class="line"><span class="string">--hiveconf mapred.reduce.tasks=4;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>hive.exec.scratchdir：指定 HDFS 上目录位置，用于存储不同 map/reduce 阶段的执行计划和这些阶段的中间输出结果。</p>
+</blockquote>
+<h3 id="1-6-配置文件启动"><a href="#1-6-配置文件启动" class="headerlink" title="1.6 配置文件启动"></a>1.6 配置文件启动</h3><p>使用 <code>-i</code> 可以在进入交互模式之前运行初始化脚本，相当于指定配置文件启动。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive -i /usr/file/hive-init.conf;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>hive-init.conf</code> 的内容如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> hive.exec.mode.local.auto = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>hive.exec.mode.local.auto 默认值为 false，这里设置为 true ，代表开启本地模式。</p>
+</blockquote>
+<h3 id="1-7-用户自定义变量"><a href="#1-7-用户自定义变量" class="headerlink" title="1.7 用户自定义变量"></a>1.7 用户自定义变量</h3><p><code>--define &lt;key=value&gt;</code> 和 <code>--hivevar &lt;key=value&gt;</code> 在功能上是等价的，都是用来实现自定义变量，这里给出一个示例:</p>
+<p>定义变量：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive  <span class="comment">--define  n=ename --hiveconf  --hivevar j=job;</span></span><br></pre></td></tr></table></figure>
+<p>在查询中引用自定义变量：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以下两条语句等价</span></span><br><span class="line">hive &gt; select $&#123;n&#125; from emp;</span><br><span class="line">hive &gt;  select $&#123;hivevar:n&#125; from emp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下两条语句等价</span></span><br><span class="line">hive &gt; select $&#123;j&#125; from emp;</span><br><span class="line">hive &gt;  select $&#123;hivevar:j&#125; from emp;</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<div align="center"> <img width="700px" src="../pictures/hive-n-j.png"> </div>
+
+<h2 id="二、Beeline"><a href="#二、Beeline" class="headerlink" title="二、Beeline"></a>二、Beeline</h2><h3 id="2-1-HiveServer2"><a href="#2-1-HiveServer2" class="headerlink" title="2.1 HiveServer2"></a>2.1 HiveServer2</h3><p>Hive 内置了 HiveServer 和 HiveServer2 服务，两者都允许客户端使用多种编程语言进行连接，但是 HiveServer 不能处理多个客户端的并发请求，所以产生了 HiveServer2。</p>
+<p>HiveServer2（HS2）允许远程客户端可以使用各种编程语言向 Hive 提交请求并检索结果，支持多客户端并发访问和身份验证。HS2 是由多个服务组成的单个进程，其包括基于 Thrift 的 Hive 服务（TCP 或 HTTP）和用于 Web UI 的 Jetty Web 服务器。</p>
+<p> HiveServer2 拥有自己的 CLI(Beeline)，Beeline 是一个基于 SQLLine 的 JDBC 客户端。由于 HiveServer2 是 Hive 开发维护的重点 (Hive0.15 后就不再支持 hiveserver)，所以 Hive CLI 已经不推荐使用了，官方更加推荐使用 Beeline。</p>
+<h3 id="2-1-Beeline"><a href="#2-1-Beeline" class="headerlink" title="2.1 Beeline"></a>2.1 Beeline</h3><p>Beeline 拥有更多可使用参数，可以使用 <code>beeline --help</code> 查看，完整参数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Usage: java org.apache.hive.cli.beeline.BeeLine</span><br><span class="line">   -u &lt;database url&gt;               the JDBC URL to connect to</span><br><span class="line">   -r                              reconnect to last saved connect url (in conjunction with !save)</span><br><span class="line">   -n &lt;username&gt;                   the username to connect as</span><br><span class="line">   -p &lt;password&gt;                   the password to connect as</span><br><span class="line">   -d &lt;driver class&gt;               the driver class to use</span><br><span class="line">   -i &lt;init file&gt;                  script file for initialization</span><br><span class="line">   -e &lt;query&gt;                      query that should be executed</span><br><span class="line">   -f &lt;exec file&gt;                  script file that should be executed</span><br><span class="line">   -w (or) --password-file &lt;password file&gt;  the password file to read password from</span><br><span class="line">   --hiveconf property=value       Use value for given property</span><br><span class="line">   --hivevar name=value            hive variable name and value</span><br><span class="line">                                   This is Hive specific settings in which variables</span><br><span class="line">                                   can be set at session level and referenced in Hive</span><br><span class="line">                                   commands or queries.</span><br><span class="line">   --property-file=&lt;property-file&gt; the file to read connection properties (url, driver, user, password) from</span><br><span class="line">   --color=[true/false]            control whether color is used for display</span><br><span class="line">   --showHeader=[true/false]       show column names in query results</span><br><span class="line">   --headerInterval=ROWS;          the interval between which heades are displayed</span><br><span class="line">   --fastConnect=[true/false]      skip building table/column list for tab-completion</span><br><span class="line">   --autoCommit=[true/false]       enable/disable automatic transaction commit</span><br><span class="line">   --verbose=[true/false]          show verbose error messages and debug info</span><br><span class="line">   --showWarnings=[true/false]     display connection warnings</span><br><span class="line">   --showNestedErrs=[true/false]   display nested errors</span><br><span class="line">   --numberFormat=[pattern]        format numbers using DecimalFormat pattern</span><br><span class="line">   --force=[true/false]            continue running script even after errors</span><br><span class="line">   --maxWidth=MAXWIDTH             the maximum width of the terminal</span><br><span class="line">   --maxColumnWidth=MAXCOLWIDTH    the maximum width to use when displaying columns</span><br><span class="line">   --silent=[true/false]           be more silent</span><br><span class="line">   --autosave=[true/false]         automatically save preferences</span><br><span class="line">   --outputformat=[table/vertical/csv2/tsv2/dsv/csv/tsv]  format mode for result display</span><br><span class="line">   --incrementalBufferRows=NUMROWS the number of rows to buffer when printing rows on stdout,</span><br><span class="line">                                   defaults to 1000; only applicable if --incremental=true</span><br><span class="line">                                   and --outputformat=table</span><br><span class="line">   --truncateTable=[true/false]    truncate table column when it exceeds length</span><br><span class="line">   --delimiterForDSV=DELIMITER     specify the delimiter for delimiter-separated values output format (default: |)</span><br><span class="line">   --isolation=LEVEL               set the transaction isolation level</span><br><span class="line">   --nullemptystring=[true/false]  set to true to get historic behavior of printing null as empty string</span><br><span class="line">   --maxHistoryRows=MAXHISTORYROWS The maximum number of rows to store beeline history.</span><br><span class="line">   --convertBinaryArrayToString=[true/false]    display binary column data as string or as byte array</span><br><span class="line">   --help                          display this message</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-常用参数"><a href="#2-3-常用参数" class="headerlink" title="2.3 常用参数"></a>2.3 常用参数</h3><p>在 Hive CLI 中支持的参数，Beeline 都支持，常用的参数如下。更多参数说明可以参见官方文档 <a href="https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-Beeline%E2%80%93NewCommandLineShell" target="_blank" rel="noopener">Beeline Command Options</a></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>-u \<database url></database></strong></td>
+<td>数据库地址</td>
+</tr>
+<tr>
+<td><strong>-n \<username></username></strong></td>
+<td>用户名</td>
+</tr>
+<tr>
+<td><strong>-p \<password></password></strong></td>
+<td>密码</td>
+</tr>
+<tr>
+<td><strong>-d \<driver class></driver></strong></td>
+<td>驱动 (可选)</td>
+</tr>
+<tr>
+<td><strong>-e \<query></query></strong></td>
+<td>执行 SQL 命令</td>
+</tr>
+<tr>
+<td><strong>-f \<file></file></strong></td>
+<td>执行 SQL 脚本</td>
+</tr>
+<tr>
+<td><strong>-i  (or)–init  \<file or files></file></strong></td>
+<td>在进入交互模式之前运行初始化脚本</td>
+</tr>
+<tr>
+<td><strong>–property-file \<file></file></strong></td>
+<td>指定配置文件</td>
+</tr>
+<tr>
+<td><strong>–hiveconf</strong> <em>property<strong>=</strong>value</em></td>
+<td>指定配置属性</td>
+</tr>
+<tr>
+<td><strong>–hivevar</strong> <em>name<strong>=</strong>value</em></td>
+<td>用户自定义属性，在会话级别有效</td>
+</tr>
+</tbody>
+</table>
+<p>示例： 使用用户名和密码连接 Hive</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> beeline -u jdbc:hive2://localhost:10000  -n username -p password</span></span><br></pre></td></tr></table></figure>
+<p>​         </p>
+<h2 id="三、Hive配置"><a href="#三、Hive配置" class="headerlink" title="三、Hive配置"></a>三、Hive配置</h2><p>可以通过三种方式对 Hive 的相关属性进行配置，分别介绍如下：</p>
+<h3 id="3-1-配置文件"><a href="#3-1-配置文件" class="headerlink" title="3.1 配置文件"></a>3.1 配置文件</h3><p>方式一为使用配置文件，使用配置文件指定的配置是永久有效的。Hive 有以下三个可选的配置文件：</p>
+<ul>
+<li><p>hive-site.xml ：Hive 的主要配置文件；</p>
+</li>
+<li><p>hivemetastore-site.xml： 关于元数据的配置；</p>
+</li>
+<li>hiveserver2-site.xml：关于 HiveServer2 的配置。</li>
+</ul>
+<p>示例如下,在 hive-site.xml 配置 <code>hive.exec.scratchdir</code>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.exec.scratchdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>/tmp/mydir<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">description</span>&gt;</span>Scratch space for Hive jobs<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-2-hiveconf"><a href="#3-2-hiveconf" class="headerlink" title="3.2 hiveconf"></a>3.2 hiveconf</h3><p>方式二为在启动命令行 (Hive CLI / Beeline) 的时候使用 <code>--hiveconf</code> 指定配置，这种方式指定的配置作用于整个 Session。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive --hiveconf hive.exec.scratchdir=/tmp/mydir</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-set"><a href="#3-3-set" class="headerlink" title="3.3 set"></a>3.3 set</h3><p>方式三为在交互式环境下 (Hive CLI / Beeline)，使用 set 命令指定。这种设置的作用范围也是 Session 级别的，配置对于执行该命令后的所有命令生效。set 兼具设置参数和查看参数的功能。如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">0: jdbc:hive2://hadoop001:10000&gt; set hive.exec.scratchdir=/tmp/mydir;</span><br><span class="line">No rows affected (0.025 seconds)</span><br><span class="line">0: jdbc:hive2://hadoop001:10000&gt; set hive.exec.scratchdir;</span><br><span class="line">+----------------------------------+--+</span><br><span class="line">|               set                |</span><br><span class="line">+----------------------------------+--+</span><br><span class="line">| hive.exec.scratchdir=/tmp/mydir  |</span><br><span class="line">+----------------------------------+--+</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-配置优先级"><a href="#3-4-配置优先级" class="headerlink" title="3.4 配置优先级"></a>3.4 配置优先级</h3><p>配置的优先顺序如下 (由低到高)：<br><code>hive-site.xml</code> - &gt;<code>hivemetastore-site.xml</code>- &gt; <code>hiveserver2-site.xml</code> - &gt;<code>-- hiveconf</code>- &gt; <code>set</code></p>
+<h3 id="3-5-配置参数"><a href="#3-5-配置参数" class="headerlink" title="3.5 配置参数"></a>3.5 配置参数</h3><p>Hive 可选的配置参数非常多，在用到时查阅官方文档即可<a href="https://cwiki.apache.org/confluence/display/Hive/AdminManual+Configuration" target="_blank" rel="noopener">AdminManual Configuration</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients" target="_blank" rel="noopener">HiveServer2 Clients</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Cli" target="_blank" rel="noopener">LanguageManual Cli</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/Hive/AdminManual+Configuration" target="_blank" rel="noopener">AdminManual Configuration</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+        	-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------
+        </div>
+    
+    
+    	<div style="text-align:left;color: #ccc;font-size:12px;">
+    		作者：Mr.刘 <br>
+    		来源：GitHub <br>
+			原文：https://ly464782123.github.io <br>
+			版权声明：本文为博主原创文章，转载请附上博文链接,谢谢(*￣︶￣)！
+    	</div>
+    
+</div>
+      </div>
+    
+
+    
+      <div>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hive/" rel="tag"># Hive</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/18/Hive常用DDL操作/" rel="next" title="Hive常用DDL操作">
+                <i class="fa fa-chevron-left"></i> Hive常用DDL操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/18/Hive分区表和分桶表/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.gif" alt="Mr.刘">
+            
+              <p class="site-author-name" itemprop="name">Mr.刘</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LY464782123" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:464782123@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Hive-CLI"><span class="nav-number">1.</span> <span class="nav-text">一、Hive CLI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Help"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Help</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-交互式命令行"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 交互式命令行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-执行SQL命令"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 执行SQL命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-执行SQL脚本"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 执行SQL脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-配置Hive变量"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 配置Hive变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-配置文件启动"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 配置文件启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-用户自定义变量"><span class="nav-number">1.7.</span> <span class="nav-text">1.7 用户自定义变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Beeline"><span class="nav-number">2.</span> <span class="nav-text">二、Beeline</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-HiveServer2"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 HiveServer2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Beeline"><span class="nav-number">2.2.</span> <span class="nav-text">2.1 Beeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-常用参数"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 常用参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Hive配置"><span class="nav-number">3.</span> <span class="nav-text">三、Hive配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-配置文件"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-hiveconf"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 hiveconf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-set"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-配置优先级"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 配置优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-配置参数"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 配置参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.刘</span>
+
+  
+  
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  <!--<div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>-->
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访问数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'nMqf9jn6wQxm15s5uFHXVJFE-gzGzoHsz',
+        appKey: '3tyIVLem7Iy9uN4vY8BjbLlG',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/clickLove.js"></script>
