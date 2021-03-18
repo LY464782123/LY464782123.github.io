@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL常用聚合函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase系统架构及数据结构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -318,7 +318,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/SparkSQL常用聚合函数/" itemprop="url">聚合函数Aggregations</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Hbase系统架构及数据结构/" itemprop="url">Hbase系统架构及数据结构</a></h1>
         
 
         <div class="post-meta">
@@ -330,7 +330,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
                 2021-03-17
               </time>
             
@@ -364,8 +364,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
                   </a>
                 </span>
 
@@ -382,8 +382,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/SparkSQL常用聚合函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL常用聚合函数/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Hbase系统架构及数据结构/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase系统架构及数据结构/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -413,11 +413,18 @@
       
         
           
-          一、简单聚合1.1 数据准备12345678// 需要导入 spark sql 内置的函数包import org.apache.spark.sql.functions._val spark = SparkSession.builder().appName("aggregations").master
+          一、基本概念一个典型的 Hbase Table 表如下：
+  
+
+1.1 Row Key (行键)Row Key 是用来检索记录的主键。想要访问 HBase Table 中的数据，只有以下三种方式：
+
+通过指定的 Row Key 进行访问；
+
+通过 Row Key 的 range 进行访问，即访问指
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/SparkSQL常用聚合函数/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Hbase系统架构及数据结构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -472,7 +479,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming与流处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase容灾与备份/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -491,7 +498,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark_Streaming与流处理/" itemprop="url">Spark Streaming与流处理</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Hbase容灾与备份/" itemprop="url">Hbase容灾与备份</a></h1>
         
 
         <div class="post-meta">
@@ -503,7 +510,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
                 2021-03-17
               </time>
             
@@ -537,8 +544,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
                   </a>
                 </span>
 
@@ -555,8 +562,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark_Streaming与流处理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming与流处理/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Hbase容灾与备份/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase容灾与备份/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -586,16 +593,14 @@
       
         
           
-          一、流处理1.1 静态数据处理在流处理之前，数据通常存储在数据库，文件系统或其他形式的存储系统中。应用程序根据需要查询数据或计算数据。这就是传统的静态数据处理架构。Hadoop 采用 HDFS 进行数据存储，采用 MapReduce 进行数据查询或分析，这就是典型的静态数据处理架构。
-  
+          一、前言本文主要介绍 Hbase 常用的三种简单的容灾备份方案，即CopyTable、Export/Import、Snapshot。分别介绍如下：
+二、CopyTable2.1 简介CopyTable可以将现有表的数据复制到新表中，具有以下特点：
 
-
-
-1
+支持时间区间 、row 区间 、改变表名称 、改变
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark_Streaming与流处理/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Hbase容灾与备份/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -650,7 +655,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_RDD/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -669,7 +674,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark_RDD/" itemprop="url">弹性式数据集RDDs</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Hbase简介/" itemprop="url">HBase简介</a></h1>
         
 
         <div class="post-meta">
@@ -681,7 +686,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
                 2021-03-17
               </time>
             
@@ -715,8 +720,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
                   </a>
                 </span>
 
@@ -733,8 +738,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark_RDD/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_RDD/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Hbase简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase简介/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -764,13 +769,14 @@
       
         
           
-          一、RDD简介RDD 全称为 Resilient Distributed Datasets，是 Spark 最基本的数据抽象，它是只读的、分区记录的集合，支持并行操作，可以由外部数据集或其他 RDD 转换而来，它具有以下特性：
+          一、Hadoop的局限HBase 是一个构建在 Hadoop 文件系统之上的面向列的数据库管理系统。
+  
 
-一个 RDD 由一个或者多个分区（Partitions）组成。对于 R
+要想明白为什么产生 HBase，就需要先了解一下 Hadoop 存在的限制？Hadoop 可以通过 HDFS 来存储结构化、半结构甚至非结构化的数据，它是传统数据库的补充，是海量数据存储的最
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark_RDD/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Hbase简介/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -825,7 +831,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL联结操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase过滤器详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -844,7 +850,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/SparkSQL联结操作/" itemprop="url">Spark SQL JOIN</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Hbase过滤器详解/" itemprop="url">Hbase 过滤器详解</a></h1>
         
 
         <div class="post-meta">
@@ -856,7 +862,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
                 2021-03-17
               </time>
             
@@ -890,8 +896,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
                   </a>
                 </span>
 
@@ -908,8 +914,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/SparkSQL联结操作/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL联结操作/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Hbase过滤器详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase过滤器详解/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -939,12 +945,11 @@
       
         
           
-          一、 数据准备本文主要介绍 Spark SQL 的多表连接，需要预先准备测试数据。分别创建员工和部门的 Datafame，并注册为临时视图，代码如下：
-1234567val spark = SparkSession.builder().appName("aggregations").master("
+          一、HBase过滤器简介Hbase 提供了种类丰富的过滤器（filter）来提高数据处理的效率，用户可以通过内置或自定义的过滤器来对数据进行过滤，所有的过滤器都在服务端生效，即谓词下推（predicate push down）。这样可以保证过滤掉的数据不会被传送到客户端，从而减轻网络传输和客户端处理
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/SparkSQL联结操作/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Hbase过滤器详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -999,7 +1004,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming整合Flume/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase的SQL中间层_Phoenix/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1018,7 +1023,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark_Streaming整合Flume/" itemprop="url">Spark Streaming 整合 Flume</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Hbase的SQL中间层_Phoenix/" itemprop="url">Hbase的SQL中间层——Phoenix</a></h1>
         
 
         <div class="post-meta">
@@ -1030,7 +1035,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
                 2021-03-17
               </time>
             
@@ -1064,8 +1069,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
                   </a>
                 </span>
 
@@ -1082,8 +1087,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark_Streaming整合Flume/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming整合Flume/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Hbase的SQL中间层_Phoenix/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase的SQL中间层_Phoenix/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1113,12 +1118,11 @@
       
         
           
-          一、简介Apache Flume 是一个分布式，高可用的数据收集系统，可以从不同的数据源收集数据，经过聚合后发送到分布式计算框架或者存储系统中。Spark Straming 提供了以下两种方式用于 Flume 的整合。
-二、推送式方法在推送式方法 (Flume-style Push-based Ap
+          一、Phoenix简介Phoenix 是 HBase 的开源 SQL 中间层，它允许你使用标准 JDBC 的方式来操作 HBase 上的数据。在 Phoenix 之前，如果你要访问 HBase，只能调用它的 Java API，但相比于使用一行 SQL 就能实现数据查询，HBase 的 API 还是过
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark_Streaming整合Flume/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Hbase的SQL中间层_Phoenix/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1173,7 +1177,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming基本操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase_Shell/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1192,7 +1196,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark_Streaming基本操作/" itemprop="url">Spark Streaming 基本操作</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Hbase_Shell/" itemprop="url">Hbase 常用 Shell 命令</a></h1>
         
 
         <div class="post-meta">
@@ -1204,7 +1208,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
                 2021-03-17
               </time>
             
@@ -1238,8 +1242,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
                   </a>
                 </span>
 
@@ -1256,8 +1260,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark_Streaming基本操作/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming基本操作/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Hbase_Shell/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase_Shell/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1287,12 +1291,17 @@
       
         
           
-          一、案例引入这里先引入一个基本的案例来演示流的创建：获取指定端口上的数据并进行词频统计。项目依赖和代码实现如下：
-12345&lt;dependency&gt;    &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;    &lt;artifactId&
+          一、基本命令打开 Hbase Shell：
+1# hbase shell
+1.1 获取帮助1234# 获取帮助help# 获取命令的详细信息help 'status'
+1.2 查看服务器状态1status
+1.3 查看版本信息1version
+二、关于表的操作2.1 查看所有表1list
+2.2 创
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark_Streaming基本操作/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Hbase_Shell/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1347,7 +1356,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming整合Kafka/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase_Java_API/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1366,7 +1375,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark_Streaming整合Kafka/" itemprop="url">Spark Streaming 整合 Kafka</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Hbase_Java_API/" itemprop="url">HBase Java API 的基本使用</a></h1>
         
 
         <div class="post-meta">
@@ -1378,7 +1387,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
                 2021-03-17
               </time>
             
@@ -1412,8 +1421,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
                   </a>
                 </span>
 
@@ -1430,8 +1439,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark_Streaming整合Kafka/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming整合Kafka/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Hbase_Java_API/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase_Java_API/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1461,17 +1470,11 @@
       
         
           
-          一、版本说明Spark 针对 Kafka 的不同版本，提供了两套整合方案：spark-streaming-kafka-0-8 和 spark-streaming-kafka-0-10，其主要区别如下：
-
-
-
-
-spark-streaming-kafka-0-8
-spark-streaming-kaf
+          一、简述截至到目前 (2019.04)，HBase 有两个主要的版本，分别是 1.x 和 2.x ，两个版本的 Java API 有所不同，1.x 中某些方法在 2.x 中被标识为 @deprecated 过时。所以下面关于 API 的样例，我会分别给出 1.x 和 2.x 两个版本。完整的代码见本
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark_Streaming整合Kafka/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Hbase_Java_API/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1526,7 +1529,7 @@ spark-streaming-kaf
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Structured_API的基本使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase协处理器详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1545,7 +1548,7 @@ spark-streaming-kaf
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark_Structured_API的基本使用/" itemprop="url">Structured API基本使用</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Hbase协处理器详解/" itemprop="url">Hbase 协处理器</a></h1>
         
 
         <div class="post-meta">
@@ -1557,7 +1560,7 @@ spark-streaming-kaf
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
                 2021-03-17
               </time>
             
@@ -1591,8 +1594,8 @@ spark-streaming-kaf
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
                   </a>
                 </span>
 
@@ -1609,8 +1612,8 @@ spark-streaming-kaf
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark_Structured_API的基本使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Structured_API的基本使用/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Hbase协处理器详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase协处理器详解/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1640,11 +1643,11 @@ spark-streaming-kaf
       
         
           
-          一、创建DataFrame和Dataset1.1 创建DataFrameSpark 中所有功能的入口点是 SparkSession，可以使用 SparkSession.builder() 创建。创建后应用程序就可以从现有 RDD，Hive 表或 Spark 数据源创建 DataFrame。示例如下：
+          一、简述在使用 HBase 时，如果你的数据量达到了数十亿行或数百万列，此时能否在查询中返回大量数据将受制于网络的带宽，即便网络状况允许，但是客户端的计算处理也未必能够满足要求。在这种情况下，协处理器（Coprocessors）应运而生。它允许你将业务计算代码放入在 RegionServer 的协处
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark_Structured_API的基本使用/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Hbase协处理器详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1699,7 +1702,7 @@ spark-streaming-kaf
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Transformation和Action算子/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spring+Mybtais+Phoenix整合/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1718,7 +1721,7 @@ spark-streaming-kaf
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark_Transformation和Action算子/" itemprop="url">Transformation 和 Action 常用算子</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spring+Mybtais+Phoenix整合/" itemprop="url">Spring/Spring Boot 整合 Mybatis + Phoenix</a></h1>
         
 
         <div class="post-meta">
@@ -1730,7 +1733,7 @@ spark-streaming-kaf
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:17:03+08:00">
                 2021-03-17
               </time>
             
@@ -1764,8 +1767,8 @@ spark-streaming-kaf
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -1782,8 +1785,8 @@ spark-streaming-kaf
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark_Transformation和Action算子/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Transformation和Action算子/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spring+Mybtais+Phoenix整合/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spring+Mybtais+Phoenix整合/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1813,26 +1816,14 @@ spark-streaming-kaf
       
         
           
-          一、Transformationspark 常用的 Transformation 算子如下表：
+          一、前言使用 Spring+Mybatis 操作 Phoenix 和操作其他的关系型数据库（如 Mysql，Oracle）在配置上是基本相同的，下面会分别给出 Spring/Spring Boot 整合步骤，完整代码见本仓库：
 
-
-
-Transformation 算子
-Meaning（含义）
-
-
-
-
-map(func)
-对原 RDD 中每个元素运用 func 函数，并生成新的 RDD
-
-
-filter(func)
-对原 RDD 
+Spring + Mybatis + Phoenix
+SpringBo
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark_Transformation和Action算子/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spring+Mybtais+Phoenix整合/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1887,7 +1878,7 @@ filter(func)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark累加器与广播变量/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL外部数据源/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1906,7 +1897,7 @@ filter(func)
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spark累加器与广播变量/" itemprop="url">Spark 累加器与广播变量</a></h1>
+                <a class="post-title-link" href="/2021/03/17/SparkSQL外部数据源/" itemprop="url">Spark SQL 外部数据源</a></h1>
         
 
         <div class="post-meta">
@@ -1970,8 +1961,8 @@ filter(func)
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spark累加器与广播变量/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark累加器与广播变量/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/SparkSQL外部数据源/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL外部数据源/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2001,16 +1992,21 @@ filter(func)
       
         
           
-          一、简介在 Spark 中，提供了两种类型的共享变量：累加器 (accumulator) 与广播变量 (broadcast variable)：
+          一、简介1.1 多数据源支持Spark 支持以下六个核心数据源，同时 Spark 社区还提供了多达上百种数据源的读取方式，能够满足绝大部分使用场景。
 
-累加器：用来对信息进行聚合，主要用于累计计数等场景；
-广播变量：主要用于在节点间高效分发大对象。
+CSV
+JSON
+Parquet
+ORC
+JDBC/ODBC connections
+Plain-text files
 
-二、累加器这里先看一个具体的场景，对于正常的累计求和
+
+注：以下所有测试文件均可
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spark累加器与广播变量/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/SparkSQL外部数据源/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2056,7 +2052,7 @@ filter(func)
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2104,7 +2100,7 @@ filter(func)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2115,7 +2111,7 @@ filter(func)
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2126,7 +2122,7 @@ filter(func)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/HDFS-Java-API/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -318,7 +318,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/HDFS-Java-API/" itemprop="url">HDFS Java API</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark简介/" itemprop="url">Spark简介</a></h1>
         
 
         <div class="post-meta">
@@ -330,7 +330,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:03:11+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -364,8 +364,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/HDFS/" itemprop="url" rel="index">
-                    <span itemprop="name">HDFS</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -382,8 +382,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/HDFS-Java-API/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/HDFS-Java-API/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark简介/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -413,12 +413,11 @@
       
         
           
-          一、 简介想要使用 HDFS API，需要导入依赖 hadoop-client。如果是 CDH 版本的 Hadoop，还需要额外指明其仓库地址：
-12345678910111213141516171819202122232425262728293031323334353637383940414243
+          一、简介Spark 于 2009 年诞生于加州大学伯克利分校 AMPLab，2013 年被捐赠给 Apache 软件基金会，2014 年 2 月成为 Apache 的顶级项目。相对于 MapReduce 的批处理计算，Spark 可以带来上百倍的性能提升，因此它成为继 MapReduce 之后，最为
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/HDFS-Java-API/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark简介/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -473,7 +472,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/HDFS常用Shell命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark部署模式与作业提交/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -492,7 +491,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/HDFS常用Shell命令/" itemprop="url">HDFS 常用 shell 命令</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark部署模式与作业提交/" itemprop="url">Spark部署模式与作业提交</a></h1>
         
 
         <div class="post-meta">
@@ -504,7 +503,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:03:11+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -538,8 +537,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/HDFS/" itemprop="url" rel="index">
-                    <span itemprop="name">HDFS</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -556,8 +555,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/HDFS常用Shell命令/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/HDFS常用Shell命令/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark部署模式与作业提交/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark部署模式与作业提交/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -587,14 +586,12 @@
       
         
           
-          1. 显示当前目录结构
-123456# 显示当前目录结构hadoop fs -ls  &lt;path&gt;# 递归显示当前目录结构hadoop fs -ls  -R  &lt;path&gt;# 显示根目录下内容hadoop fs -ls  /
-2. 创建目录
-1234# 创建目录hadoop 
+          一、作业提交1.1  spark-submitSpark 所有模式均使用 spark-submit 命令提交作业，其格式如下：
+12345678./bin/spark-submit \  --class &lt;main-class&gt; \        # 应用程序主入口类  --master
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/HDFS常用Shell命令/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark部署模式与作业提交/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -649,7 +646,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Azkaban_Flow_2.0_的使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL_Dataset和DataFrame简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -668,7 +665,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Azkaban_Flow_2.0_的使用/" itemprop="url">Azkaban Flow 2.0的使用</a></h1>
+                <a class="post-title-link" href="/2021/03/17/SparkSQL_Dataset和DataFrame简介/" itemprop="url">DataFrame和Dataset简介</a></h1>
         
 
         <div class="post-meta">
@@ -680,7 +677,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:00:55+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -714,8 +711,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Azkaban/" itemprop="url" rel="index">
-                    <span itemprop="name">Azkaban</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -732,8 +729,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Azkaban_Flow_2.0_的使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Azkaban_Flow_2.0_的使用/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/SparkSQL_Dataset和DataFrame简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL_Dataset和DataFrame简介/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -763,11 +760,15 @@
       
         
           
-          一、Flow 2.0 简介1.1 Flow 2.0 的产生Azkaban 目前同时支持 Flow 1.0 和 Flow2.0 ，但是官方文档上更推荐使用 Flow 2.0，因为 Flow 1.0 会在将来的版本被移除。Flow 2.0 的主要设计思想是提供 1.0 所没有的流级定义。用户可以将属于给
+          一、Spark SQL简介Spark SQL 是 Spark 中的一个子模块，主要用于操作结构化数据。它具有以下特点：
+
+能够将 SQL 查询与 Spark 程序无缝混合，允许您使用 SQL 或 DataFrame API 对结构化数据进行查询；
+支持多种开发语言；
+支持多达上百种的外部数据源，包括
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Azkaban_Flow_2.0_的使用/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/SparkSQL_Dataset和DataFrame简介/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -822,7 +823,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Azkaban_Flow_1.0_的使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL联结操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -841,7 +842,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Azkaban_Flow_1.0_的使用/" itemprop="url">Azkaban Flow 1.0 的使用</a></h1>
+                <a class="post-title-link" href="/2021/03/17/SparkSQL联结操作/" itemprop="url">Spark SQL JOIN</a></h1>
         
 
         <div class="post-meta">
@@ -853,7 +854,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:00:55+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -887,8 +888,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Azkaban/" itemprop="url" rel="index">
-                    <span itemprop="name">Azkaban</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -905,8 +906,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Azkaban_Flow_1.0_的使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Azkaban_Flow_1.0_的使用/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/SparkSQL联结操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL联结操作/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -936,16 +937,12 @@
       
         
           
-          一、简介Azkaban 主要通过界面上传配置文件来进行任务的调度。它有两个重要的概念：
-
-Job： 你需要执行的调度任务；
-Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表叫做 Flow。
-
-目前 Azkaban 3.x 同时支持 Flow 1.0 和 Flow 2.0，本文主要讲解
+          一、 数据准备本文主要介绍 Spark SQL 的多表连接，需要预先准备测试数据。分别创建员工和部门的 Datafame，并注册为临时视图，代码如下：
+1234567val spark = SparkSession.builder().appName("aggregations").master("
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Azkaban_Flow_1.0_的使用/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/SparkSQL联结操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1000,7 +997,7 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Azkaban简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL常用聚合函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1019,7 +1016,7 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Azkaban简介/" itemprop="url">Azkaban简介</a></h1>
+                <a class="post-title-link" href="/2021/03/17/SparkSQL常用聚合函数/" itemprop="url">聚合函数Aggregations</a></h1>
         
 
         <div class="post-meta">
@@ -1031,7 +1028,7 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:00:55+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -1065,8 +1062,8 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Azkaban/" itemprop="url" rel="index">
-                    <span itemprop="name">Azkaban</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -1083,8 +1080,8 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Azkaban简介/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Azkaban简介/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/SparkSQL常用聚合函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL常用聚合函数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1114,15 +1111,11 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
       
         
           
-          一、Azkaban 介绍1.1 背景一个完整的大数据分析系统，必然由很多任务单元 (如数据收集、数据清洗、数据存储、数据分析等) 组成，所有的任务单元及其之间的依赖关系组成了复杂的工作流。复杂的工作流管理涉及到很多问题：
-
-如何定时调度某个任务？
-如何在某个任务执行完成后再去执行另一个任务？
-如何在
+          一、简单聚合1.1 数据准备12345678// 需要导入 spark sql 内置的函数包import org.apache.spark.sql.functions._val spark = SparkSession.builder().appName("aggregations").master
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Azkaban简介/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/SparkSQL常用聚合函数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1177,7 +1170,7 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hadoop-MapReduce/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_RDD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1196,7 +1189,7 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hadoop-MapReduce/" itemprop="url">分布式计算框架——MapReduce</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark_RDD/" itemprop="url">弹性式数据集RDDs</a></h1>
         
 
         <div class="post-meta">
@@ -1208,7 +1201,7 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:57:15+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -1242,8 +1235,8 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -1260,8 +1253,8 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hadoop-MapReduce/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hadoop-MapReduce/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark_RDD/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_RDD/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1291,12 +1284,13 @@ Flow：一个获取多个 Job 及它们之间的依赖关系所组成的图表�
       
         
           
-          一、MapReduce概述Hadoop MapReduce 是一个分布式计算框架，用于编写批处理应用程序。编写好的程序可以提交到 Hadoop 集群上用于并行处理大规模的数据集。
-MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 map 以并行的方式处理，框架对 map 的输出进行
+          一、RDD简介RDD 全称为 Resilient Distributed Datasets，是 Spark 最基本的数据抽象，它是只读的、分区记录的集合，支持并行操作，可以由外部数据集或其他 RDD 转换而来，它具有以下特性：
+
+一个 RDD 由一个或者多个分区（Partitions）组成。对于 R
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hadoop-MapReduce/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark_RDD/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1351,7 +1345,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hadoop-HDFS/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming与流处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1370,7 +1364,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hadoop-HDFS/" itemprop="url">Hadoop分布式文件系统——HDFS</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark_Streaming与流处理/" itemprop="url">Spark Streaming与流处理</a></h1>
         
 
         <div class="post-meta">
@@ -1382,7 +1376,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:57:15+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -1416,8 +1410,8 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -1434,8 +1428,8 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hadoop-HDFS/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hadoop-HDFS/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark_Streaming与流处理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming与流处理/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1465,194 +1459,16 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
       
         
           
-          一、介绍HDFS （Hadoop Distributed File System）是 Hadoop 下的分布式文件系统，具有高容错、高吞吐量等特性，可以部署在低成本的硬件上。
-二、HDFS 设计原理  
-
-2.1 HDFS 架构HDFS 遵循主/从架构，由单个 NameNode(NN) 和多个 Da
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hadoop-HDFS/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hadoop-YARN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr.刘">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/2.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜鸟@进阶记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/03/17/Hadoop-YARN/" itemprop="url">集群资源管理器——YARN</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:57:15+08:00">
-                2021-03-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/" itemprop="url" rel="index">
-                    <span itemprop="name">notes</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2021/03/17/Hadoop-YARN/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hadoop-YARN/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          一、hadoop yarn 简介Apache YARN (Yet Another Resource Negotiator)  是 hadoop 2.0 引入的集群资源管理系统。用户可以将各种服务框架部署在 YARN 上，由 YARN 进行统一地管理和资源分配。
+          一、流处理1.1 静态数据处理在流处理之前，数据通常存储在数据库，文件系统或其他形式的存储系统中。应用程序根据需要查询数据或计算数据。这就是传统的静态数据处理架构。Hadoop 采用 HDFS 进行数据存储，采用 MapReduce 进行数据查询或分析，这就是典型的静态数据处理架构。
   
 
 
-
-二、YARN架构  
 
 1
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hadoop-YARN/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark_Streaming与流处理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1707,7 +1523,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Flume简介及基本使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming基本操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1726,7 +1542,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Flume简介及基本使用/" itemprop="url">Flume 简介及基本使用</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark_Streaming基本操作/" itemprop="url">Spark Streaming 基本操作</a></h1>
         
 
         <div class="post-meta">
@@ -1738,7 +1554,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:06:06+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -1772,8 +1588,8 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Flume/" itemprop="url" rel="index">
-                    <span itemprop="name">Flume</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -1790,8 +1606,8 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Flume简介及基本使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Flume简介及基本使用/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark_Streaming基本操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming基本操作/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1821,11 +1637,12 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
       
         
           
-          一、Flume简介Apache Flume 是一个分布式，高可用的数据收集系统。它可以从不同的数据源收集数据，经过聚合后发送到存储系统中，通常用于日志数据的收集。Flume 分为 NG 和 OG (1.0 之前) 两个版本，NG 在 OG 的基础上进行了完全的重构，是目前使用最为广泛的版本。下面的介
+          一、案例引入这里先引入一个基本的案例来演示流的创建：获取指定端口上的数据并进行词频统计。项目依赖和代码实现如下：
+12345&lt;dependency&gt;    &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;    &lt;artifactId&
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Flume简介及基本使用/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark_Streaming基本操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1880,7 +1697,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Flume整合Kafka/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming整合Kafka/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1899,7 +1716,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Flume整合Kafka/" itemprop="url">Flume 整合 Kafka</a></h1>
+                <a class="post-title-link" href="/2021/03/17/Spark_Streaming整合Kafka/" itemprop="url">Spark Streaming 整合 Kafka</a></h1>
         
 
         <div class="post-meta">
@@ -1911,7 +1728,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T22:06:06+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
                 2021-03-17
               </time>
             
@@ -1945,8 +1762,8 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Flume/" itemprop="url" rel="index">
-                    <span itemprop="name">Flume</span>
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
                   </a>
                 </span>
 
@@ -1963,8 +1780,8 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Flume整合Kafka/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Flume整合Kafka/" itemprop="commentCount"></span>
+                <a href="/2021/03/17/Spark_Streaming整合Kafka/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming整合Kafka/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1994,12 +1811,191 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
       
         
           
-          一、背景先说一下，为什么要使用 Flume + Kafka？
-以实时流处理项目为例，由于采集的数据量可能存在峰值和峰谷，假设是一个电商项目，那么峰值通常出现在秒杀时，这时如果直接将 Flume 聚合后的数据输入到 Storm 等分布式计算框架中，可能就会超过集群的处理能力，这时采用 Kafka 就可
+          一、版本说明Spark 针对 Kafka 的不同版本，提供了两套整合方案：spark-streaming-kafka-0-8 和 spark-streaming-kafka-0-10，其主要区别如下：
+
+
+
+
+spark-streaming-kafka-0-8
+spark-streaming-kaf
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Flume整合Kafka/#more" rel="contents">
+            <a class="btn" href="/2021/03/17/Spark_Streaming整合Kafka/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spark_Streaming整合Flume/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.刘">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜鸟@进阶记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/03/17/Spark_Streaming整合Flume/" itemprop="url">Spark Streaming 整合 Flume</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
+                2021-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/03/17/Spark_Streaming整合Flume/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spark_Streaming整合Flume/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          一、简介Apache Flume 是一个分布式，高可用的数据收集系统，可以从不同的数据源收集数据，经过聚合后发送到分布式计算框架或者存储系统中。Spark Straming 提供了以下两种方式用于 Flume 的整合。
+二、推送式方法在推送式方法 (Flume-style Push-based Ap
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/03/17/Spark_Streaming整合Flume/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2045,7 +2041,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2093,7 +2089,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2104,7 +2100,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2115,7 +2111,7 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

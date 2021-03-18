@@ -530,10 +530,10 @@
 <h4 id="2-代码开发"><a href="#2-代码开发" class="headerlink" title="2. 代码开发"></a>2. 代码开发</h4><p>这里以最简单的场景为例，接收 Kafka 上的数据并打印，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</span><br><span class="line">Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line"><span class="comment">// 指定Kafka的连接位置</span></span><br><span class="line">properties.setProperty(<span class="string">"bootstrap.servers"</span>, <span class="string">"hadoop001:9092"</span>);</span><br><span class="line"><span class="comment">// 指定监听的主题，并定义Kafka字节消息到Flink对象之间的转换规则</span></span><br><span class="line">DataStream&lt;String&gt; stream = env</span><br><span class="line">    .addSource(<span class="keyword">new</span> FlinkKafkaConsumer&lt;&gt;(<span class="string">"flink-stream-in-topic"</span>, <span class="keyword">new</span> SimpleStringSchema(), properties));</span><br><span class="line">stream.print();</span><br><span class="line">env.execute(<span class="string">"Flink Streaming"</span>);</span><br></pre></td></tr></table></figure>
 <h3 id="3-3-整合测试"><a href="#3-3-整合测试" class="headerlink" title="3.3 整合测试"></a>3.3 整合测试</h3><h4 id="1-启动-Kakfa"><a href="#1-启动-Kakfa" class="headerlink" title="1. 启动 Kakfa"></a>1. 启动 Kakfa</h4><p>Kafka 的运行依赖于 zookeeper，需要预先启动，可以启动 Kafka 内置的 zookeeper，也可以启动自己安装的：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> zookeeper启动命令</span></span><br><span class="line">bin/zkServer.sh start</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 内置zookeeper启动命令</span></span><br><span class="line">bin/zookeeper-server-start.sh config/zookeeper.properties</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> zookeeper启动命令</span><br><span class="line">bin/zkServer.sh start</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 内置zookeeper启动命令</span><br><span class="line">bin/zookeeper-server-start.sh config/zookeeper.properties</span><br></pre></td></tr></table></figure>
 <p>启动单节点 kafka 用于测试：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> bin/kafka-server-start.sh config/server.properties</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-创建-Topic"><a href="#2-创建-Topic" class="headerlink" title="2. 创建 Topic"></a>2. 创建 Topic</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建用于测试主题</span></span><br><span class="line">bin/kafka-topics.sh --create \</span><br><span class="line">                    --bootstrap-server hadoop001:9092 \</span><br><span class="line">                    --replication-factor 1 \</span><br><span class="line">                    --partitions 1  \</span><br><span class="line">                    --topic flink-stream-in-topic</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有主题</span></span><br><span class="line"> bin/kafka-topics.sh --list --bootstrap-server hadoop001:9092</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure>
+<h4 id="2-创建-Topic"><a href="#2-创建-Topic" class="headerlink" title="2. 创建 Topic"></a>2. 创建 Topic</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 创建用于测试主题</span><br><span class="line">bin/kafka-topics.sh --create \</span><br><span class="line">                    --bootstrap-server hadoop001:9092 \</span><br><span class="line">                    --replication-factor 1 \</span><br><span class="line">                    --partitions 1  \</span><br><span class="line">                    --topic flink-stream-in-topic</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看所有主题</span><br><span class="line"> bin/kafka-topics.sh --list --bootstrap-server hadoop001:9092</span><br></pre></td></tr></table></figure>
 <h4 id="3-启动-Producer"><a href="#3-启动-Producer" class="headerlink" title="3. 启动 Producer"></a>3. 启动 Producer</h4><p>这里 启动一个 Kafka 生产者，用于发送测试数据：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list hadoop001:9092 --topic flink-stream-in-topic</span><br></pre></td></tr></table></figure>
 <h4 id="4-测试结果"><a href="#4-测试结果" class="headerlink" title="4. 测试结果"></a>4. 测试结果</h4><p>在 Producer 上输入任意测试数据，之后观察程序控制台的输出：</p>
@@ -600,8 +600,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Flink核心概念综述/" rel="next" title="Flink 核心概念综述">
-                <i class="fa fa-chevron-left"></i> Flink 核心概念综述
+              <a href="/2021/03/17/Flink_Data_Transformation/" rel="next" title="Flink Transformation">
+                <i class="fa fa-chevron-left"></i> Flink Transformation
               </a>
             
           </div>
@@ -610,8 +610,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/Flink开发环境搭建/" rel="prev" title="Flink 开发环境搭建">
-                Flink 开发环境搭建 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/Flink_Windows/" rel="prev" title="Flink Windows">
+                Flink Windows <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -694,7 +694,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -705,7 +705,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -716,7 +716,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
