@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、简介Hive 是一个构建在 Hadoop 之上的数据仓库，它可以将结构化的数据文件映射成表，并提供类 SQL 查询功能，用于查询的 SQL 语句会被转化为 MapReduce 作业，然后提交到 Hadoop 上运行。 特点：  简单、容易上手 (提供了类似 sql 的查询语言 hql)，使得精通 sql 但是不了解 Java 编程的人也能很好地进行大数据分析； 灵活性高，可以自定义用户函数 (">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive体系架构.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-data-type.png">
-<meta property="og:updated_time" content="2021-03-18T01:55:00.713Z">
+<meta property="og:image" content="http://yoursite.com/images/hive体系架构.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-data-type.png">
+<meta property="og:updated_time" content="2021-03-20T07:58:00.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive简介及核心概念">
 <meta name="twitter:description" content="一、简介Hive 是一个构建在 Hadoop 之上的数据仓库，它可以将结构化的数据文件映射成表，并提供类 SQL 查询功能，用于查询的 SQL 语句会被转化为 MapReduce 作业，然后提交到 Hadoop 上运行。 特点：  简单、容易上手 (提供了类似 sql 的查询语言 hql)，使得精通 sql 但是不了解 Java 编程的人也能很好地进行大数据分析； 灵活性高，可以自定义用户函数 (">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/18/pictures/hive体系架构.png">
+<meta name="twitter:image" content="http://yoursite.com/images/hive体系架构.png">
 
 
 
@@ -430,7 +430,7 @@
 <li>统一的元数据管理，可与 presto／impala／sparksql 等共享数据；</li>
 <li>执行延迟高，不适合做数据的实时处理，但适合做海量数据的离线处理。</li>
 </ol>
-<h2 id="二、Hive的体系架构"><a href="#二、Hive的体系架构" class="headerlink" title="二、Hive的体系架构"></a>二、Hive的体系架构</h2><div align="center"> <img width="600px" src="../pictures/hive体系架构.png"> </div>
+<h2 id="二、Hive的体系架构"><a href="#二、Hive的体系架构" class="headerlink" title="二、Hive的体系架构"></a>二、Hive的体系架构</h2><div align="center"> <img width="600px" src="/images/hive体系架构.png"> </div>
 
 <h3 id="2-1-command-line-shell-amp-thrift-jdbc"><a href="#2-1-command-line-shell-amp-thrift-jdbc" class="headerlink" title="2.1 command-line shell &amp; thrift/jdbc"></a>2.1 command-line shell &amp; thrift/jdbc</h3><p>可以用 command-line shell 和 thrift／jdbc 两种方式来操作数据：</p>
 <ul>
@@ -498,7 +498,7 @@
 </ul>
 </blockquote>
 <h3 id="3-2-隐式转换"><a href="#3-2-隐式转换" class="headerlink" title="3.2 隐式转换"></a>3.2 隐式转换</h3><p>Hive 中基本数据类型遵循以下的层次结构，按照这个层次结构，子类型到祖先类型允许隐式转换。例如 INT 类型的数据允许隐式转换为 BIGINT 类型。额外注意的是：按照类型层次结构允许将 STRING 类型隐式转换为 DOUBLE 类型。</p>
-<div align="center"> <img src="../pictures/hive-data-type.png"> </div>
+<div align="center"> <img src="/images/hive-data-type.png"> </div>
 
 
 
@@ -699,8 +699,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Hbase系统架构及数据结构/" rel="next" title="Hbase系统架构及数据结构">
-                <i class="fa fa-chevron-left"></i> Hbase系统架构及数据结构
+              <a href="/2021/03/18/Hive视图和索引/" rel="next" title="Hive 视图和索引">
+                <i class="fa fa-chevron-left"></i> Hive 视图和索引
               </a>
             
           </div>
@@ -709,8 +709,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/18/Hive视图和索引/" rel="prev" title="Hive 视图和索引">
-                Hive 视图和索引 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/18/Hive数据查询详解/" rel="prev" title="Hive数据查询详解">
+                Hive数据查询详解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -793,7 +793,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -804,7 +804,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -815,7 +815,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

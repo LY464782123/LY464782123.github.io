@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、基本依赖Curator 是 Netflix 公司开源的一个 Zookeeper 客户端，目前由 Apache 进行维护。与 Zookeeper 原生客户端相比，Curator 的抽象层次更高，功能也更加丰富，是目前 Zookeeper 使用范围最广的 Java 客户端。本篇文章主要讲解其基本使用，项目采用 Maven 构建，以单元测试的方法进行讲解，相关依赖如下： 12345678910111">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/curator-retry-policy.png">
-<meta property="og:updated_time" content="2021-03-17T13:50:13.971Z">
+<meta property="og:image" content="http://yoursite.com/images/curator-retry-policy.png">
+<meta property="og:updated_time" content="2021-03-20T08:01:00.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zookeeper Java 客户端">
 <meta name="twitter:description" content="一、基本依赖Curator 是 Netflix 公司开源的一个 Zookeeper 客户端，目前由 Apache 进行维护。与 Zookeeper 原生客户端相比，Curator 的抽象层次更高，功能也更加丰富，是目前 Zookeeper 使用范围最广的 Java 客户端。本篇文章主要讲解其基本使用，项目采用 Maven 构建，以单元测试的方法进行讲解，相关依赖如下： 12345678910111">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/curator-retry-policy.png">
+<meta name="twitter:image" content="http://yoursite.com/images/curator-retry-policy.png">
 
 
 
@@ -428,7 +428,7 @@
 <h2 id="二、客户端相关操作"><a href="#二、客户端相关操作" class="headerlink" title="二、客户端相关操作"></a>二、客户端相关操作</h2><h3 id="2-1-创建客户端实例"><a href="#2-1-创建客户端实例" class="headerlink" title="2.1 创建客户端实例"></a>2.1 创建客户端实例</h3><p>这里使用 <code>@Before</code> 在单元测试执行前创建客户端实例，并使用 <code>@After</code> 在单元测试后关闭客户端连接。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BasicOperation</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> CuratorFramework client = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String zkServerPath = <span class="string">"192.168.0.226:2181"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String nodePath = <span class="string">"/hadoop/yarn"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 重试策略</span></span><br><span class="line">        RetryPolicy retryPolicy = <span class="keyword">new</span> RetryNTimes(<span class="number">3</span>, <span class="number">5000</span>);</span><br><span class="line">        client = CuratorFrameworkFactory.builder()</span><br><span class="line">        .connectString(zkServerPath)</span><br><span class="line">        .sessionTimeoutMs(<span class="number">10000</span>).retryPolicy(retryPolicy)</span><br><span class="line">        .namespace(<span class="string">"workspace"</span>).build();  <span class="comment">//指定命名空间后，client 的所有路径操作都会以/workspace 开头</span></span><br><span class="line">        client.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (client != <span class="keyword">null</span>) &#123;</span><br><span class="line">            client.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="2-2-重试策略"><a href="#2-2-重试策略" class="headerlink" title="2.2 重试策略"></a>2.2 重试策略</h3><p>在连接 Zookeeper 时，Curator 提供了多种重试策略以满足各种需求，所有重试策略均继承自 <code>RetryPolicy</code> 接口，如下图：</p>
-<div align="center"> <img src="../pictures/curator-retry-policy.png"> </div>
+<div align="center"> <img src="/images/curator-retry-policy.png"> </div>
 
 <p>这些重试策略类主要分为以下两类：</p>
 <ul>
@@ -659,7 +659,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -670,7 +670,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -681,7 +681,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

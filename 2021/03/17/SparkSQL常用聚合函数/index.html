@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、简单聚合1.1 数据准备12345678// 需要导入 spark sql 内置的函数包import org.apache.spark.sql.functions._val spark = SparkSession.builder().appName(&quot;aggregations&quot;).master(&quot;local[2]&quot;).getOrCreate()val empDF = spark.read.j">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-sql-自定义函数.png">
-<meta property="og:updated_time" content="2021-03-17T15:09:01.487Z">
+<meta property="og:image" content="http://yoursite.com/images/spark-sql-自定义函数.png">
+<meta property="og:updated_time" content="2021-03-20T08:00:15.119Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聚合函数Aggregations">
 <meta name="twitter:description" content="一、简单聚合1.1 数据准备12345678// 需要导入 spark sql 内置的函数包import org.apache.spark.sql.functions._val spark = SparkSession.builder().appName(&quot;aggregations&quot;).master(&quot;local[2]&quot;).getOrCreate()val empDF = spark.read.j">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/spark-sql-自定义函数.png">
+<meta name="twitter:image" content="http://yoursite.com/images/spark-sql-自定义函数.png">
 
 
 
@@ -449,7 +449,7 @@
 <p>以下分别使用两种方式来自定义一个求平均值的聚合函数，这里以计算员工平均工资为例。两种自定义方式分别如下：</p>
 <h3 id="3-1-有类型的自定义函数"><a href="#3-1-有类型的自定义函数" class="headerlink" title="3.1 有类型的自定义函数"></a>3.1 有类型的自定义函数</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.expressions.<span class="type">Aggregator</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.&#123;<span class="type">Encoder</span>, <span class="type">Encoders</span>, <span class="type">SparkSession</span>, functions&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.定义员工类,对于可能存在 null 值的字段需要使用 Option 进行包装</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Emp</span>(<span class="params">ename: <span class="type">String</span>, comm: scala.<span class="type">Option</span>[<span class="type">Double</span>], deptno: <span class="type">Long</span>, empno: <span class="type">Long</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">               hiredate: <span class="type">String</span>, job: <span class="type">String</span>, mgr: scala.<span class="type">Option</span>[<span class="type">Long</span>], sal: <span class="type">Double</span></span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">//</span> 2.<span class="title">定义聚合操作的中间输出类型</span></span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">class</span> <span class="title">SumAndCount</span>(<span class="params">var sum: <span class="type">Double</span>, var count: <span class="type">Long</span></span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">/*</span> 3.<span class="title">自定义聚合函数</span></span></span><br><span class="line"><span class="class"> <span class="title">*</span> <span class="title">@IN</span>  <span class="title">聚合操作的输入类型</span></span></span><br><span class="line"><span class="class"> <span class="title">*</span> <span class="title">@BUF</span> <span class="title">reduction</span> <span class="title">操作输出值的类型</span></span></span><br><span class="line"><span class="class"> <span class="title">*</span> <span class="title">@OUT</span> <span class="title">聚合操作的输出类型</span></span></span><br><span class="line"><span class="class"> <span class="title">*/</span></span></span><br><span class="line"><span class="class"><span class="title">object</span> <span class="title">MyAverage</span> <span class="keyword">extends</span> <span class="title">Aggregator</span>[<span class="type">Emp</span>, <span class="type">SumAndCount</span>, <span class="type">Double</span>] </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4.用于聚合操作的的初始零值</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">zero</span></span>: <span class="type">SumAndCount</span> = <span class="type">SumAndCount</span>(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 5.同一分区中的 reduce 操作</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">reduce</span></span>(avg: <span class="type">SumAndCount</span>, emp: <span class="type">Emp</span>): <span class="type">SumAndCount</span> = &#123;</span><br><span class="line">        avg.sum += emp.sal</span><br><span class="line">        avg.count += <span class="number">1</span></span><br><span class="line">        avg</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 6.不同分区中的 merge 操作</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">merge</span></span>(avg1: <span class="type">SumAndCount</span>, avg2: <span class="type">SumAndCount</span>): <span class="type">SumAndCount</span> = &#123;</span><br><span class="line">        avg1.sum += avg2.sum</span><br><span class="line">        avg1.count += avg2.count</span><br><span class="line">        avg1</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7.定义最终的输出类型</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">finish</span></span>(reduction: <span class="type">SumAndCount</span>): <span class="type">Double</span> = reduction.sum / reduction.count</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 8.中间类型的编码转换</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">bufferEncoder</span></span>: <span class="type">Encoder</span>[<span class="type">SumAndCount</span>] = <span class="type">Encoders</span>.product</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 9.输出类型的编码转换</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">outputEncoder</span></span>: <span class="type">Encoder</span>[<span class="type">Double</span>] = <span class="type">Encoders</span>.scalaDouble</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">SparkSqlApp</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().appName(<span class="string">"Spark-SQL"</span>).master(<span class="string">"local[2]"</span>).getOrCreate()</span><br><span class="line">        <span class="keyword">import</span> spark.implicits._</span><br><span class="line">        <span class="keyword">val</span> ds = spark.read.json(<span class="string">"file/emp.json"</span>).as[<span class="type">Emp</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 10.使用内置 avg() 函数和自定义函数分别进行计算，验证自定义函数是否正确</span></span><br><span class="line">        <span class="keyword">val</span> myAvg = ds.select(<span class="type">MyAverage</span>.toColumn.name(<span class="string">"average_sal"</span>)).first()</span><br><span class="line">        <span class="keyword">val</span> avg = ds.select(functions.avg(ds.col(<span class="string">"sal"</span>))).first().get(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        println(<span class="string">"自定义 average 函数 : "</span> + myAvg)</span><br><span class="line">        println(<span class="string">"内置的 average 函数 : "</span> + avg)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>自定义聚合函数需要实现的方法比较多，这里以绘图的方式来演示其执行流程，以及每个方法的作用：</p>
-<div align="center"> <img src="../pictures/spark-sql-自定义函数.png"> </div>
+<div align="center"> <img src="/images/spark-sql-自定义函数.png"> </div>
 
 
 
@@ -520,8 +520,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Spark_Streaming与流处理/" rel="next" title="Spark Streaming与流处理">
-                <i class="fa fa-chevron-left"></i> Spark Streaming与流处理
+              <a href="/2021/03/17/SparkSQL联结操作/" rel="next" title="Spark SQL JOIN">
+                <i class="fa fa-chevron-left"></i> Spark SQL JOIN
               </a>
             
           </div>
@@ -530,8 +530,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/Spark_RDD/" rel="prev" title="弹性式数据集RDDs">
-                弹性式数据集RDDs <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/SparkSQL_Dataset和DataFrame简介/" rel="prev" title="DataFrame和Dataset简介">
+                DataFrame和Dataset简介 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -614,7 +614,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -625,7 +625,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -636,7 +636,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

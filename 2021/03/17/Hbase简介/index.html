@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、Hadoop的局限HBase 是一个构建在 Hadoop 文件系统之上的面向列的数据库管理系统。     要想明白为什么产生 HBase，就需要先了解一下 Hadoop 存在的限制？Hadoop 可以通过 HDFS 来存储结构化、半结构甚至非结构化的数据，它是传统数据库的补充，是海量数据存储的最佳方法，它针对大文件的存储，批量访问和流式访问都做了优化，同时也通过多副本解决了容灾问题。 但是 H">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/hbase.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/HBase_table-iteblog.png">
-<meta property="og:updated_time" content="2021-03-17T15:21:51.454Z">
+<meta property="og:image" content="http://yoursite.com/images/hbase.jpg">
+<meta property="og:image" content="http://yoursite.com/images/HBase_table-iteblog.png">
+<meta property="og:updated_time" content="2021-03-20T07:56:53.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HBase简介">
 <meta name="twitter:description" content="一、Hadoop的局限HBase 是一个构建在 Hadoop 文件系统之上的面向列的数据库管理系统。     要想明白为什么产生 HBase，就需要先了解一下 Hadoop 存在的限制？Hadoop 可以通过 HDFS 来存储结构化、半结构甚至非结构化的数据，它是传统数据库的补充，是海量数据存储的最佳方法，它针对大文件的存储，批量访问和流式访问都做了优化，同时也通过多副本解决了容灾问题。 但是 H">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/hbase.jpg">
+<meta name="twitter:image" content="http://yoursite.com/images/hbase.jpg">
 
 
 
@@ -422,7 +422,7 @@
 
       
         <h2 id="一、Hadoop的局限"><a href="#一、Hadoop的局限" class="headerlink" title="一、Hadoop的局限"></a>一、Hadoop的局限</h2><p>HBase 是一个构建在 Hadoop 文件系统之上的面向列的数据库管理系统。</p>
-<div align="center"> <img src="../pictures/hbase.jpg"> </div>
+<div align="center"> <img src="/images/hbase.jpg"> </div>
 
 <p>要想明白为什么产生 HBase，就需要先了解一下 Hadoop 存在的限制？Hadoop 可以通过 HDFS 来存储结构化、半结构甚至非结构化的数据，它是传统数据库的补充，是海量数据存储的最佳方法，它针对大文件的存储，批量访问和流式访问都做了优化，同时也通过多副本解决了容灾问题。</p>
 <p>但是 Hadoop 的缺陷在于它只能执行批处理，并且只能以顺序方式访问数据，这意味着即使是最简单的工作，也必须搜索整个数据集，无法实现对数据的随机访问。实现数据的随机访问是传统的关系型数据库所擅长的，但它们却不能用于海量数据的存储。在这种情况下，必须有一种新的方案来解决海量数据存储和随机访问的问题，HBase 就是其中之一 (HBase，Cassandra，couchDB，Dynamo 和 MongoDB 都能存储海量数据并支持随机访问)。</p>
@@ -453,7 +453,7 @@
 <li>该表具有两个列族，分别是 personal 和 office;</li>
 <li>其中列族 personal 拥有 name、city、phone 三个列，列族 office 拥有 tel、addres 两个列。</li>
 </ul>
-<div align="center"> <img src="../pictures/HBase_table-iteblog.png"> </div>
+<div align="center"> <img src="/images/HBase_table-iteblog.png"> </div>
 
 <blockquote>
 <p><em>图片引用自 : HBase 是列式存储数据库吗</em> <em><a href="https://www.iteblog.com/archives/2498.html" target="_blank" rel="noopener">https://www.iteblog.com/archives/2498.html</a></em></p>
@@ -626,7 +626,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -637,7 +637,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -648,7 +648,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

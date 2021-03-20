@@ -87,20 +87,20 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、Sqoop 基本命令1. 查看所有命令1# sqoop help      2. 查看某条命令的具体使用方法1# sqoop help 命令名 二、Sqoop 与 MySQL1. 查询MySQL所有数据库通常用于 Sqoop 与 MySQL 连通测试： 1234sqoop list-databases \--connect jdbc:mysql://hadoop001:3306/ \--use">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/sqoop-help.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/sqoop-list-databases.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/sqoop-map-task.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/sqoop_hdfs_ls.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/sqoop_hive_tables.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/sqoop_hive_error.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/sqoop-hive-location.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/sqoop-hive-hdfs.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/sqoop_hbase.png">
-<meta property="og:updated_time" content="2021-03-17T11:04:46.658Z">
+<meta property="og:image" content="http://yoursite.com/images/sqoop-help.png">
+<meta property="og:image" content="http://yoursite.com/images/sqoop-list-databases.png">
+<meta property="og:image" content="http://yoursite.com/images/sqoop-map-task.png">
+<meta property="og:image" content="http://yoursite.com/images/sqoop_hdfs_ls.png">
+<meta property="og:image" content="http://yoursite.com/images/sqoop_hive_tables.png">
+<meta property="og:image" content="http://yoursite.com/images/sqoop_hive_error.png">
+<meta property="og:image" content="http://yoursite.com/images/sqoop-hive-location.png">
+<meta property="og:image" content="http://yoursite.com/images/sqoop-hive-hdfs.png">
+<meta property="og:image" content="http://yoursite.com/images/sqoop_hbase.png">
+<meta property="og:updated_time" content="2021-03-20T08:00:45.525Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sqoop基本使用">
 <meta name="twitter:description" content="一、Sqoop 基本命令1. 查看所有命令1# sqoop help      2. 查看某条命令的具体使用方法1# sqoop help 命令名 二、Sqoop 与 MySQL1. 查询MySQL所有数据库通常用于 Sqoop 与 MySQL 连通测试： 1234sqoop list-databases \--connect jdbc:mysql://hadoop001:3306/ \--use">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/sqoop-help.png">
+<meta name="twitter:image" content="http://yoursite.com/images/sqoop-help.png">
 
 
 
@@ -429,13 +429,13 @@
 
       
         <h2 id="一、Sqoop-基本命令"><a href="#一、Sqoop-基本命令" class="headerlink" title="一、Sqoop 基本命令"></a>一、Sqoop 基本命令</h2><h3 id="1-查看所有命令"><a href="#1-查看所有命令" class="headerlink" title="1. 查看所有命令"></a>1. 查看所有命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sqoop <span class="built_in">help</span></span></span><br></pre></td></tr></table></figure>
-<div align="center"> <img src="../pictures/sqoop-help.png"> </div>
+<div align="center"> <img src="/images/sqoop-help.png"> </div>
 
 <p><br></p>
 <h3 id="2-查看某条命令的具体使用方法"><a href="#2-查看某条命令的具体使用方法" class="headerlink" title="2. 查看某条命令的具体使用方法"></a>2. 查看某条命令的具体使用方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sqoop <span class="built_in">help</span> 命令名</span></span><br></pre></td></tr></table></figure>
 <h2 id="二、Sqoop-与-MySQL"><a href="#二、Sqoop-与-MySQL" class="headerlink" title="二、Sqoop 与 MySQL"></a>二、Sqoop 与 MySQL</h2><h3 id="1-查询MySQL所有数据库"><a href="#1-查询MySQL所有数据库" class="headerlink" title="1. 查询MySQL所有数据库"></a>1. 查询MySQL所有数据库</h3><p>通常用于 Sqoop 与 MySQL 连通测试：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sqoop list-databases \</span><br><span class="line">--connect jdbc:mysql://hadoop001:3306/ \</span><br><span class="line">--username root \</span><br><span class="line">--password root</span><br></pre></td></tr></table></figure>
-<div align="center"> <img src="../pictures/sqoop-list-databases.png"> </div>
+<div align="center"> <img src="/images/sqoop-list-databases.png"> </div>
 
 <p><br></p>
 <h3 id="2-查询指定数据库中所有数据表"><a href="#2-查询指定数据库中所有数据表" class="headerlink" title="2. 查询指定数据库中所有数据表"></a>2. 查询指定数据库中所有数据表</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sqoop list-tables \</span><br><span class="line">--connect jdbc:mysql://hadoop001:3306/mysql \</span><br><span class="line">--username root \</span><br><span class="line">--password root</span><br></pre></td></tr></table></figure>
@@ -449,11 +449,11 @@
 <li>添加 <code>-- autoreset-to-one-mapper</code> 参数，代表只启动一个 <code>map task</code>，即不并行执行；</li>
 <li>若仍希望并行执行，则可以使用 <code>--split-by &lt;column-name&gt;</code> 指明拆分数据的参考列。</li>
 </ul>
-<div align="center"> <img src="../pictures/sqoop-map-task.png"> </div>
+<div align="center"> <img src="/images/sqoop-map-task.png"> </div>
 
 <h4 id="2-导入验证"><a href="#2-导入验证" class="headerlink" title="2. 导入验证"></a>2. 导入验证</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看导入后的目录</span></span><br><span class="line">hadoop fs -ls  -R /sqoop</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看导入内容</span></span><br><span class="line">hadoop fs -text  /sqoop/part-m-00000</span><br></pre></td></tr></table></figure>
 <p>查看 HDFS 导入目录,可以看到表中数据被分为 3 部分进行存储，这是由指定的并行度决定的。</p>
-<div align="center"> <img src="../pictures/sqoop_hdfs_ls.png"> </div>
+<div align="center"> <img src="/images/sqoop_hdfs_ls.png"> </div>
 
 <p><br></p>
 <h3 id="3-2-HDFS数据导出到MySQL"><a href="#3-2-HDFS数据导出到MySQL" class="headerlink" title="3.2 HDFS数据导出到MySQL"></a>3.2 HDFS数据导出到MySQL</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sqoop export  \</span><br><span class="line">    --connect jdbc:mysql://hadoop001:3306/mysql \</span><br><span class="line">    --username root \</span><br><span class="line">    --password root \</span><br><span class="line">    --table help_keyword_from_hdfs \        # 导出数据存储在 MySQL 的 help_keyword_from_hdf 的表中</span><br><span class="line">    --export-dir /sqoop  \</span><br><span class="line">    --input-fields-terminated-by '\t'\</span><br><span class="line">    --m 3</span><br></pre></td></tr></table></figure>
@@ -464,9 +464,9 @@
 <p>导入到 Hive 中的 <code>sqoop_test</code> 数据库需要预先创建，不指定则默认使用 Hive 中的 <code>default</code> 库。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看 hive 中的所有数据库</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash">  SHOW DATABASES;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建 sqoop_test 数据库</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash">  CREATE DATABASE sqoop_test;</span></span><br></pre></td></tr></table></figure>
 <h4 id="2-导入验证-1"><a href="#2-导入验证-1" class="headerlink" title="2. 导入验证"></a>2. 导入验证</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看 sqoop_test 数据库的所有表</span></span><br><span class="line"><span class="meta"> hive&gt;</span><span class="bash">  SHOW  TABLES  IN  sqoop_test;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看表中数据</span></span><br><span class="line"><span class="meta"> hive&gt;</span><span class="bash"> SELECT * FROM sqoop_test.help_keyword;</span></span><br></pre></td></tr></table></figure>
-<div align="center"> <img src="../pictures/sqoop_hive_tables.png"> </div>
+<div align="center"> <img src="/images/sqoop_hive_tables.png"> </div>
 
-<h4 id="3-可能出现的问题"><a href="#3-可能出现的问题" class="headerlink" title="3. 可能出现的问题"></a>3. 可能出现的问题</h4><div align="center"> <img src="../pictures/sqoop_hive_error.png"> </div>
+<h4 id="3-可能出现的问题"><a href="#3-可能出现的问题" class="headerlink" title="3. 可能出现的问题"></a>3. 可能出现的问题</h4><div align="center"> <img src="/images/sqoop_hive_error.png"> </div>
 
 <p><br></p>
 <p>如果执行报错 <code>java.io.IOException: java.lang.ClassNotFoundException: org.apache.hadoop.hive.conf.HiveConf</code>，则需将 Hive 安装目录下 <code>lib</code> 下的 <code>hive-exec-**.jar</code> 放到 sqoop 的 <code>lib</code> 。</p>
@@ -475,10 +475,10 @@
 <h3 id="4-2-Hive-导出数据到MySQL"><a href="#4-2-Hive-导出数据到MySQL" class="headerlink" title="4.2 Hive 导出数据到MySQL"></a>4.2 Hive 导出数据到MySQL</h3><p>由于 Hive 的数据是存储在 HDFS 上的，所以 Hive 导入数据到 MySQL，实际上就是 HDFS 导入数据到 MySQL。</p>
 <h4 id="1-查看Hive表在HDFS的存储位置"><a href="#1-查看Hive表在HDFS的存储位置" class="headerlink" title="1. 查看Hive表在HDFS的存储位置"></a>1. 查看Hive表在HDFS的存储位置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 进入对应的数据库</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> use sqoop_test;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看表信息</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> desc formatted help_keyword;</span></span><br></pre></td></tr></table></figure>
 <p><code>Location</code> 属性为其存储位置：</p>
-<div align="center"> <img src="../pictures/sqoop-hive-location.png"> </div>
+<div align="center"> <img src="/images/sqoop-hive-location.png"> </div>
 
 <p>这里可以查看一下这个目录，文件结构如下：</p>
-<div align="center"> <img src="../pictures/sqoop-hive-hdfs.png"> </div>
+<div align="center"> <img src="/images/sqoop-hive-hdfs.png"> </div>
 
 <h4 id="3-2-执行导出命令"><a href="#3-2-执行导出命令" class="headerlink" title="3.2 执行导出命令"></a>3.2 执行导出命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sqoop export  \</span><br><span class="line">    --connect jdbc:mysql://hadoop001:3306/mysql \</span><br><span class="line">    --username root \</span><br><span class="line">    --password root \</span><br><span class="line">    --table help_keyword_from_hive \</span><br><span class="line">    --export-dir /user/hive/warehouse/sqoop_test.db/help_keyword  \</span><br><span class="line">    -input-fields-terminated-by '\001' \             # 需要注意的是 hive 中默认的分隔符为 \001</span><br><span class="line">    --m 3</span><br></pre></td></tr></table></figure>
 <p>MySQL 中的表需要预先创建：</p>
@@ -491,7 +491,7 @@
 <p>导入的 HBase 表需要预先创建：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看所有表</span></span><br><span class="line"><span class="meta">hbase&gt;</span><span class="bash"> list</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建表</span></span><br><span class="line"><span class="meta">hbase&gt;</span><span class="bash"> create <span class="string">'help_keyword_hbase'</span>, <span class="string">'keywordInfo'</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看表信息</span></span><br><span class="line"><span class="meta">hbase&gt;</span><span class="bash"> desc <span class="string">'help_keyword_hbase'</span></span></span><br></pre></td></tr></table></figure>
 <h4 id="2-导入验证-2"><a href="#2-导入验证-2" class="headerlink" title="2. 导入验证"></a>2. 导入验证</h4><p>使用 <code>scan</code> 查看表数据：</p>
-<div align="center"> <img src="../pictures/sqoop_hbase.png"> </div>
+<div align="center"> <img src="/images/sqoop_hbase.png"> </div>
 
 
 
@@ -685,7 +685,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -696,7 +696,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -707,7 +707,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

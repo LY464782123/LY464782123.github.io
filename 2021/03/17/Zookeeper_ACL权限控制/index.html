@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、前言为了避免存储在 Zookeeper 上的数据被其他程序或者人为误修改，Zookeeper 提供了 ACL(Access Control Lists) 进行权限控制。只有拥有对应权限的用户才可以对节点进行增删改查等操作。下文分别介绍使用原生的 Shell 命令和 Apache Curator 客户端进行权限设置。 二、使用Shell进行权限管理2.1 设置与查看权限想要给某个节点设置权限 (">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/zookeeper-super.png">
-<meta property="og:updated_time" content="2021-03-17T13:49:37.185Z">
+<meta property="og:image" content="http://yoursite.com/images/zookeeper-super.png">
+<meta property="og:updated_time" content="2021-03-20T08:00:56.107Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zookeeper ACL">
 <meta name="twitter:description" content="一、前言为了避免存储在 Zookeeper 上的数据被其他程序或者人为误修改，Zookeeper 提供了 ACL(Access Control Lists) 进行权限控制。只有拥有对应权限的用户才可以对节点进行增删改查等操作。下文分别介绍使用原生的 Shell 命令和 Apache Curator 客户端进行权限设置。 二、使用Shell进行权限管理2.1 设置与查看权限想要给某个节点设置权限 (">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/zookeeper-super.png">
+<meta name="twitter:image" content="http://yoursite.com/images/zookeeper-super.png">
 
 
 
@@ -454,7 +454,7 @@
 <p>这里可以看到当前主机已经不能访问，想要能够再次访问，可以使用对应 IP 的客户端，或使用下面介绍的 <code>super</code> 模式。</p>
 <h4 id="5-super模式"><a href="#5-super模式" class="headerlink" title="5. super模式"></a>5. super模式</h4><p>需要修改启动脚本 <code>zkServer.sh</code>，并在指定位置添加超级管理员账户和密码信息：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"-Dzookeeper.DigestAuthenticationProvider.superDigest=heibai:sCxtVJ1gPG8UW/jzFHR0A1ZKY5s="</span><br></pre></td></tr></table></figure>
-<div align="center"> <img src="../pictures/zookeeper-super.png"> </div>
+<div align="center"> <img src="/images/zookeeper-super.png"> </div>
 
 <p>修改完成后需要使用 <code>zkServer.sh restart</code> 重启服务，此时再次访问限制 IP 的节点：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 0] get /hive  #访问受限</span><br><span class="line">Authentication is not valid : /hive</span><br><span class="line">[zk: localhost:2181(CONNECTED) 1] addauth digest heibai:heibai  # 登录 (添加认证信息)</span><br><span class="line">[zk: localhost:2181(CONNECTED) 2] get /hive  #成功访问</span><br><span class="line">hive</span><br><span class="line">cZxid = 0x158</span><br><span class="line">ctime = Sat May 25 09:11:29 CST 2019</span><br><span class="line">mZxid = 0x158</span><br><span class="line">mtime = Sat May 25 09:11:29 CST 2019</span><br><span class="line">pZxid = 0x158</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 4</span><br><span class="line">numChildren = 0</span><br></pre></td></tr></table></figure>
@@ -615,7 +615,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -626,7 +626,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -637,7 +637,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

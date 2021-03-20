@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、简述截至到目前 (2019.04)，HBase 有两个主要的版本，分别是 1.x 和 2.x ，两个版本的 Java API 有所不同，1.x 中某些方法在 2.x 中被标识为 @deprecated 过时。所以下面关于 API 的样例，我会分别给出 1.x 和 2.x 两个版本。完整的代码见本仓库：   Java API 1.x Examples  Java API 2.x Examples">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/deprecated.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/hbase-arc.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/hbase-connection.png">
-<meta property="og:updated_time" content="2021-03-17T15:20:16.869Z">
+<meta property="og:image" content="http://yoursite.com/images/deprecated.png">
+<meta property="og:image" content="http://yoursite.com/images/hbase-arc.png">
+<meta property="og:image" content="http://yoursite.com/images/hbase-connection.png">
+<meta property="og:updated_time" content="2021-03-20T07:57:00.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HBase Java API 的基本使用">
 <meta name="twitter:description" content="一、简述截至到目前 (2019.04)，HBase 有两个主要的版本，分别是 1.x 和 2.x ，两个版本的 Java API 有所不同，1.x 中某些方法在 2.x 中被标识为 @deprecated 过时。所以下面关于 API 的样例，我会分别给出 1.x 和 2.x 两个版本。完整的代码见本仓库：   Java API 1.x Examples  Java API 2.x Examples">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/deprecated.png">
+<meta name="twitter:image" content="http://yoursite.com/images/deprecated.png">
 
 
 
@@ -440,7 +440,7 @@
 <h2 id="三、Java-API-2-x-基本使用"><a href="#三、Java-API-2-x-基本使用" class="headerlink" title="三、Java API 2.x 基本使用"></a>三、Java API 2.x 基本使用</h2><h4 id="3-1-新建Maven工程，导入项目依赖"><a href="#3-1-新建Maven工程，导入项目依赖" class="headerlink" title="3.1 新建Maven工程，导入项目依赖"></a>3.1 新建Maven工程，导入项目依赖</h4><p>这里选取的 <code>HBase Client</code> 的版本为最新的 <code>2.1.4</code>。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hbase<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hbase-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h4 id="3-2-API-的基本使用"><a href="#3-2-API-的基本使用" class="headerlink" title="3.2 API 的基本使用"></a>3.2 API 的基本使用</h4><p>2.x 版本相比于 1.x 废弃了一部分方法，关于废弃的方法在源码中都会指明新的替代方法，比如，在 2.x 中创建表时：<code>HTableDescriptor</code> 和 <code>HColumnDescriptor</code> 等类都标识为废弃，取而代之的是使用 <code>TableDescriptorBuilder</code> 和 <code>ColumnFamilyDescriptorBuilder</code> 来定义表和列族。</p>
-<div align="center"> <img width="700px" src="../pictures/deprecated.png"> </div>
+<div align="center"> <img width="700px" src="/images/deprecated.png"> </div>
 
 
 
@@ -457,10 +457,10 @@
 <li><strong>HBase Master</strong> ：主要用于执行 HBaseAdmin 接口的一些操作，例如建表等；</li>
 <li><strong>HBase RegionServer</strong> ：用于读、写数据。</li>
 </ul>
-<div align="center"> <img width="700px" src="../pictures/hbase-arc.png"> </div>
+<div align="center"> <img width="700px" src="/images/hbase-arc.png"> </div>
 
 <p>Connection 对象和实际的 Socket 连接之间的对应关系如下图：</p>
-<div align="center"> <img width="700px" src="../pictures/hbase-connection.png"> </div>
+<div align="center"> <img width="700px" src="/images/hbase-connection.png"> </div>
 
 <blockquote>
 <p>上面两张图片引用自博客：<a href="https://yq.aliyun.com/articles/581702?spm=a2c4e.11157919.spm-cont-list.1.146c27aeFxoMsN%20%E8%BF%9E%E6%8E%A5HBase%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF" target="_blank" rel="noopener">连接 HBase 的正确姿势</a></p>
@@ -625,7 +625,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -636,7 +636,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -647,7 +647,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

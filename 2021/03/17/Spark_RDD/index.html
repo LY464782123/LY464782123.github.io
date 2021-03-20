@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、RDD简介RDD 全称为 Resilient Distributed Datasets，是 Spark 最基本的数据抽象，它是只读的、分区记录的集合，支持并行操作，可以由外部数据集或其他 RDD 转换而来，它具有以下特性：  一个 RDD 由一个或者多个分区（Partitions）组成。对于 RDD 来说，每个分区会被一个计算任务所处理，用户可以在创建 RDD 时指定其分区个数，如果没有指定，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/scala-分区数.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-reducebykey.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-窄依赖和宽依赖.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-DAG.png">
-<meta property="og:updated_time" content="2021-03-17T15:05:56.580Z">
+<meta property="og:image" content="http://yoursite.com/images/scala-分区数.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-reducebykey.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-窄依赖和宽依赖.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-DAG.png">
+<meta property="og:updated_time" content="2021-03-20T07:59:31.416Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="弹性式数据集RDDs">
 <meta name="twitter:description" content="一、RDD简介RDD 全称为 Resilient Distributed Datasets，是 Spark 最基本的数据抽象，它是只读的、分区记录的集合，支持并行操作，可以由外部数据集或其他 RDD 转换而来，它具有以下特性：  一个 RDD 由一个或者多个分区（Partitions）组成。对于 RDD 来说，每个分区会被一个计算任务所处理，用户可以在创建 RDD 时指定其分区个数，如果没有指定，">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/scala-分区数.png">
+<meta name="twitter:image" content="http://yoursite.com/images/scala-分区数.png">
 
 
 
@@ -441,7 +441,7 @@
 <p>由现有集合创建 RDD，你可以在创建时指定其分区个数，如果没有指定，则采用程序所分配到的 CPU 的核心数：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> data = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="comment">// 由现有集合创建 RDD,默认分区数为程序所分配到的 CPU 的核心数</span></span><br><span class="line"><span class="keyword">val</span> dataRDD = sc.parallelize(data) </span><br><span class="line"><span class="comment">// 查看分区数</span></span><br><span class="line">dataRDD.getNumPartitions</span><br><span class="line"><span class="comment">// 明确指定分区数</span></span><br><span class="line"><span class="keyword">val</span> dataRDD = sc.parallelize(data,<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 <p>执行结果如下：</p>
-<div align="center"> <img src="../pictures/scala-分区数.png"> </div>
+<div align="center"> <img src="/images/scala-分区数.png"> </div>
 
 <h3 id="2-2-引用外部存储系统中的数据集"><a href="#2-2-引用外部存储系统中的数据集" class="headerlink" title="2.2 引用外部存储系统中的数据集"></a>2.2 引用外部存储系统中的数据集</h3><p>引用外部存储系统中的数据集，例如本地文件系统，HDFS，HBase 或支持 Hadoop InputFormat 的任何数据源。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> fileRDD = sc.textFile(<span class="string">"/usr/file/emp.txt"</span>)</span><br><span class="line"><span class="comment">// 获取第一行文本</span></span><br><span class="line">fileRDD.take(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
@@ -511,7 +511,7 @@
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 所有存储级别均定义在 StorageLevel 对象中</span></span><br><span class="line">fileRDD.persist(<span class="type">StorageLevel</span>.<span class="type">MEMORY_AND_DISK</span>)</span><br><span class="line">fileRDD.cache()</span><br></pre></td></tr></table></figure>
 <h3 id="4-3-移除缓存"><a href="#4-3-移除缓存" class="headerlink" title="4.3 移除缓存"></a>4.3 移除缓存</h3><p>Spark 会自动监视每个节点上的缓存使用情况，并按照最近最少使用（LRU）的规则删除旧数据分区。当然，你也可以使用 <code>RDD.unpersist()</code> 方法进行手动删除。</p>
 <h2 id="五、理解shuffle"><a href="#五、理解shuffle" class="headerlink" title="五、理解shuffle"></a>五、理解shuffle</h2><h3 id="5-1-shuffle介绍"><a href="#5-1-shuffle介绍" class="headerlink" title="5.1 shuffle介绍"></a>5.1 shuffle介绍</h3><p>在 Spark 中，一个任务对应一个分区，通常不会跨分区操作数据。但如果遇到 <code>reduceByKey</code> 等操作，Spark 必须从所有分区读取数据，并查找所有键的所有值，然后汇总在一起以计算每个键的最终结果 ，这称为 <code>Shuffle</code>。</p>
-<div align="center"> <img width="600px" src="../pictures/spark-reducebykey.png"> </div>
+<div align="center"> <img width="600px" src="/images/spark-reducebykey.png"> </div>
 
 
 
@@ -528,7 +528,7 @@
 <li><strong>宽依赖 (wide dependency)</strong>：父 RDDs 的一个分区可以被子 RDDs 的多个子分区所依赖。</li>
 </ul>
 <p>如下图，每一个方框表示一个 RDD，带有颜色的矩形表示分区：</p>
-<div align="center"> <img width="600px" src="../pictures/spark-窄依赖和宽依赖.png"> </div>
+<div align="center"> <img width="600px" src="/images/spark-窄依赖和宽依赖.png"> </div>
 
 
 
@@ -542,7 +542,7 @@
 <li>对于窄依赖，由于分区的依赖关系是确定的，其转换操作可以在同一个线程执行，所以可以划分到同一个执行阶段；</li>
 <li>对于宽依赖，由于 Shuffle 的存在，只能在父 RDD(s) 被 Shuffle 处理完成后，才能开始接下来的计算，因此遇到宽依赖就需要重新划分阶段。</li>
 </ul>
-<div align="center"> <img width="600px" height="600px" src="../pictures/spark-DAG.png"> </div>
+<div align="center"> <img width="600px" height="600px" src="/images/spark-DAG.png"> </div>
 
 
 
@@ -609,8 +609,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/SparkSQL常用聚合函数/" rel="next" title="聚合函数Aggregations">
-                <i class="fa fa-chevron-left"></i> 聚合函数Aggregations
+              <a href="/2021/03/17/Spark_Streaming基本操作/" rel="next" title="Spark Streaming 基本操作">
+                <i class="fa fa-chevron-left"></i> Spark Streaming 基本操作
               </a>
             
           </div>
@@ -619,8 +619,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/SparkSQL联结操作/" rel="prev" title="Spark SQL JOIN">
-                Spark SQL JOIN <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/Spark_Streaming与流处理/" rel="prev" title="Spark Streaming与流处理">
+                Spark Streaming与流处理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -703,7 +703,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -714,7 +714,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -725,7 +725,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

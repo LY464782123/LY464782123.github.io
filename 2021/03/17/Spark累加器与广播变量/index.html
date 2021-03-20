@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、简介在 Spark 中，提供了两种类型的共享变量：累加器 (accumulator) 与广播变量 (broadcast variable)：  累加器：用来对信息进行聚合，主要用于累计计数等场景； 广播变量：主要用于在节点间高效分发大对象。  二、累加器这里先看一个具体的场景，对于正常的累计求和，如果在集群模式中使用下面的代码进行计算，会发现执行结果并非预期： 1234var counter">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-累加器1.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-集群模式.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-累加器方法.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-累加器2.png">
-<meta property="og:updated_time" content="2021-03-17T15:09:51.327Z">
+<meta property="og:image" content="http://yoursite.com/images/spark-累加器1.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-集群模式.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-累加器方法.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-累加器2.png">
+<meta property="og:updated_time" content="2021-03-20T08:00:28.856Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark 累加器与广播变量">
 <meta name="twitter:description" content="一、简介在 Spark 中，提供了两种类型的共享变量：累加器 (accumulator) 与广播变量 (broadcast variable)：  累加器：用来对信息进行聚合，主要用于累计计数等场景； 广播变量：主要用于在节点间高效分发大对象。  二、累加器这里先看一个具体的场景，对于正常的累计求和，如果在集群模式中使用下面的代码进行计算，会发现执行结果并非预期： 1234var counter">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/spark-累加器1.png">
+<meta name="twitter:image" content="http://yoursite.com/images/spark-累加器1.png">
 
 
 
@@ -431,7 +431,7 @@
 <h2 id="二、累加器"><a href="#二、累加器" class="headerlink" title="二、累加器"></a>二、累加器</h2><p>这里先看一个具体的场景，对于正常的累计求和，如果在集群模式中使用下面的代码进行计算，会发现执行结果并非预期：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> counter = <span class="number">0</span></span><br><span class="line"><span class="keyword">val</span> data = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line">sc.parallelize(data).foreach(x =&gt; counter += x)</span><br><span class="line"> println(counter)</span><br></pre></td></tr></table></figure>
 <p>counter 最后的结果是 0，导致这个问题的主要原因是闭包。</p>
-<div align="center"> <img src="../pictures/spark-累加器1.png"> </div>
+<div align="center"> <img src="/images/spark-累加器1.png"> </div>
 
 
 
@@ -448,14 +448,14 @@
 <p>在实际计算时，Spark 会将对 RDD 操作分解为 Task，Task 运行在 Worker Node 上。在执行之前，Spark 会对任务进行闭包，如果闭包内涉及到自由变量，则程序会进行拷贝，并将副本变量放在闭包中，之后闭包被序列化并发送给每个执行者。因此，当在 foreach 函数中引用 <code>counter</code> 时，它将不再是 Driver 节点上的 <code>counter</code>，而是闭包中的副本 <code>counter</code>，默认情况下，副本 <code>counter</code> 更新后的值不会回传到 Driver，所以 <code>counter</code> 的最终值仍然为零。</p>
 <p>需要注意的是：在 Local 模式下，有可能执行 <code>foreach</code> 的 Worker Node 与 Diver 处在相同的 JVM，并引用相同的原始 <code>counter</code>，这时候更新可能是正确的，但是在集群模式下一定不正确。所以在遇到此类问题时应优先使用累加器。</p>
 <p>累加器的原理实际上很简单：就是将每个副本变量的最终值传回 Driver，由 Driver 聚合后得到最终值，并更新原始变量。</p>
-<div align="center"> <img src="../pictures/spark-集群模式.png"> </div>
+<div align="center"> <img src="/images/spark-集群模式.png"> </div>
 
 <h3 id="2-2-使用累加器"><a href="#2-2-使用累加器" class="headerlink" title="2.2 使用累加器"></a>2.2 使用累加器</h3><p><code>SparkContext</code> 中定义了所有创建累加器的方法，需要注意的是：被中横线划掉的累加器方法在 Spark 2.0.0 之后被标识为废弃。</p>
-<div align="center"> <img src="../pictures/spark-累加器方法.png"> </div>
+<div align="center"> <img src="/images/spark-累加器方法.png"> </div>
 
 <p>使用示例和执行结果分别如下：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> data = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="comment">// 定义累加器</span></span><br><span class="line"><span class="keyword">val</span> accum = sc.longAccumulator(<span class="string">"My Accumulator"</span>)</span><br><span class="line">sc.parallelize(data).foreach(x =&gt; accum.add(x))</span><br><span class="line"><span class="comment">// 获取累加器的值</span></span><br><span class="line">accum.value</span><br></pre></td></tr></table></figure>
-<div align="center"> <img src="../pictures/spark-累加器2.png"> </div>
+<div align="center"> <img src="/images/spark-累加器2.png"> </div>
 
 
 
@@ -613,7 +613,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -624,7 +624,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -635,7 +635,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

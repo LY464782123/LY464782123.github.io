@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、Hive CLI1.1 Help使用 hive -H 或者 hive --help 命令可以查看所有命令的帮助，显示如下： 12345678910111213usage: hive -d,--define &amp;lt;key=value&amp;gt;          Variable subsitution to apply to hive">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-e.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-n-j.png">
-<meta property="og:updated_time" content="2021-03-18T01:53:38.099Z">
+<meta property="og:image" content="http://yoursite.com/images/hive-e.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-n-j.png">
+<meta property="og:updated_time" content="2021-03-20T07:57:35.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive CLI和Beeline命令行的基本使用">
 <meta name="twitter:description" content="一、Hive CLI1.1 Help使用 hive -H 或者 hive --help 命令可以查看所有命令的帮助，显示如下： 12345678910111213usage: hive -d,--define &amp;lt;key=value&amp;gt;          Variable subsitution to apply to hive">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/18/pictures/hive-e.png">
+<meta name="twitter:image" content="http://yoursite.com/images/hive-e.png">
 
 
 
@@ -426,7 +426,7 @@
 <h3 id="1-2-交互式命令行"><a href="#1-2-交互式命令行" class="headerlink" title="1.2 交互式命令行"></a>1.2 交互式命令行</h3><p>直接使用 <code>Hive</code> 命令，不加任何参数，即可进入交互式命令行。</p>
 <h3 id="1-3-执行SQL命令"><a href="#1-3-执行SQL命令" class="headerlink" title="1.3 执行SQL命令"></a>1.3 执行SQL命令</h3><p>在不进入交互式命令行的情况下，可以使用 <code>hive -e</code> 执行 SQL 命令。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive -e '<span class="keyword">select</span> * <span class="keyword">from</span> emp<span class="string">';</span></span><br></pre></td></tr></table></figure>
-<div align="center"> <img width="700px" src="../pictures/hive-e.png"> </div>
+<div align="center"> <img width="700px" src="/images/hive-e.png"> </div>
 
 
 
@@ -452,7 +452,7 @@
 <p>在查询中引用自定义变量：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以下两条语句等价</span></span><br><span class="line">hive &gt; select $&#123;n&#125; from emp;</span><br><span class="line">hive &gt;  select $&#123;hivevar:n&#125; from emp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下两条语句等价</span></span><br><span class="line">hive &gt; select $&#123;j&#125; from emp;</span><br><span class="line">hive &gt;  select $&#123;hivevar:j&#125; from emp;</span><br></pre></td></tr></table></figure>
 <p>结果如下：</p>
-<div align="center"> <img width="700px" src="../pictures/hive-n-j.png"> </div>
+<div align="center"> <img width="700px" src="/images/hive-n-j.png"> </div>
 
 <h2 id="二、Beeline"><a href="#二、Beeline" class="headerlink" title="二、Beeline"></a>二、Beeline</h2><h3 id="2-1-HiveServer2"><a href="#2-1-HiveServer2" class="headerlink" title="2.1 HiveServer2"></a>2.1 HiveServer2</h3><p>Hive 内置了 HiveServer 和 HiveServer2 服务，两者都允许客户端使用多种编程语言进行连接，但是 HiveServer 不能处理多个客户端的并发请求，所以产生了 HiveServer2。</p>
 <p>HiveServer2（HS2）允许远程客户端可以使用各种编程语言向 Hive 提交请求并检索结果，支持多客户端并发访问和身份验证。HS2 是由多个服务组成的单个进程，其包括基于 Thrift 的 Hive 服务（TCP 或 HTTP）和用于 Web UI 的 Jetty Web 服务器。</p>
@@ -591,8 +591,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/18/Hive常用DDL操作/" rel="next" title="Hive常用DDL操作">
-                <i class="fa fa-chevron-left"></i> Hive常用DDL操作
+              <a href="/2021/03/18/Hive分区表和分桶表/" rel="next" title="Hive分区表和分桶表">
+                <i class="fa fa-chevron-left"></i> Hive分区表和分桶表
               </a>
             
           </div>
@@ -601,8 +601,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/18/Hive数据查询详解/" rel="prev" title="Hive数据查询详解">
-                Hive数据查询详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/18/Hive常用DDL操作/" rel="prev" title="Hive常用DDL操作">
+                Hive常用DDL操作 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -685,7 +685,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -696,7 +696,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -707,7 +707,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

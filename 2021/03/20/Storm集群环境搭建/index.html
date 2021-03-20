@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="环境搭建,Storm,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、集群规划这里搭建一个 3 节点的 Storm 集群：三台主机上均部署 Supervisor 和 LogViewer 服务。同时为了保证高可用，除了在 hadoop001 上部署主 Nimbus 服务外，还在 hadoop002 上部署备用的 Nimbus 服务。Nimbus 服务由 Zookeeper 集群进行协调管理，如果主 Nimbus 不可用，则备用 Nimbus 会成为新的主 Nimb">
+<meta name="keywords" content="环境搭建,Storm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Storm集群环境搭建">
+<meta property="og:url" content="http://yoursite.com/2021/03/20/Storm集群环境搭建/index.html">
+<meta property="og:site_name" content="菜鸟@进阶记">
+<meta property="og:description" content="一、集群规划这里搭建一个 3 节点的 Storm 集群：三台主机上均部署 Supervisor 和 LogViewer 服务。同时为了保证高可用，除了在 hadoop001 上部署主 Nimbus 服务外，还在 hadoop002 上部署备用的 Nimbus 服务。Nimbus 服务由 Zookeeper 集群进行协调管理，如果主 Nimbus 不可用，则备用 Nimbus 会成为新的主 Nimb">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/storm-集群规划.png">
+<meta property="og:image" content="http://yoursite.com/images/storm-集群-shell.png">
+<meta property="og:image" content="http://yoursite.com/images/storm-集群搭建1.png">
+<meta property="og:image" content="http://yoursite.com/images/storm集群搭建2.png">
+<meta property="og:updated_time" content="2021-03-20T10:45:09.580Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Storm集群环境搭建">
+<meta name="twitter:description" content="一、集群规划这里搭建一个 3 节点的 Storm 集群：三台主机上均部署 Supervisor 和 LogViewer 服务。同时为了保证高可用，除了在 hadoop001 上部署主 Nimbus 服务外，还在 hadoop002 上部署备用的 Nimbus 服务。Nimbus 服务由 Zookeeper 集群进行协调管理，如果主 Nimbus 不可用，则备用 Nimbus 会成为新的主 Nimb">
+<meta name="twitter:image" content="http://yoursite.com/images/storm-集群规划.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+  (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/20/Storm集群环境搭建/">
+
+
+
+
+
+  <title>Storm集群环境搭建 | 菜鸟@进阶记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+   <a href="https://github.com/LY464782123"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">菜鸟@进阶记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-edit"></i> <br>
+            
+            笔记
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-codes">
+          <a href="/codes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br>
+            
+            编程
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-search"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/20/Storm集群环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.刘">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜鸟@进阶记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Storm集群环境搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-20T16:48:57+08:00">
+                2021-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/Storm/" itemprop="url" rel="index">
+                    <span itemprop="name">Storm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/03/20/Storm集群环境搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/20/Storm集群环境搭建/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、集群规划"><a href="#一、集群规划" class="headerlink" title="一、集群规划"></a>一、集群规划</h2><p>这里搭建一个 3 节点的 Storm 集群：三台主机上均部署 <code>Supervisor</code> 和 <code>LogViewer</code> 服务。同时为了保证高可用，除了在 hadoop001 上部署主 <code>Nimbus</code> 服务外，还在 hadoop002 上部署备用的 <code>Nimbus</code> 服务。<code>Nimbus</code> 服务由 Zookeeper 集群进行协调管理，如果主 <code>Nimbus</code> 不可用，则备用 <code>Nimbus</code> 会成为新的主 <code>Nimbus</code>。</p>
+<div align="center"> <img src="/images/storm-集群规划.png"> </div>
+
+<h2 id="二、前置条件"><a href="#二、前置条件" class="headerlink" title="二、前置条件"></a>二、前置条件</h2><p>Storm 运行依赖于 Java 7+ 和 Python 2.6.6 +，所以需要预先安装这两个软件。同时为了保证高可用，这里我们不采用 Storm 内置的 Zookeeper，而采用外置的 Zookeeper 集群。由于这三个软件在多个框架中都有依赖，其安装步骤单独整理至 ：</p>
+<ul>
+<li><a href="https://github.com/heibaiying/BigData-Notes/blob/master/notes/installation/Linux下JDK安装.md" target="_blank" rel="noopener">Linux 环境下 JDK 安装</a></li>
+<li><a href="https://github.com/heibaiying/BigData-Notes/blob/master/notes/installation/Linux下Python安装.md" target="_blank" rel="noopener">Linux 环境下 Python 安装</a></li>
+<li><a href="https://github.com/heibaiying/BigData-Notes/blob/master/notes/installation/Zookeeper单机环境和集群环境搭建.md" target="_blank" rel="noopener">Zookeeper 单机环境和集群环境搭建</a></li>
+</ul>
+<h2 id="三、集群搭建"><a href="#三、集群搭建" class="headerlink" title="三、集群搭建"></a>三、集群搭建</h2><h3 id="1-下载并解压"><a href="#1-下载并解压" class="headerlink" title="1. 下载并解压"></a>1. 下载并解压</h3><p>下载安装包，之后进行解压。官方下载地址：<a href="http://storm.apache.org/downloads.html" target="_blank" rel="noopener">http://storm.apache.org/downloads.html</a> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 解压</span></span><br><span class="line">tar -zxvf apache-storm-1.2.2.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="2-配置环境变量"><a href="#2-配置环境变量" class="headerlink" title="2. 配置环境变量"></a>2. 配置环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/profile</span></span><br></pre></td></tr></table></figure>
+<p>添加环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export STORM_HOME=/usr/app/apache-storm-1.2.2</span><br><span class="line">export PATH=$STORM_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>使得配置的环境变量生效：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">source</span> /etc/profile</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-集群配置"><a href="#3-集群配置" class="headerlink" title="3. 集群配置"></a>3. 集群配置</h3><p>修改 <code>${STORM_HOME}/conf/storm.yaml</code> 文件，配置如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Zookeeper集群的主机列表</span></span><br><span class="line"><span class="attr">storm.zookeeper.servers:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">"hadoop001"</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">"hadoop002"</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">"hadoop003"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Nimbus的节点列表</span></span><br><span class="line"><span class="attr">nimbus.seeds:</span> <span class="string">["hadoop001","hadoop002"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Nimbus和Supervisor需要使用本地磁盘上来存储少量状态（如jar包，配置文件等）</span></span><br><span class="line"><span class="attr">storm.local.dir:</span> <span class="string">"/home/storm"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># workers进程的端口，每个worker进程会使用一个端口来接收消息</span></span><br><span class="line"><span class="attr">supervisor.slots.ports:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="number">6700</span></span><br><span class="line">     <span class="bullet">-</span> <span class="number">6701</span></span><br><span class="line">     <span class="bullet">-</span> <span class="number">6702</span></span><br><span class="line">     <span class="bullet">-</span> <span class="number">6703</span></span><br></pre></td></tr></table></figure>
+<p><code>supervisor.slots.ports</code> 参数用来配置 workers 进程接收消息的端口，默认每个 supervisor 节点上会启动 4 个 worker，当然你也可以按照自己的需要和服务器性能进行设置，假设只想启动 2 个 worker 的话，此处配置 2 个端口即可。</p>
+<h3 id="4-安装包分发"><a href="#4-安装包分发" class="headerlink" title="4. 安装包分发"></a>4. 安装包分发</h3><p>将 Storm 的安装包分发到其他服务器，分发后建议在这两台服务器上也配置一下 Storm 的环境变量。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -r /usr/app/apache-storm-1.2.2/ root@hadoop002:/usr/app/</span><br><span class="line">scp -r /usr/app/apache-storm-1.2.2/ root@hadoop003:/usr/app/</span><br></pre></td></tr></table></figure>
+<h2 id="四-启动集群"><a href="#四-启动集群" class="headerlink" title="四. 启动集群"></a>四. 启动集群</h2><h3 id="4-1-启动ZooKeeper集群"><a href="#4-1-启动ZooKeeper集群" class="headerlink" title="4.1 启动ZooKeeper集群"></a>4.1 启动ZooKeeper集群</h3><p>分别到三台服务器上启动 ZooKeeper 服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-启动Storm集群"><a href="#4-2-启动Storm集群" class="headerlink" title="4.2 启动Storm集群"></a>4.2 启动Storm集群</h3><p>因为要启动多个进程，所以统一采用后台进程的方式启动。进入到 <code>${STORM_HOME}/bin</code> 目录下，执行下面的命令：</p>
+<p><strong>hadoop001 &amp; hadoop002 ：</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动主节点 nimbus</span></span><br><span class="line">nohup sh storm nimbus &amp;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动从节点 supervisor </span></span><br><span class="line">nohup sh storm supervisor &amp;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动UI界面 ui  </span></span><br><span class="line">nohup sh storm ui &amp;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动日志查看服务 logviewer </span></span><br><span class="line">nohup sh storm logviewer &amp;</span><br></pre></td></tr></table></figure>
+<p><strong>hadoop003 ：</strong></p>
+<p>hadoop003 上只需要启动 <code>supervisor</code> 服务和 <code>logviewer</code> 服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动从节点 supervisor </span></span><br><span class="line">nohup sh storm supervisor &amp;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动日志查看服务 logviewer </span></span><br><span class="line">nohup sh storm logviewer &amp;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-查看集群"><a href="#4-3-查看集群" class="headerlink" title="4.3 查看集群"></a>4.3 查看集群</h3><p>使用 <code>jps</code> 查看进程，三台服务器的进程应该分别如下：</p>
+<div align="center"> <img src="/images/storm-集群-shell.png"> </div>
+
+
+<p><br></p>
+<p>访问 hadoop001 或 hadoop002 的 <code>8080</code> 端口，界面如下。可以看到有一主一备 2 个 <code>Nimbus</code> 和 3 个 <code>Supervisor</code>，并且每个 <code>Supervisor</code> 有四个 <code>slots</code>，即四个可用的 <code>worker</code> 进程，此时代表集群已经搭建成功。</p>
+<div align="center"> <img src="/images/storm-集群搭建1.png"> </div>
+
+
+<h2 id="五、高可用验证"><a href="#五、高可用验证" class="headerlink" title="五、高可用验证"></a>五、高可用验证</h2><p>这里手动模拟主 <code>Nimbus</code> 异常的情况，在 hadoop001 上使用 <code>kill</code> 命令杀死 <code>Nimbus</code> 的线程，此时可以看到 hadoop001 上的 <code>Nimbus</code> 已经处于 <code>offline</code> 状态，而 hadoop002 上的 <code>Nimbus</code> 则成为新的 <code>Leader</code>。</p>
+<div align="center"> <img src="/images/storm集群搭建2.png"> </div>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+        	-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------
+        </div>
+    
+    
+    	<div style="text-align:left;color: #ccc;font-size:12px;">
+    		作者：Mr.刘 <br>
+    		来源：GitHub <br>
+			原文：https://ly464782123.github.io <br>
+			版权声明：本文为博主原创文章，转载请附上博文链接,谢谢(*￣︶￣)！
+    	</div>
+    
+</div>
+      </div>
+    
+
+    
+      <div>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/环境搭建/" rel="tag"># 环境搭建</a>
+          
+            <a href="/tags/Storm/" rel="tag"># Storm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/20/Storm单机环境搭建/" rel="next" title="Storm单机版本环境搭建">
+                <i class="fa fa-chevron-left"></i> Storm单机版本环境搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/20/Zookeeper单机环境和集群环境搭建/" rel="prev" title="Zookeeper单机环境和集群环境搭建">
+                Zookeeper单机环境和集群环境搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.gif" alt="Mr.刘">
+            
+              <p class="site-author-name" itemprop="name">Mr.刘</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">95</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LY464782123" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:464782123@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、集群规划"><span class="nav-number">1.</span> <span class="nav-text">一、集群规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、前置条件"><span class="nav-number">2.</span> <span class="nav-text">二、前置条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、集群搭建"><span class="nav-number">3.</span> <span class="nav-text">三、集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-下载并解压"><span class="nav-number">3.1.</span> <span class="nav-text">1. 下载并解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置环境变量"><span class="nav-number">3.2.</span> <span class="nav-text">2. 配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-集群配置"><span class="nav-number">3.3.</span> <span class="nav-text">3. 集群配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-安装包分发"><span class="nav-number">3.4.</span> <span class="nav-text">4. 安装包分发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-启动集群"><span class="nav-number">4.</span> <span class="nav-text">四. 启动集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-启动ZooKeeper集群"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 启动ZooKeeper集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-启动Storm集群"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 启动Storm集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-查看集群"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 查看集群</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、高可用验证"><span class="nav-number">5.</span> <span class="nav-text">五、高可用验证</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.刘</span>
+
+  
+  
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  <!--<div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>-->
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访问数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'nMqf9jn6wQxm15s5uFHXVJFE-gzGzoHsz',
+        appKey: '3tyIVLem7Iy9uN4vY8BjbLlG',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/clickLove.js"></script>

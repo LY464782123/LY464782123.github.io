@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase系统架构及数据结构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/20/大数据技术栈思维导图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -318,7 +318,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hbase系统架构及数据结构/" itemprop="url">Hbase系统架构及数据结构</a></h1>
+                <a class="post-title-link" href="/2021/03/20/大数据技术栈思维导图/" itemprop="url">大数据技术栈思维导图</a></h1>
         
 
         <div class="post-meta">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-20T16:41:27+08:00">
+                2021-03-20
               </time>
             
 
@@ -364,8 +364,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
-                    <span itemprop="name">HBase</span>
+                  <a href="/categories/notes/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
                   </a>
                 </span>
 
@@ -382,8 +382,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hbase系统架构及数据结构/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase系统架构及数据结构/" itemprop="commentCount"></span>
+                <a href="/2021/03/20/大数据技术栈思维导图/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/20/大数据技术栈思维导图/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -413,18 +413,13 @@
       
         
           
-          一、基本概念一个典型的 Hbase Table 表如下：
-  
+            
 
-1.1 Row Key (行键)Row Key 是用来检索记录的主键。想要访问 HBase Table 中的数据，只有以下三种方式：
 
-通过指定的 Row Key 进行访问；
-
-通过 Row Key 的 range 进行访问，即访问指
-          ...
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hbase系统架构及数据结构/#more" rel="contents">
+            <a class="btn" href="/2021/03/20/大数据技术栈思维导图/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -479,7 +474,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase容灾与备份/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/20/资料分享与工具推荐/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -498,7 +493,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hbase容灾与备份/" itemprop="url">Hbase容灾与备份</a></h1>
+                <a class="post-title-link" href="/2021/03/20/资料分享与工具推荐/" itemprop="url">分享-资料和开发工具</a></h1>
         
 
         <div class="post-meta">
@@ -510,8 +505,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-20T16:41:27+08:00">
+                2021-03-20
               </time>
             
 
@@ -544,8 +539,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
-                    <span itemprop="name">HBase</span>
+                  <a href="/categories/notes/环境搭建/" itemprop="url" rel="index">
+                    <span itemprop="name">环境搭建</span>
                   </a>
                 </span>
 
@@ -562,8 +557,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hbase容灾与备份/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase容灾与备份/" itemprop="commentCount"></span>
+                <a href="/2021/03/20/资料分享与工具推荐/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/20/资料分享与工具推荐/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -593,14 +588,16 @@
       
         
           
-          一、前言本文主要介绍 Hbase 常用的三种简单的容灾备份方案，即CopyTable、Export/Import、Snapshot。分别介绍如下：
-二、CopyTable2.1 简介CopyTable可以将现有表的数据复制到新表中，具有以下特点：
-
-支持时间区间 、row 区间 、改变表名称 、改变
+          :book: 经典书籍
+《hadoop 权威指南 (第四版)》 2017 年
+《Kafka 权威指南》 2017 年
+《从 Paxos 到 Zookeeper  分布式一致性原理与实践》  2015 年
+《Spark 技术内幕  深入解析 Spark 内核架构设计与实现原理》 2015 年
+《Spa
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hbase容灾与备份/#more" rel="contents">
+            <a class="btn" href="/2021/03/20/资料分享与工具推荐/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -655,7 +652,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Scala数组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -674,7 +671,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hbase简介/" itemprop="url">HBase简介</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Scala数组/" itemprop="url">Scala 数组相关操作</a></h1>
         
 
         <div class="post-meta">
@@ -686,8 +683,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T10:08:11+08:00">
+                2021-03-18
               </time>
             
 
@@ -720,8 +717,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
-                    <span itemprop="name">HBase</span>
+                  <a href="/categories/notes/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
                   </a>
                 </span>
 
@@ -738,8 +735,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hbase简介/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase简介/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Scala数组/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Scala数组/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -769,14 +766,13 @@
       
         
           
-          一、Hadoop的局限HBase 是一个构建在 Hadoop 文件系统之上的面向列的数据库管理系统。
-  
+          一、定长数组在 Scala 中，如果你需要一个长度不变的数组，可以使用 Array。但需要注意以下两点：
 
-要想明白为什么产生 HBase，就需要先了解一下 Hadoop 存在的限制？Hadoop 可以通过 HDFS 来存储结构化、半结构甚至非结构化的数据，它是传统数据库的补充，是海量数据存储的最
+在 Scala 中使用 (index) 而不是 [index] 来访问数组中的元素，因为访问元素，对于 Scala 来说是方法调用，(index) 相当于执行了 .apply(index) 方
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hbase简介/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Scala数组/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -831,7 +827,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase过滤器详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Scala隐式转换和隐式参数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -850,7 +846,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hbase过滤器详解/" itemprop="url">Hbase 过滤器详解</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Scala隐式转换和隐式参数/" itemprop="url">隐式转换和隐式参数</a></h1>
         
 
         <div class="post-meta">
@@ -862,8 +858,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T10:08:11+08:00">
+                2021-03-18
               </time>
             
 
@@ -896,8 +892,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
-                    <span itemprop="name">HBase</span>
+                  <a href="/categories/notes/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
                   </a>
                 </span>
 
@@ -914,8 +910,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hbase过滤器详解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase过滤器详解/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Scala隐式转换和隐式参数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Scala隐式转换和隐式参数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -945,11 +941,12 @@
       
         
           
-          一、HBase过滤器简介Hbase 提供了种类丰富的过滤器（filter）来提高数据处理的效率，用户可以通过内置或自定义的过滤器来对数据进行过滤，所有的过滤器都在服务端生效，即谓词下推（predicate push down）。这样可以保证过滤掉的数据不会被传送到客户端，从而减轻网络传输和客户端处理
+          一、隐式转换1.1 使用隐式转换隐式转换指的是以 implicit 关键字声明带有单个参数的转换函数，它将值从一种类型转换为另一种类型，以便使用之前类型所没有的功能。示例如下：
+12345678910111213141516171819// 普通人class Person(val name: Str
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hbase过滤器详解/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Scala隐式转换和隐式参数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1004,7 +1001,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase的SQL中间层_Phoenix/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Scala函数和闭包/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1023,7 +1020,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hbase的SQL中间层_Phoenix/" itemprop="url">Hbase的SQL中间层——Phoenix</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Scala函数和闭包/" itemprop="url">函数和闭包</a></h1>
         
 
         <div class="post-meta">
@@ -1035,8 +1032,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T10:08:11+08:00">
+                2021-03-18
               </time>
             
 
@@ -1069,8 +1066,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
-                    <span itemprop="name">HBase</span>
+                  <a href="/categories/notes/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
                   </a>
                 </span>
 
@@ -1087,8 +1084,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hbase的SQL中间层_Phoenix/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase的SQL中间层_Phoenix/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Scala函数和闭包/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Scala函数和闭包/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1118,11 +1115,12 @@
       
         
           
-          一、Phoenix简介Phoenix 是 HBase 的开源 SQL 中间层，它允许你使用标准 JDBC 的方式来操作 HBase 上的数据。在 Phoenix 之前，如果你要访问 HBase，只能调用它的 Java API，但相比于使用一行 SQL 就能实现数据查询，HBase 的 API 还是过
+          一、函数1.1 函数与方法Scala 中函数与方法的区别非常小，如果函数作为某个对象的成员，这样的函数被称为方法，否则就是一个正常的函数。
+1234567// 定义方法def multi1(x:Int) = &#123;x * x&#125;// 定义函数val multi2 = (x: Int) 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hbase的SQL中间层_Phoenix/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Scala函数和闭包/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1177,7 +1175,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase_Shell/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Scala列表和集/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1196,7 +1194,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hbase_Shell/" itemprop="url">Hbase 常用 Shell 命令</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Scala列表和集/" itemprop="url">Scala List & Set</a></h1>
         
 
         <div class="post-meta">
@@ -1208,8 +1206,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T10:08:11+08:00">
+                2021-03-18
               </time>
             
 
@@ -1242,8 +1240,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
-                    <span itemprop="name">HBase</span>
+                  <a href="/categories/notes/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
                   </a>
                 </span>
 
@@ -1260,8 +1258,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hbase_Shell/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase_Shell/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Scala列表和集/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Scala列表和集/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1291,17 +1289,12 @@
       
         
           
-          一、基本命令打开 Hbase Shell：
-1# hbase shell
-1.1 获取帮助1234# 获取帮助help# 获取命令的详细信息help 'status'
-1.2 查看服务器状态1status
-1.3 查看版本信息1version
-二、关于表的操作2.1 查看所有表1list
-2.2 创
+          一、List字面量List 是 Scala 中非常重要的一个数据结构，其与 Array(数组) 非常类似，但是 List 是不可变的，和 Java 中的 List 一样，其底层实现是链表。
+123456scala&gt;  val list = List("hadoop", "spark", "st
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hbase_Shell/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Scala列表和集/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1356,7 +1349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase_Java_API/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Scala基本数据类型和运算符/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1375,7 +1368,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hbase_Java_API/" itemprop="url">HBase Java API 的基本使用</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Scala基本数据类型和运算符/" itemprop="url">Scala基本数据类型和运算符</a></h1>
         
 
         <div class="post-meta">
@@ -1387,8 +1380,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T10:08:11+08:00">
+                2021-03-18
               </time>
             
 
@@ -1421,8 +1414,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
-                    <span itemprop="name">HBase</span>
+                  <a href="/categories/notes/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
                   </a>
                 </span>
 
@@ -1439,8 +1432,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hbase_Java_API/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase_Java_API/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Scala基本数据类型和运算符/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Scala基本数据类型和运算符/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1470,11 +1463,19 @@
       
         
           
-          一、简述截至到目前 (2019.04)，HBase 有两个主要的版本，分别是 1.x 和 2.x ，两个版本的 Java API 有所不同，1.x 中某些方法在 2.x 中被标识为 @deprecated 过时。所以下面关于 API 的样例，我会分别给出 1.x 和 2.x 两个版本。完整的代码见本
+          一、数据类型1.1 类型支持Scala 拥有下表所示的数据类型，其中 Byte、Short、Int、Long 和 Char 类型统称为整数类型，整数类型加上 Float 和 Double 统称为数值类型。Scala 数值类型的取值范围和 Java 对应类型的取值范围相同。
+
+
+
+数据类型
+描述
+
+
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hbase_Java_API/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Scala基本数据类型和运算符/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1529,7 +1530,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Hbase协处理器详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Scala映射和元组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1548,7 +1549,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Hbase协处理器详解/" itemprop="url">Hbase 协处理器</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Scala映射和元组/" itemprop="url">Scala Map & Tuple</a></h1>
         
 
         <div class="post-meta">
@@ -1560,8 +1561,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:19:41+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T10:08:11+08:00">
+                2021-03-18
               </time>
             
 
@@ -1594,8 +1595,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
-                    <span itemprop="name">HBase</span>
+                  <a href="/categories/notes/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
                   </a>
                 </span>
 
@@ -1612,8 +1613,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Hbase协处理器详解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Hbase协处理器详解/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Scala映射和元组/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Scala映射和元组/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1643,11 +1644,11 @@
       
         
           
-          一、简述在使用 HBase 时，如果你的数据量达到了数十亿行或数百万列，此时能否在查询中返回大量数据将受制于网络的带宽，即便网络状况允许，但是客户端的计算处理也未必能够满足要求。在这种情况下，协处理器（Coprocessors）应运而生。它允许你将业务计算代码放入在 RegionServer 的协处
+          一、映射(Map)1.1 构造Map12345678// 初始化一个空 mapval scores01 = new HashMap[String, Int]// 从指定的值初始化 Map（方式一）val scores02 = Map("hadoop" -&gt; 10, "spark" -&gt; 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Hbase协处理器详解/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Scala映射和元组/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1702,7 +1703,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/Spring+Mybtais+Phoenix整合/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Scala模式匹配/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1721,7 +1722,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/Spring+Mybtais+Phoenix整合/" itemprop="url">Spring/Spring Boot 整合 Mybatis + Phoenix</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Scala模式匹配/" itemprop="url">Scala模式匹配</a></h1>
         
 
         <div class="post-meta">
@@ -1733,8 +1734,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:17:03+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T10:08:11+08:00">
+                2021-03-18
               </time>
             
 
@@ -1767,8 +1768,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spring-Boot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Boot</span>
+                  <a href="/categories/notes/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
                   </a>
                 </span>
 
@@ -1785,8 +1786,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/Spring+Mybtais+Phoenix整合/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/Spring+Mybtais+Phoenix整合/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Scala模式匹配/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Scala模式匹配/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1816,14 +1817,14 @@
       
         
           
-          一、前言使用 Spring+Mybatis 操作 Phoenix 和操作其他的关系型数据库（如 Mysql，Oracle）在配置上是基本相同的，下面会分别给出 Spring/Spring Boot 整合步骤，完整代码见本仓库：
+          一、模式匹配Scala 支持模式匹配机制，可以代替 swith 语句、执行类型检查、以及支持析构表达式等。
+1.1 更好的swithScala 不支持 swith，可以使用模式匹配 match...case 语法代替。但是 match 语句与 Java 中的 switch 有以下三点不同：
 
-Spring + Mybatis + Phoenix
-SpringBo
+Sca
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/Spring+Mybtais+Phoenix整合/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Scala模式匹配/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1878,7 +1879,7 @@ SpringBo
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/17/SparkSQL外部数据源/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/Scala类和对象/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.刘">
@@ -1897,7 +1898,7 @@ SpringBo
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/17/SparkSQL外部数据源/" itemprop="url">Spark SQL 外部数据源</a></h1>
+                <a class="post-title-link" href="/2021/03/18/Scala类和对象/" itemprop="url">类和对象</a></h1>
         
 
         <div class="post-meta">
@@ -1909,8 +1910,8 @@ SpringBo
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T23:05:09+08:00">
-                2021-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T10:08:11+08:00">
+                2021-03-18
               </time>
             
 
@@ -1943,8 +1944,8 @@ SpringBo
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
+                  <a href="/categories/notes/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
                   </a>
                 </span>
 
@@ -1961,8 +1962,8 @@ SpringBo
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/17/SparkSQL外部数据源/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/SparkSQL外部数据源/" itemprop="commentCount"></span>
+                <a href="/2021/03/18/Scala类和对象/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/Scala类和对象/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1992,21 +1993,12 @@ SpringBo
       
         
           
-          一、简介1.1 多数据源支持Spark 支持以下六个核心数据源，同时 Spark 社区还提供了多达上百种数据源的读取方式，能够满足绝大部分使用场景。
-
-CSV
-JSON
-Parquet
-ORC
-JDBC/ODBC connections
-Plain-text files
-
-
-注：以下所有测试文件均可
+          一、初识类和对象Scala 的类与 Java 的类具有非常多的相似性，示例如下：
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253// 1. 在 scal
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/17/SparkSQL外部数据源/#more" rel="contents">
+            <a class="btn" href="/2021/03/18/Scala类和对象/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2052,7 +2044,7 @@ Plain-text files
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2100,7 +2092,7 @@ Plain-text files
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2111,7 +2103,7 @@ Plain-text files
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2122,7 +2114,7 @@ Plain-text files
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

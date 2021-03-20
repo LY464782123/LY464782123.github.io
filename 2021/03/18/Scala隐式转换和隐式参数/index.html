@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、隐式转换1.1 使用隐式转换隐式转换指的是以 implicit 关键字声明带有单个参数的转换函数，它将值从一种类型转换为另一种类型，以便使用之前类型所没有的功能。示例如下： 12345678910111213141516171819// 普通人class Person(val name: String)// 雷神class Thor(val name: String) &amp;#123;  // 正">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/scala-richInt.png">
-<meta property="og:updated_time" content="2021-03-18T02:12:47.553Z">
+<meta property="og:image" content="http://yoursite.com/images/scala-richInt.png">
+<meta property="og:updated_time" content="2021-03-20T07:59:23.635Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="隐式转换和隐式参数">
 <meta name="twitter:description" content="一、隐式转换1.1 使用隐式转换隐式转换指的是以 implicit 关键字声明带有单个参数的转换函数，它将值从一种类型转换为另一种类型，以便使用之前类型所没有的功能。示例如下： 12345678910111213141516171819// 普通人class Person(val name: String)// 雷神class Thor(val name: String) &amp;#123;  // 正">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/18/pictures/scala-richInt.png">
+<meta name="twitter:image" content="http://yoursite.com/images/scala-richInt.png">
 
 
 
@@ -486,7 +486,7 @@
 <p>视图限定限制了 T 可以通过隐式转换 <code>Ordered[T]</code>，即对象一定可以进行大小比较。在上面的代码中 <code>smaller(1,2)</code> 中参数 <code>1</code> 和 <code>2</code> 实际上是通过定义在 <code>Predef</code> 中的隐式转换方法 <code>intWrapper</code> 转换为 <code>RichInt</code>。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Predef.scala</span></span><br><span class="line"><span class="meta">@inline</span> <span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">intWrapper</span></span>(x: <span class="type">Int</span>)   = <span class="keyword">new</span> runtime.<span class="type">RichInt</span>(x)</span><br></pre></td></tr></table></figure>
 <p>为什么要这么麻烦执行隐式转换，原因是 Scala 中的 Int 类型并不能直接进行比较，因为其没有实现 <code>Ordered</code> 特质，真正实现 <code>Ordered</code> 特质的是 <code>RichInt</code>。</p>
-<div align="center"> <img src="../pictures/scala-richInt.png"> </div>
+<div align="center"> <img src="/images/scala-richInt.png"> </div>
 
 
 
@@ -646,7 +646,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -657,7 +657,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -668,7 +668,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
