@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、数据类型1.1 类型支持Scala 拥有下表所示的数据类型，其中 Byte、Short、Int、Long 和 Char 类型统称为整数类型，整数类型加上 Float 和 Double 统称为数值类型。Scala 数值类型的取值范围和 Java 对应类型的取值范围相同。    数据类型 描述     Byte 8 位有符号补码整数。数值区间为 -128 到 127   Short 16 位有符号">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/scala-int+.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/scala-操作符优先级.png">
-<meta property="og:updated_time" content="2021-03-18T02:15:08.331Z">
+<meta property="og:image" content="http://yoursite.com/images/scala-int+.png">
+<meta property="og:image" content="http://yoursite.com/images/scala-操作符优先级.png">
+<meta property="og:updated_time" content="2021-03-20T07:58:47.931Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scala基本数据类型和运算符">
 <meta name="twitter:description" content="一、数据类型1.1 类型支持Scala 拥有下表所示的数据类型，其中 Byte、Short、Int、Long 和 Char 类型统称为整数类型，整数类型加上 Float 和 Double 统称为数值类型。Scala 数值类型的取值范围和 Java 对应类型的取值范围相同。    数据类型 描述     Byte 8 位有符号补码整数。数值区间为 -128 到 127   Short 16 位有符号">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/18/pictures/scala-int+.png">
+<meta name="twitter:image" content="http://yoursite.com/images/scala-int+.png">
 
 
 
@@ -525,13 +525,13 @@
 <h3 id="3-1-运算符即方法"><a href="#3-1-运算符即方法" class="headerlink" title="3.1 运算符即方法"></a>3.1 运算符即方法</h3><p>Scala 的面向对象比 Java 更加纯粹，在 Scala 中一切都是对象。所以对于 <code>1+2</code>,实际上是调用了 Int 类中名为 <code>+</code> 的方法，所以 1+2,也可以写成 <code>1.+(2)</code>。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="number">1</span>+<span class="number">2</span></span><br><span class="line">res14: <span class="type">Int</span> = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">scala&gt; <span class="number">1.</span>+(<span class="number">2</span>)</span><br><span class="line">res15: <span class="type">Int</span> = <span class="number">3</span></span><br></pre></td></tr></table></figure>
 <p>Int 类中包含了多个重载的 <code>+</code> 方法，用于分别接收不同类型的参数。</p>
-<div align="center"> <img src="../pictures/scala-int+.png"> </div>
+<div align="center"> <img src="/images/scala-int+.png"> </div>
 
 <h3 id="3-2-逻辑运算符"><a href="#3-2-逻辑运算符" class="headerlink" title="3.2 逻辑运算符"></a>3.2 逻辑运算符</h3><p>和其他语言一样，在 Scala 中 <code>&amp;&amp;</code>，<code>||</code> 的执行是短路的，即如果左边的表达式能确定整个结果，右边的表达式就不会被执行，这满足大多数使用场景。但是如果你需要在无论什么情况下，都执行右边的表达式，则可以使用 <code>&amp;</code> 或 <code>|</code> 代替。</p>
 <h3 id="3-3-赋值运算符"><a href="#3-3-赋值运算符" class="headerlink" title="3.3 赋值运算符"></a>3.3 赋值运算符</h3><p>在 Scala 中没有 Java 中的 <code>++</code> 和 <code>--</code> 运算符，如果你想要实现类似的操作，只能使用 <code>+=1</code>，或者 <code>-=1</code>。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">var</span> a=<span class="number">1</span></span><br><span class="line">a: <span class="type">Int</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">scala&gt; a+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">scala&gt; a</span><br><span class="line">res8: <span class="type">Int</span> = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">scala&gt; a-=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">scala&gt; a</span><br><span class="line">res10: <span class="type">Int</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <h3 id="3-4-运算符优先级"><a href="#3-4-运算符优先级" class="headerlink" title="3.4 运算符优先级"></a>3.4 运算符优先级</h3><p>操作符的优先级如下：优先级由上至下，逐级递减。</p>
-<div align="center"> <img src="../pictures/scala-操作符优先级.png"> </div>
+<div align="center"> <img src="/images/scala-操作符优先级.png"> </div>
 
 <p>在表格中某个字符的优先级越高，那么以这个字符打头的方法就拥有更高的优先级。如 <code>+</code> 的优先级大于 <code>&lt;</code>，也就意味则 <code>+</code> 的优先级大于以 <code>&lt;</code> 开头的 <code>&lt;&lt;</code>，所以 <code>2&lt;&lt;2+2</code> , 实际上等价于 <code>2&lt;&lt;(2+2)</code> :</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="number">2</span>&lt;&lt;<span class="number">2</span>+<span class="number">2</span></span><br><span class="line">res0: <span class="type">Int</span> = <span class="number">32</span></span><br><span class="line"></span><br><span class="line">scala&gt; <span class="number">2</span>&lt;&lt;(<span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line">res1: <span class="type">Int</span> = <span class="number">32</span></span><br></pre></td></tr></table></figure>
@@ -596,8 +596,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/18/Scala列表和集/" rel="next" title="Scala List & Set">
-                <i class="fa fa-chevron-left"></i> Scala List & Set
+              <a href="/2021/03/18/Scala映射和元组/" rel="next" title="Scala Map & Tuple">
+                <i class="fa fa-chevron-left"></i> Scala Map & Tuple
               </a>
             
           </div>
@@ -606,8 +606,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/18/Scala函数和闭包/" rel="prev" title="函数和闭包">
-                函数和闭包 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/18/Scala列表和集/" rel="prev" title="Scala List & Set">
+                Scala List & Set <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -690,7 +690,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -701,7 +701,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -712,7 +712,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

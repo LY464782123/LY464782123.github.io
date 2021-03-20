@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、数据准备为了演示查询操作，这里需要预先创建三张表，并加载测试数据。  数据文件 emp.txt 和 dept.txt 可以从本仓库的resources 目录下载。  1.1 员工表1234567891011121314 -- 建表语句 CREATE TABLE emp(     empno INT,     -- 员工表编号     ename STRING,  -- 员工姓名     job">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/sql-join.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-right-join.png">
-<meta property="og:updated_time" content="2021-03-18T01:54:43.481Z">
+<meta property="og:image" content="http://yoursite.com/images/sql-join.jpg">
+<meta property="og:image" content="http://yoursite.com/images/hive-right-join.png">
+<meta property="og:updated_time" content="2021-03-20T07:57:56.366Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive数据查询详解">
 <meta name="twitter:description" content="一、数据准备为了演示查询操作，这里需要预先创建三张表，并加载测试数据。  数据文件 emp.txt 和 dept.txt 可以从本仓库的resources 目录下载。  1.1 员工表1234567891011121314 -- 建表语句 CREATE TABLE emp(     empno INT,     -- 员工表编号     ename STRING,  -- 员工姓名     job">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/18/pictures/sql-join.jpg">
+<meta name="twitter:image" content="http://yoursite.com/images/sql-join.jpg">
 
 
 
@@ -465,14 +465,14 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> empno, deptno, sal <span class="keyword">FROM</span> emp CLUSTER  <span class="keyword">BY</span> deptno ;</span><br></pre></td></tr></table></figure>
 <h2 id="三、多表联结查询"><a href="#三、多表联结查询" class="headerlink" title="三、多表联结查询"></a>三、多表联结查询</h2><p>Hive 支持内连接，外连接，左外连接，右外连接，笛卡尔连接，这和传统数据库中的概念是一致的，可以参见下图。</p>
 <p>需要特别强调：JOIN 语句的关联条件必须用 ON 指定，不能用 WHERE 指定，否则就会先做笛卡尔积，再过滤，这会导致你得不到预期的结果 (下面的演示会有说明)。</p>
-<div align="center"> <img width="600px" src="../pictures/sql-join.jpg"> </div>
+<div align="center"> <img width="600px" src="/images/sql-join.jpg"> </div>
 
 <h3 id="3-1-INNER-JOIN"><a href="#3-1-INNER-JOIN" class="headerlink" title="3.1 INNER JOIN"></a>3.1 INNER JOIN</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询员工编号为 7369 的员工的详细信息</span></span><br><span class="line"><span class="keyword">SELECT</span> e.*,d.* <span class="keyword">FROM</span> </span><br><span class="line">emp e <span class="keyword">JOIN</span> dept d</span><br><span class="line"><span class="keyword">ON</span> e.deptno = d.deptno </span><br><span class="line"><span class="keyword">WHERE</span> empno=<span class="number">7369</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--如果是三表或者更多表连接，语法如下</span></span><br><span class="line"><span class="keyword">SELECT</span> a.val, b.val, c.val <span class="keyword">FROM</span> a <span class="keyword">JOIN</span> b <span class="keyword">ON</span> (a.key = b.key1) <span class="keyword">JOIN</span> c <span class="keyword">ON</span> (c.key = b.key1)</span><br></pre></td></tr></table></figure>
 <h3 id="3-2-LEFT-OUTER-JOIN"><a href="#3-2-LEFT-OUTER-JOIN" class="headerlink" title="3.2 LEFT OUTER  JOIN"></a>3.2 LEFT OUTER  JOIN</h3><p>LEFT OUTER  JOIN 和 LEFT  JOIN 是等价的。 </p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 左连接</span></span><br><span class="line"><span class="keyword">SELECT</span> e.*,d.*</span><br><span class="line"><span class="keyword">FROM</span> emp e <span class="keyword">LEFT</span> <span class="keyword">OUTER</span>  <span class="keyword">JOIN</span>  dept d</span><br><span class="line"><span class="keyword">ON</span> e.deptno = d.deptno;</span><br></pre></td></tr></table></figure>
 <h3 id="3-3-RIGHT-OUTER-JOIN"><a href="#3-3-RIGHT-OUTER-JOIN" class="headerlink" title="3.3 RIGHT OUTER  JOIN"></a>3.3 RIGHT OUTER  JOIN</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--右连接</span></span><br><span class="line"><span class="keyword">SELECT</span> e.*,d.*</span><br><span class="line"><span class="keyword">FROM</span> emp e <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span>  dept d</span><br><span class="line"><span class="keyword">ON</span> e.deptno = d.deptno;</span><br></pre></td></tr></table></figure>
 <p>执行右连接后，由于 40 号部门下没有任何员工，所以此时员工信息为 NULL。这个查询可以很好的复述上面提到的——JOIN 语句的关联条件必须用 ON 指定，不能用 WHERE 指定。你可以把 ON 改成 WHERE，你会发现无论如何都查不出 40 号部门这条数据，因为笛卡尔运算不会有 (NULL, 40) 这种情况。</p>
-<p><div align="center"> <img width="700px" src="../pictures/hive-right-join.png"> </div></p>
+<p><div align="center"> <img width="700px" src="/images/hive-right-join.png"> </div></p>
 <h3 id="3-4-FULL-OUTER-JOIN"><a href="#3-4-FULL-OUTER-JOIN" class="headerlink" title="3.4 FULL OUTER  JOIN"></a>3.4 FULL OUTER  JOIN</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.*,d.*</span><br><span class="line"><span class="keyword">FROM</span> emp e <span class="keyword">FULL</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span>  dept d</span><br><span class="line"><span class="keyword">ON</span> e.deptno = d.deptno;</span><br></pre></td></tr></table></figure>
 <h3 id="3-5-LEFT-SEMI-JOIN"><a href="#3-5-LEFT-SEMI-JOIN" class="headerlink" title="3.5 LEFT SEMI JOIN"></a>3.5 LEFT SEMI JOIN</h3><p>LEFT SEMI JOIN （左半连接）是 IN/EXISTS 子查询的一种更高效的实现。</p>
 <ul>
@@ -561,8 +561,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/18/HiveCLI和Beeline命令行的基本使用/" rel="next" title="Hive CLI和Beeline命令行的基本使用">
-                <i class="fa fa-chevron-left"></i> Hive CLI和Beeline命令行的基本使用
+              <a href="/2021/03/18/Hive简介及核心概念/" rel="next" title="Hive简介及核心概念">
+                <i class="fa fa-chevron-left"></i> Hive简介及核心概念
               </a>
             
           </div>
@@ -655,7 +655,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -666,7 +666,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -677,7 +677,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

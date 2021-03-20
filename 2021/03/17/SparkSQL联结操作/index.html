@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、 数据准备本文主要介绍 Spark SQL 的多表连接，需要预先准备测试数据。分别创建员工和部门的 Datafame，并注册为临时视图，代码如下： 1234567val spark = SparkSession.builder().appName(&quot;aggregations&quot;).master(&quot;local[2]&quot;).getOrCreate()val empDF = spark.read.jso">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/sql-join.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-sql-NATURAL-JOIN.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-Big-table–to–big-table.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-Big-table–to–small-table.png">
-<meta property="og:updated_time" content="2021-03-17T15:09:15.358Z">
+<meta property="og:image" content="http://yoursite.com/images/sql-join.jpg">
+<meta property="og:image" content="http://yoursite.com/images/spark-sql-NATURAL-JOIN.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-Big-table–to–big-table.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-Big-table–to–small-table.png">
+<meta property="og:updated_time" content="2021-03-20T08:00:19.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark SQL JOIN">
 <meta name="twitter:description" content="一、 数据准备本文主要介绍 Spark SQL 的多表连接，需要预先准备测试数据。分别创建员工和部门的 Datafame，并注册为临时视图，代码如下： 1234567val spark = SparkSession.builder().appName(&quot;aggregations&quot;).master(&quot;local[2]&quot;).getOrCreate()val empDF = spark.read.jso">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/sql-join.jpg">
+<meta name="twitter:image" content="http://yoursite.com/images/sql-join.jpg">
 
 
 
@@ -443,7 +443,7 @@
 <li><strong>Cross (or Cartesian) Join</strong> :  交叉 (或笛卡尔) 连接。</li>
 </ul>
 <p>其中内，外连接，笛卡尔积均与普通关系型数据库中的相同，如下图所示：</p>
-<div align="center"> <img src="../pictures/sql-join.jpg"> </div>
+<div align="center"> <img src="/images/sql-join.jpg"> </div>
 
 <p>这里解释一下左半连接和左反连接，这两个连接等价于关系型数据库中的 <code>IN</code> 和 <code>NOT IN</code> 字句：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- LEFT SEMI JOIN</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> emp <span class="keyword">LEFT</span> <span class="keyword">SEMI</span> <span class="keyword">JOIN</span> dept <span class="keyword">ON</span> emp.deptno = dept.deptno</span><br><span class="line"><span class="comment">-- 等价于如下的 IN 语句</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> deptno <span class="keyword">IN</span> (<span class="keyword">SELECT</span> deptno <span class="keyword">FROM</span> dept)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- LEFT ANTI JOIN</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> emp <span class="keyword">LEFT</span> <span class="keyword">ANTI</span> <span class="keyword">JOIN</span> dept <span class="keyword">ON</span> emp.deptno = dept.deptno</span><br><span class="line"><span class="comment">-- 等价于如下的 IN 语句</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> deptno <span class="keyword">NOT</span> <span class="keyword">IN</span> (<span class="keyword">SELECT</span> deptno <span class="keyword">FROM</span> dept)</span><br></pre></td></tr></table></figure>
@@ -459,16 +459,16 @@
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark.sql(<span class="string">"SELECT * FROM emp NATURAL JOIN dept"</span>).show()</span><br></pre></td></tr></table></figure>
 <p>以下是一个自然连接的查询结果，程序自动推断出使用两张表都存在的 dept 列进行连接，其实际等价于：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark.sql("<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> emp <span class="keyword">JOIN</span> dept <span class="keyword">ON</span> emp.deptno = dept.deptno<span class="string">").show()</span></span><br></pre></td></tr></table></figure>
-<div align="center"> <img src="../pictures/spark-sql-NATURAL-JOIN.png"> </div>
+<div align="center"> <img src="/images/spark-sql-NATURAL-JOIN.png"> </div>
 
 <p>由于自然连接常常会产生不可预期的结果，所以并不推荐使用。</p>
 <h2 id="三、连接的执行"><a href="#三、连接的执行" class="headerlink" title="三、连接的执行"></a>三、连接的执行</h2><p>在对大表与大表之间进行连接操作时，通常都会触发 <code>Shuffle Join</code>，两表的所有分区节点会进行 <code>All-to-All</code> 的通讯，这种查询通常比较昂贵，会对网络 IO 会造成比较大的负担。</p>
-<div align="center"> <img width="600px" src="../pictures/spark-Big-table–to–big-table.png"> </div>
+<div align="center"> <img width="600px" src="/images/spark-Big-table–to–big-table.png"> </div>
 
 
 
 <p>而对于大表和小表的连接操作，Spark 会在一定程度上进行优化，如果小表的数据量小于 Worker Node 的内存空间，Spark 会考虑将小表的数据广播到每一个 Worker Node，在每个工作节点内部执行连接计算，这可以降低网络的 IO，但会加大每个 Worker Node 的 CPU 负担。</p>
-<div align="center"> <img width="600px" src="../pictures/spark-Big-table–to–small-table.png"> </div>
+<div align="center"> <img width="600px" src="/images/spark-Big-table–to–small-table.png"> </div>
 
 <p>是否采用广播方式进行 <code>Join</code> 取决于程序内部对小表的判断，如果想明确使用广播方式进行 <code>Join</code>，则可以在 DataFrame API 中使用 <code>broadcast</code> 方法指定需要广播的小表：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">empDF.join(broadcast(deptDF), joinExpression).show()</span><br></pre></td></tr></table></figure>
@@ -531,8 +531,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Spark_RDD/" rel="next" title="弹性式数据集RDDs">
-                <i class="fa fa-chevron-left"></i> 弹性式数据集RDDs
+              <a href="/2021/03/17/Spark_Streaming与流处理/" rel="next" title="Spark Streaming与流处理">
+                <i class="fa fa-chevron-left"></i> Spark Streaming与流处理
               </a>
             
           </div>
@@ -541,8 +541,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/SparkSQL_Dataset和DataFrame简介/" rel="prev" title="DataFrame和Dataset简介">
-                DataFrame和Dataset简介 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/SparkSQL常用聚合函数/" rel="prev" title="聚合函数Aggregations">
+                聚合函数Aggregations <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -625,7 +625,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -636,7 +636,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -647,7 +647,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

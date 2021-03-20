@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、简介Apache Flume 是一个分布式，高可用的数据收集系统，可以从不同的数据源收集数据，经过聚合后发送到分布式计算框架或者存储系统中。Spark Straming 提供了以下两种方式用于 Flume 的整合。 二、推送式方法在推送式方法 (Flume-style Push-based Approach) 中，Spark Streaming 程序需要对某台服务器的某个端口进行监听，Flum">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-streaming-flume-jar.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-flume-input.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-flume-console.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flume-retry.png">
-<meta property="og:updated_time" content="2021-03-17T15:06:56.665Z">
+<meta property="og:image" content="http://yoursite.com/images/spark-streaming-flume-jar.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-flume-input.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-flume-console.png">
+<meta property="og:image" content="http://yoursite.com/images/flume-retry.png">
+<meta property="og:updated_time" content="2021-03-20T07:59:46.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Streaming 整合 Flume">
 <meta name="twitter:description" content="一、简介Apache Flume 是一个分布式，高可用的数据收集系统，可以从不同的数据源收集数据，经过聚合后发送到分布式计算框架或者存储系统中。Spark Straming 提供了以下两种方式用于 Flume 的整合。 二、推送式方法在推送式方法 (Flume-style Push-based Approach) 中，Spark Streaming 程序需要对某台服务器的某个端口进行监听，Flum">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/spark-streaming-flume-jar.png">
+<meta name="twitter:image" content="http://yoursite.com/images/spark-streaming-flume-jar.png">
 
 
 
@@ -438,20 +438,20 @@
 <p>本项目完整源码见：<a href="https://github.com/heibaiying/BigData-Notes/tree/master/code/spark/spark-streaming-flume" target="_blank" rel="noopener">spark-streaming-flume</a></p>
 </blockquote>
 <p>使用 <code>mvn clean package</code> 命令打包后会生产以下两个 Jar 包，提交 <code>非 original</code> 开头的 Jar 即可。</p>
-<div align="center"> <img src="../pictures/spark-streaming-flume-jar.png"> </div>
+<div align="center"> <img src="/images/spark-streaming-flume-jar.png"> </div>
 
 <h3 id="2-5-启动服务和提交作业"><a href="#2-5-启动服务和提交作业" class="headerlink" title="2.5 启动服务和提交作业"></a>2.5 启动服务和提交作业</h3><p> 启动 Flume 服务：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flume-ng agent \</span><br><span class="line">--conf conf \</span><br><span class="line">--conf-file /usr/app/apache-flume-1.6.0-cdh5.15.2-bin/examples/netcat-memory-avro.properties \</span><br><span class="line">--name a1 -Dflume.root.logger=INFO,console</span><br></pre></td></tr></table></figure>
 <p>提交 Spark Streaming 作业：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spark-submit \</span><br><span class="line">--class com.heibaiying.flume.PushBasedWordCount \</span><br><span class="line">--master local[4] \</span><br><span class="line">/usr/appjar/spark-streaming-flume-1.0.jar</span><br></pre></td></tr></table></figure>
 <h3 id="2-6-测试"><a href="#2-6-测试" class="headerlink" title="2.6 测试"></a>2.6 测试</h3><p>这里使用 <code>echo</code> 命令模拟日志产生的场景，往日志文件中追加数据，然后查看程序的输出：</p>
-<div align="center"> <img src="../pictures/spark-flume-input.png"> </div>
+<div align="center"> <img src="/images/spark-flume-input.png"> </div>
 
 <p>Spark Streaming 程序成功接收到数据并打印输出：</p>
-<div align="center"> <img src="../pictures/spark-flume-console.png"> </div>
+<div align="center"> <img src="/images/spark-flume-console.png"> </div>
 
 <h3 id="2-7-注意事项"><a href="#2-7-注意事项" class="headerlink" title="2.7 注意事项"></a>2.7 注意事项</h3><h4 id="1-启动顺序"><a href="#1-启动顺序" class="headerlink" title="1. 启动顺序"></a>1. 启动顺序</h4><p>这里需要注意的，不论你先启动 Spark 程序还是 Flume 程序，由于两者的启动都需要一定的时间，此时先启动的程序会短暂地抛出端口拒绝连接的异常，此时不需要进行任何操作，等待两个程序都启动完成即可。</p>
-<div align="center"> <img src="../pictures/flume-retry.png"> </div>
+<div align="center"> <img src="/images/flume-retry.png"> </div>
 
 <h4 id="2-版本一致"><a href="#2-版本一致" class="headerlink" title="2. 版本一致"></a>2. 版本一致</h4><p>最好保证用于本地开发和编译的 Scala 版本和 Spark 的 Scala 版本一致，至少保证大版本一致，如都是 <code>2.11</code>。</p>
 <p><br></p>
@@ -528,8 +528,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Spark_Streaming整合Kafka/" rel="next" title="Spark Streaming 整合 Kafka">
-                <i class="fa fa-chevron-left"></i> Spark Streaming 整合 Kafka
+              <a href="/2021/03/17/Spark_Structured_API的基本使用/" rel="next" title="Structured API基本使用">
+                <i class="fa fa-chevron-left"></i> Structured API基本使用
               </a>
             
           </div>
@@ -622,7 +622,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -633,7 +633,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -644,7 +644,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

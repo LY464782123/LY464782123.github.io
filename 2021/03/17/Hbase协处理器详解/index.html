@@ -87,20 +87,20 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、简述在使用 HBase 时，如果你的数据量达到了数十亿行或数百万列，此时能否在查询中返回大量数据将受制于网络的带宽，即便网络状况允许，但是客户端的计算处理也未必能够满足要求。在这种情况下，协处理器（Coprocessors）应运而生。它允许你将业务计算代码放入在 RegionServer 的协处理器中，将处理好的数据再返回给客户端，这可以极大地降低需要传输的数据量，从而获得性能上的提升。同时协">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/hbase-coprocessor.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/RegionObserver.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/RegionObservers-works.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/hbase-cp-hdfs.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/hbase-cp-load.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/hbase-cp-helloworld.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/hbase-cp-lisi.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/hbase-co-unload.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/hbase-unload-test.png">
-<meta property="og:updated_time" content="2021-03-17T15:20:58.096Z">
+<meta property="og:image" content="http://yoursite.com/images/hbase-coprocessor.png">
+<meta property="og:image" content="http://yoursite.com/images/RegionObserver.png">
+<meta property="og:image" content="http://yoursite.com/images/RegionObservers-works.png">
+<meta property="og:image" content="http://yoursite.com/images/hbase-cp-hdfs.png">
+<meta property="og:image" content="http://yoursite.com/images/hbase-cp-load.png">
+<meta property="og:image" content="http://yoursite.com/images/hbase-cp-helloworld.png">
+<meta property="og:image" content="http://yoursite.com/images/hbase-cp-lisi.png">
+<meta property="og:image" content="http://yoursite.com/images/hbase-co-unload.png">
+<meta property="og:image" content="http://yoursite.com/images/hbase-unload-test.png">
+<meta property="og:updated_time" content="2021-03-20T07:56:58.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hbase 协处理器">
 <meta name="twitter:description" content="一、简述在使用 HBase 时，如果你的数据量达到了数十亿行或数百万列，此时能否在查询中返回大量数据将受制于网络的带宽，即便网络状况允许，但是客户端的计算处理也未必能够满足要求。在这种情况下，协处理器（Coprocessors）应运而生。它允许你将业务计算代码放入在 RegionServer 的协处理器中，将处理好的数据再返回给客户端，这可以极大地降低需要传输的数据量，从而获得性能上的提升。同时协">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/hbase-coprocessor.png">
+<meta name="twitter:image" content="http://yoursite.com/images/hbase-coprocessor.png">
 
 
 
@@ -445,13 +445,13 @@
 </ul>
 <p><br></p>
 <h4 id="3-接口"><a href="#3-接口" class="headerlink" title="3. 接口"></a>3. 接口</h4><p>以上四种类型的 Observer 协处理器均继承自 <code>Coprocessor</code> 接口，这四个接口中分别定义了所有可用的钩子方法，以便在对应方法前后执行特定的操作。通常情况下，我们并不会直接实现上面接口，而是继承其 Base 实现类，Base 实现类只是简单空实现了接口中的方法，这样我们在实现自定义的协处理器时，就不必实现所有方法，只需要重写必要方法即可。</p>
-<div align="center"> <img src="../pictures/hbase-coprocessor.png"> </div>
+<div align="center"> <img src="/images/hbase-coprocessor.png"> </div>
 
 <p>这里以 <code>RegionObservers</code> 为例，其接口类中定义了所有可用的钩子方法，下面截取了部分方法的定义，多数方法都是成对出现的，有 <code>pre</code> 就有 <code>post</code>：</p>
-<div align="center"> <img src="../pictures/RegionObserver.png"> </div>
+<div align="center"> <img src="/images/RegionObserver.png"> </div>
 
 <p><br></p>
-<h4 id="4-执行流程"><a href="#4-执行流程" class="headerlink" title="4. 执行流程"></a>4. 执行流程</h4><div align="center"> <img src="../pictures/RegionObservers-works.png"> </div>
+<h4 id="4-执行流程"><a href="#4-执行流程" class="headerlink" title="4. 执行流程"></a>4. 执行流程</h4><div align="center"> <img src="/images/RegionObservers-works.png"> </div>
 
 <ul>
 <li>客户端发出 put 请求</li>
@@ -571,7 +571,7 @@
 <h3 id="6-3-打包项目"><a href="#6-3-打包项目" class="headerlink" title="6.3 打包项目"></a>6.3 打包项目</h3><p>使用 maven 命令进行打包，打包后的文件名为 <code>hbase-observer-coprocessor-1.0-SNAPSHOT.jar</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mvn clean package</span></span><br></pre></td></tr></table></figure>
 <h3 id="6-4-上传JAR包到HDFS"><a href="#6-4-上传JAR包到HDFS" class="headerlink" title="6.4 上传JAR包到HDFS"></a>6.4 上传JAR包到HDFS</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 上传项目到HDFS上的hbase目录</span></span><br><span class="line">hadoop fs -put /usr/app/hbase-observer-coprocessor-1.0-SNAPSHOT.jar /hbase</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看上传是否成功</span></span><br><span class="line">hadoop fs -ls /hbase</span><br></pre></td></tr></table></figure>
-<div align="center"> <img src="../pictures/hbase-cp-hdfs.png"> </div>
+<div align="center"> <img src="/images/hbase-cp-hdfs.png"> </div>
 
 <h3 id="6-5-加载协处理器"><a href="#6-5-加载协处理器" class="headerlink" title="6.5 加载协处理器"></a>6.5 加载协处理器</h3><ol>
 <li>加载协处理器前需要先禁用表</li>
@@ -590,17 +590,17 @@
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase &gt;  desc 'magazine'</span><br></pre></td></tr></table></figure>
 <p>协处理器出现在 <code>TABLE_ATTRIBUTES</code> 属性中则代表加载成功，如下图：</p>
-<div align="center"> <img src="../pictures/hbase-cp-load.png"> </div>
+<div align="center"> <img src="/images/hbase-cp-load.png"> </div>
 
 <h3 id="6-6-测试加载结果"><a href="#6-6-测试加载结果" class="headerlink" title="6.6 测试加载结果"></a>6.6 测试加载结果</h3><p>插入一组测试数据：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hbase &gt; put 'magazine', 'rowkey1','article:content','Hello'</span><br><span class="line">hbase &gt; get 'magazine','rowkey1','article:content'</span><br><span class="line">hbase &gt; put 'magazine', 'rowkey1','article:content','World'</span><br><span class="line">hbase &gt; get 'magazine','rowkey1','article:content'</span><br></pre></td></tr></table></figure>
 <p>可以看到对于指定列的值已经执行了 append 操作：</p>
-<div align="center"> <img src="../pictures/hbase-cp-helloworld.png"> </div>
+<div align="center"> <img src="/images/hbase-cp-helloworld.png"> </div>
 
 <p>插入一组对照数据：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hbase &gt; put 'magazine', 'rowkey1','article:author','zhangsan'</span><br><span class="line">hbase &gt; get 'magazine','rowkey1','article:author'</span><br><span class="line">hbase &gt; put 'magazine', 'rowkey1','article:author','lisi'</span><br><span class="line">hbase &gt; get 'magazine','rowkey1','article:author'</span><br></pre></td></tr></table></figure>
 <p>可以看到对于正常的列还是执行 update 操作:</p>
-<div align="center"> <img src="../pictures/hbase-cp-lisi.png"> </div>
+<div align="center"> <img src="/images/hbase-cp-lisi.png"> </div>
 
 <h3 id="6-7-卸载协处理器"><a href="#6-7-卸载协处理器" class="headerlink" title="6.7 卸载协处理器"></a>6.7 卸载协处理器</h3><ol>
 <li>卸载协处理器前需要先禁用表</li>
@@ -618,11 +618,11 @@
 <li>查看协处理器是否卸载成功</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase &gt;  desc 'magazine'</span><br></pre></td></tr></table></figure>
-<div align="center"> <img src="../pictures/hbase-co-unload.png"> </div>
+<div align="center"> <img src="/images/hbase-co-unload.png"> </div>
 
 <h3 id="6-8-测试卸载结果"><a href="#6-8-测试卸载结果" class="headerlink" title="6.8 测试卸载结果"></a>6.8 测试卸载结果</h3><p>依次执行下面命令可以测试卸载是否成功</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hbase &gt; get 'magazine','rowkey1','article:content'</span><br><span class="line">hbase &gt; put 'magazine', 'rowkey1','article:content','Hello'</span><br><span class="line">hbase &gt; get 'magazine','rowkey1','article:content'</span><br></pre></td></tr></table></figure>
-<div align="center"> <img src="../pictures/hbase-unload-test.png"> </div>
+<div align="center"> <img src="/images/hbase-unload-test.png"> </div>
 
 
 
@@ -781,7 +781,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -792,7 +792,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -803,7 +803,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

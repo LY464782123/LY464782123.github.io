@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、视图1.1 简介Hive 中的视图和 RDBMS 中视图的概念一致，都是一组数据的逻辑表示，本质上就是一条 SELECT 语句的结果集。视图是纯粹的逻辑对象，没有关联的存储 (Hive 3.0.0 引入的物化视图除外)，当查询引用视图时，Hive 可以将视图的定义与查询结合起来，例如将查询中的过滤器推送到视图中。 1.2 创建视图12345CREATE VIEW [IF NOT EXISTS]">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-1-2-view.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-view-properties.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-index-table.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-index-show.png">
-<meta property="og:updated_time" content="2021-03-18T01:55:17.509Z">
+<meta property="og:image" content="http://yoursite.com/images/hive-1-2-view.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-view-properties.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-index-table.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-index-show.png">
+<meta property="og:updated_time" content="2021-03-20T07:58:05.759Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive 视图和索引">
 <meta name="twitter:description" content="一、视图1.1 简介Hive 中的视图和 RDBMS 中视图的概念一致，都是一组数据的逻辑表示，本质上就是一条 SELECT 语句的结果集。视图是纯粹的逻辑对象，没有关联的存储 (Hive 3.0.0 引入的物化视图除外)，当查询引用视图时，Hive 可以将视图的定义与查询结合起来，例如将查询中的过滤器推送到视图中。 1.2 创建视图12345CREATE VIEW [IF NOT EXISTS]">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/18/pictures/hive-1-2-view.png">
+<meta name="twitter:image" content="http://yoursite.com/images/hive-1-2-view.png">
 
 
 
@@ -439,7 +439,7 @@
 </li>
 <li><p>创建视图时，如果 SELECT 语句中包含其他表达式，例如 x + y，则列名称将以_C0，_C1 等形式生成；</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span>  <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> custom_view <span class="keyword">AS</span> <span class="keyword">SELECT</span> empno, empno+deptno , <span class="number">1</span>+<span class="number">2</span> <span class="keyword">FROM</span> emp;</span><br></pre></td></tr></table></figure>
-<div align="center"> <img src="../pictures/hive-1-2-view.png"> </div>
+<div align="center"> <img src="/images/hive-1-2-view.png"> </div>
 
 
 
@@ -454,7 +454,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">VIEW</span> [db_name.]view_name <span class="keyword">SET</span> TBLPROPERTIES table_properties;</span><br><span class="line"> </span><br><span class="line">table_properties:</span><br><span class="line">  : (property_name = property_value, property_name = property_value, ...)</span><br></pre></td></tr></table></figure>
 <p>示例：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">VIEW</span> custom_view <span class="keyword">SET</span> TBLPROPERTIES (<span class="string">'create'</span>=<span class="string">'heibaiying'</span>,<span class="string">'date'</span>=<span class="string">'2019-05-05'</span>);</span><br></pre></td></tr></table></figure>
-<div align="center"> <img width="600px" src="../pictures/hive-view-properties.png"> </div>
+<div align="center"> <img width="600px" src="/images/hive-view-properties.png"> </div>
 
 
 
@@ -475,12 +475,12 @@
 <p>此时索引表中是没有数据的，需要重建索引才会有索引的数据。</p>
 <h3 id="3-2-重建索引"><a href="#3-2-重建索引" class="headerlink" title="3.2 重建索引"></a>3.2 重建索引</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">index</span> emp_index <span class="keyword">on</span> emp <span class="keyword">rebuild</span>;</span><br></pre></td></tr></table></figure>
 <p>Hive 会启动 MapReduce 作业去建立索引，建立好后查看索引表数据如下。三个表字段分别代表：索引列的值、该值对应的 HDFS 文件路径、该值在文件中的偏移量。</p>
-<div align="center"> <img width="700px" src="../pictures/hive-index-table.png"> </div>
+<div align="center"> <img width="700px" src="/images/hive-index-table.png"> </div>
 
 <h3 id="3-3-自动使用索引"><a href="#3-3-自动使用索引" class="headerlink" title="3.3 自动使用索引"></a>3.3 自动使用索引</h3><p>默认情况下，虽然建立了索引，但是 Hive 在查询时候是不会自动去使用索引的，需要开启相关配置。开启配置后，涉及到索引列的查询就会使用索引功能去优化查询。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> hive.input.format=org.apache.hadoop.hive.ql.io.HiveInputFormat;</span><br><span class="line"><span class="keyword">SET</span> hive.optimize.index.filter=<span class="literal">true</span>;</span><br><span class="line"><span class="keyword">SET</span> hive.optimize.index.filter.compact.minsize=<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 <h3 id="3-4-查看索引"><a href="#3-4-查看索引" class="headerlink" title="3.4 查看索引"></a>3.4 查看索引</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">INDEX</span> <span class="keyword">ON</span> emp;</span><br></pre></td></tr></table></figure>
-<div align="center"> <img src="../pictures/hive-index-show.png"> </div>
+<div align="center"> <img src="/images/hive-index-show.png"> </div>
 
 
 
@@ -557,8 +557,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/18/Hive简介及核心概念/" rel="next" title="Hive简介及核心概念">
-                <i class="fa fa-chevron-left"></i> Hive简介及核心概念
+              <a href="/2021/03/17/Hbase系统架构及数据结构/" rel="next" title="Hbase系统架构及数据结构">
+                <i class="fa fa-chevron-left"></i> Hbase系统架构及数据结构
               </a>
             
           </div>
@@ -567,8 +567,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/18/Hive常用DDL操作/" rel="prev" title="Hive常用DDL操作">
-                Hive常用DDL操作 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/18/Hive简介及核心概念/" rel="prev" title="Hive简介及核心概念">
+                Hive简介及核心概念 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -651,7 +651,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -662,7 +662,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -673,7 +673,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

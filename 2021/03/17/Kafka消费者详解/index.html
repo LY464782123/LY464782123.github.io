@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、消费者和消费者群组在 Kafka 中，消费者通常是消费者群组的一部分，多个消费者群组共同读取同一个主题时，彼此之间互不影响。Kafka 之所以要引入消费者群组这个概念是因为 Kafka 消费者经常会做一些高延迟的操作，比如把数据写到数据库或 HDFS ，或者进行耗时的计算，在这些情况下，单个消费者无法跟上数据生成的速度。此时可以增加更多的消费者，让它们分担负载，分别处理部分分区的消息，这就是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/kafka-consumer01.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/kafka-consumer02.png">
-<meta property="og:updated_time" content="2021-03-17T13:52:39.975Z">
+<meta property="og:image" content="http://yoursite.com/images/kafka-consumer01.png">
+<meta property="og:image" content="http://yoursite.com/images/kafka-consumer02.png">
+<meta property="og:updated_time" content="2021-03-20T07:58:10.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka消费者详解">
 <meta name="twitter:description" content="一、消费者和消费者群组在 Kafka 中，消费者通常是消费者群组的一部分，多个消费者群组共同读取同一个主题时，彼此之间互不影响。Kafka 之所以要引入消费者群组这个概念是因为 Kafka 消费者经常会做一些高延迟的操作，比如把数据写到数据库或 HDFS ，或者进行耗时的计算，在这些情况下，单个消费者无法跟上数据生成的速度。此时可以增加更多的消费者，让它们分担负载，分别处理部分分区的消息，这就是">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/kafka-consumer01.png">
+<meta name="twitter:image" content="http://yoursite.com/images/kafka-consumer01.png">
 
 
 
@@ -422,10 +422,10 @@
 
       
         <h2 id="一、消费者和消费者群组"><a href="#一、消费者和消费者群组" class="headerlink" title="一、消费者和消费者群组"></a>一、消费者和消费者群组</h2><p>在 Kafka 中，消费者通常是消费者群组的一部分，多个消费者群组共同读取同一个主题时，彼此之间互不影响。Kafka 之所以要引入消费者群组这个概念是因为 Kafka 消费者经常会做一些高延迟的操作，比如把数据写到数据库或 HDFS ，或者进行耗时的计算，在这些情况下，单个消费者无法跟上数据生成的速度。此时可以增加更多的消费者，让它们分担负载，分别处理部分分区的消息，这就是 Kafka 实现横向伸缩的主要手段。 </p>
-<div align="center"> <img src="../pictures/kafka-consumer01.png"> </div>
+<div align="center"> <img src="/images/kafka-consumer01.png"> </div>
 
 <p>需要注意的是：同一个分区只能被同一个消费者群组里面的一个消费者读取，不可能存在同一个分区被同一个消费者群里多个消费者共同读取的情况，如图：</p>
-<div align="center"> <img src="../pictures/kafka-consumer02.png"> </div>
+<div align="center"> <img src="/images/kafka-consumer02.png"> </div>
 
 <p>可以看到即便消费者 Consumer5 空闲了，但是也不会去读取任何一个分区的数据，这同时也提醒我们在使用时应该合理设置消费者的数量，以免造成闲置和额外开销。</p>
 <h2 id="二、分区再均衡"><a href="#二、分区再均衡" class="headerlink" title="二、分区再均衡"></a>二、分区再均衡</h2><p>因为群组里的消费者共同读取主题的分区，所以当一个消费者被关闭或发生崩溃时，它就离开了群组，原本由它读取的分区将由群组里的其他消费者来读取。同时在主题发生变化时 ， 比如添加了新的分区，也会发生分区与消费者的重新分配，分区的所有权从一个消费者转移到另一个消费者，这样的行为被称为再均衡。正是因为再均衡，所以消费费者群组才能保证高可用性和伸缩性。</p>
@@ -557,8 +557,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Kafka生产者详解/" rel="next" title="Kafka生产者详解">
-                <i class="fa fa-chevron-left"></i> Kafka生产者详解
+              <a href="/2021/03/17/Kafka深入理解分区副本机制/" rel="next" title="深入理解Kafka副本机制">
+                <i class="fa fa-chevron-left"></i> 深入理解Kafka副本机制
               </a>
             
           </div>
@@ -567,8 +567,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/Sqoop简介与安装/" rel="prev" title="Sqoop 简介与安装">
-                Sqoop 简介与安装 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/Kafka生产者详解/" rel="prev" title="Kafka生产者详解">
+                Kafka生产者详解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -651,7 +651,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -662,7 +662,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -673,7 +673,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

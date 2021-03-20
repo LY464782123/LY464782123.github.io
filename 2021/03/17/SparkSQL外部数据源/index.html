@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、简介1.1 多数据源支持Spark 支持以下六个核心数据源，同时 Spark 社区还提供了多达上百种数据源的读取方式，能够满足绝大部分使用场景。  CSV JSON Parquet ORC JDBC/ODBC connections Plain-text files   注：以下所有测试文件均可从本仓库的resources 目录进行下载  1.2 读数据格式所有读取 API 遵循以下调用格式：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-mysql-分区上下限.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-分区.png">
-<meta property="og:updated_time" content="2021-03-17T15:08:40.247Z">
+<meta property="og:image" content="http://yoursite.com/images/spark-mysql-分区上下限.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-分区.png">
+<meta property="og:updated_time" content="2021-03-20T08:00:10.917Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark SQL 外部数据源">
 <meta name="twitter:description" content="一、简介1.1 多数据源支持Spark 支持以下六个核心数据源，同时 Spark 社区还提供了多达上百种数据源的读取方式，能够满足绝大部分使用场景。  CSV JSON Parquet ORC JDBC/ODBC connections Plain-text files   注：以下所有测试文件均可从本仓库的resources 目录进行下载  1.2 读数据格式所有读取 API 遵循以下调用格式：">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/spark-mysql-分区上下限.png">
+<meta name="twitter:image" content="http://yoursite.com/images/spark-mysql-分区上下限.png">
 
 
 
@@ -556,7 +556,7 @@
 <p>想要验证分区内容，可以使用 <code>mapPartitionsWithIndex</code> 这个算子，代码如下：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">jdbcDf.rdd.mapPartitionsWithIndex((index, iterator) =&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> buffer = <span class="keyword">new</span> <span class="type">ListBuffer</span>[<span class="type">String</span>]</span><br><span class="line">    <span class="keyword">while</span> (iterator.hasNext) &#123;</span><br><span class="line">        buffer.append(index + <span class="string">"分区:"</span> + iterator.next())</span><br><span class="line">    &#125;</span><br><span class="line">    buffer.toIterator</span><br><span class="line">&#125;).foreach(println)</span><br></pre></td></tr></table></figure>
 <p>执行结果如下：<code>help_keyword</code> 这张表只有 600 条左右的数据，本来数据应该均匀分布在 10 个分区，但是 0 分区里面却有 319 条数据，这是因为设置了下限，所有小于 300 的数据都会被限制在第一个分区，即 0 分区。同理所有大于 500 的数据被分配在 9 分区，即最后一个分区。</p>
-<div align="center"> <img src="../pictures/spark-mysql-分区上下限.png"> </div>
+<div align="center"> <img src="/images/spark-mysql-分区上下限.png"> </div>
 
 <h3 id="6-2-写入数据"><a href="#6-2-写入数据" class="headerlink" title="6.2 写入数据"></a>6.2 写入数据</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> df = spark.read.format(<span class="string">"json"</span>).load(<span class="string">"/usr/file/json/emp.json"</span>)</span><br><span class="line">df.write</span><br><span class="line">.format(<span class="string">"jdbc"</span>)</span><br><span class="line">.option(<span class="string">"url"</span>, <span class="string">"jdbc:mysql://127.0.0.1:3306/mysql"</span>)</span><br><span class="line">.option(<span class="string">"user"</span>, <span class="string">"root"</span>).option(<span class="string">"password"</span>, <span class="string">"root"</span>)</span><br><span class="line">.option(<span class="string">"dbtable"</span>, <span class="string">"emp"</span>)</span><br><span class="line">.save()</span><br></pre></td></tr></table></figure>
 <p><br></p>
@@ -569,7 +569,7 @@
 <h3 id="8-3-分区写入"><a href="#8-3-分区写入" class="headerlink" title="8.3 分区写入"></a>8.3 分区写入</h3><p>分区和分桶这两个概念和 Hive 中分区表和分桶表是一致的。都是将数据按照一定规则进行拆分存储。需要注意的是 <code>partitionBy</code> 指定的分区和 RDD 中分区不是一个概念：这里的<strong>分区表现为输出目录的子目录</strong>，数据分别存储在对应的子目录中。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> df = spark.read.format(<span class="string">"json"</span>).load(<span class="string">"/usr/file/json/emp.json"</span>)</span><br><span class="line">df.write.mode(<span class="string">"overwrite"</span>).partitionBy(<span class="string">"deptno"</span>).save(<span class="string">"/tmp/spark/partitions"</span>)</span><br></pre></td></tr></table></figure>
 <p>输出结果如下：可以看到输出被按照部门编号分为三个子目录，子目录中才是对应的输出文件。</p>
-<div align="center"> <img src="../pictures/spark-分区.png"> </div>
+<div align="center"> <img src="/images/spark-分区.png"> </div>
 
 <h3 id="8-3-分桶写入"><a href="#8-3-分桶写入" class="headerlink" title="8.3 分桶写入"></a>8.3 分桶写入</h3><p>分桶写入就是将数据按照指定的列和桶数进行散列，目前分桶写入只支持保存为表，实际上这就是 Hive 的分桶表。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> numberBuckets = <span class="number">10</span></span><br><span class="line"><span class="keyword">val</span> columnToBucketBy = <span class="string">"empno"</span></span><br><span class="line">df.write.format(<span class="string">"parquet"</span>).mode(<span class="string">"overwrite"</span>)</span><br><span class="line">.bucketBy(numberBuckets, columnToBucketBy).saveAsTable(<span class="string">"bucketedFiles"</span>)</span><br></pre></td></tr></table></figure>
@@ -1008,7 +1008,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1019,7 +1019,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1030,7 +1030,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

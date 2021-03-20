@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、内置 Data SourceFlink Data Source 用于定义 Flink 程序的数据来源，Flink 官方提供了多种数据获取方法，用于帮助开发者简单快速地构建输入流，具体如下： 1.1 基于文件构建1. readTextFile(path)：按照 TextInputFormat 格式读取文本文件，并将其内容以字符串的形式返回。示例如下： 1env.readTextFile(file">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-RichParallelSourceFunction.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-kafka-datasource-producer.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-kafka-datasource-console.png">
-<meta property="og:updated_time" content="2021-03-17T14:02:16.270Z">
+<meta property="og:image" content="http://yoursite.com/images/flink-RichParallelSourceFunction.png">
+<meta property="og:image" content="http://yoursite.com/images/flink-kafka-datasource-producer.png">
+<meta property="og:image" content="http://yoursite.com/images/flink-kafka-datasource-console.png">
+<meta property="og:updated_time" content="2021-03-20T07:55:53.074Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flink Data Source">
 <meta name="twitter:description" content="一、内置 Data SourceFlink Data Source 用于定义 Flink 程序的数据来源，Flink 官方提供了多种数据获取方法，用于帮助开发者简单快速地构建输入流，具体如下： 1.1 基于文件构建1. readTextFile(path)：按照 TextInputFormat 格式读取文本文件，并将其内容以字符串的形式返回。示例如下： 1env.readTextFile(file">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/flink-RichParallelSourceFunction.png">
+<meta name="twitter:image" content="http://yoursite.com/images/flink-RichParallelSourceFunction.png">
 
 
 
@@ -460,7 +460,7 @@
 <h3 id="2-2-ParallelSourceFunction-和-RichParallelSourceFunction"><a href="#2-2-ParallelSourceFunction-和-RichParallelSourceFunction" class="headerlink" title="2.2 ParallelSourceFunction 和 RichParallelSourceFunction"></a>2.2 ParallelSourceFunction 和 RichParallelSourceFunction</h3><p>上面通过 SourceFunction 实现的数据源是不具有并行度的，即不支持在得到的 DataStream 上调用 <code>setParallelism(n)</code> 方法，此时会抛出如下的异常：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread "main" java.lang.IllegalArgumentException: Source: 1 is not a parallel source</span><br></pre></td></tr></table></figure>
 <p>如果你想要实现具有并行度的输入流，则需要实现 ParallelSourceFunction 或 RichParallelSourceFunction 接口，其与 SourceFunction 的关系如下图： </p>
-<p><div align="center"> <img src="../pictures/flink-RichParallelSourceFunction.png"> </div><br>ParallelSourceFunction 直接继承自 ParallelSourceFunction，具有并行度的功能。RichParallelSourceFunction 则继承自 AbstractRichFunction，同时实现了 ParallelSourceFunction 接口，所以其除了具有并行度的功能外，还提供了额外的与生命周期相关的方法，如 open() ，closen() 。</p>
+<p><div align="center"> <img src="/images/flink-RichParallelSourceFunction.png"> </div><br>ParallelSourceFunction 直接继承自 ParallelSourceFunction，具有并行度的功能。RichParallelSourceFunction 则继承自 AbstractRichFunction，同时实现了 ParallelSourceFunction 接口，所以其除了具有并行度的功能外，还提供了额外的与生命周期相关的方法，如 open() ，closen() 。</p>
 <h2 id="三、Streaming-Connectors"><a href="#三、Streaming-Connectors" class="headerlink" title="三、Streaming Connectors"></a>三、Streaming Connectors</h2><h3 id="3-1-内置连接器"><a href="#3-1-内置连接器" class="headerlink" title="3.1 内置连接器"></a>3.1 内置连接器</h3><p>除了自定义数据源外， Flink 还内置了多种连接器，用于满足大多数的数据收集场景。当前内置连接器的支持情况如下：</p>
 <ul>
 <li>Apache Kafka (支持 source 和 sink)</li>
@@ -537,8 +537,8 @@
 <h4 id="3-启动-Producer"><a href="#3-启动-Producer" class="headerlink" title="3. 启动 Producer"></a>3. 启动 Producer</h4><p>这里 启动一个 Kafka 生产者，用于发送测试数据：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list hadoop001:9092 --topic flink-stream-in-topic</span><br></pre></td></tr></table></figure>
 <h4 id="4-测试结果"><a href="#4-测试结果" class="headerlink" title="4. 测试结果"></a>4. 测试结果</h4><p>在 Producer 上输入任意测试数据，之后观察程序控制台的输出：</p>
-<p><div align="center"> <img src="../pictures/flink-kafka-datasource-producer.png"> </div><br>程序控制台的输出如下：</p>
-<p><div align="center"> <img src="../pictures/flink-kafka-datasource-console.png"> </div><br>可以看到已经成功接收并打印出相关的数据。</p>
+<p><div align="center"> <img src="/images/flink-kafka-datasource-producer.png"> </div><br>程序控制台的输出如下：</p>
+<p><div align="center"> <img src="/images/flink-kafka-datasource-console.png"> </div><br>可以看到已经成功接收并打印出相关的数据。</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
 <li>data-sources：<a href="https://ci.apache.org/projects/flink/flink-docs-release-1.9/dev/datastream_api.html#data-sources" target="_blank" rel="noopener">https://ci.apache.org/projects/flink/flink-docs-release-1.9/dev/datastream_api.html#data-sources</a> </li>
 <li>Streaming Connectors：<a href="https://ci.apache.org/projects/flink/flink-docs-release-1.9/dev/connectors/index.html" target="_blank" rel="noopener">https://ci.apache.org/projects/flink/flink-docs-release-1.9/dev/connectors/index.html</a></li>
@@ -600,8 +600,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Flink_Data_Transformation/" rel="next" title="Flink Transformation">
-                <i class="fa fa-chevron-left"></i> Flink Transformation
+              <a href="/2021/03/17/Flink_Data_Sink/" rel="next" title="Flink Sink">
+                <i class="fa fa-chevron-left"></i> Flink Sink
               </a>
             
           </div>
@@ -610,8 +610,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/Flink_Data_Sink/" rel="prev" title="Flink Sink">
-                Flink Sink <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/Flume整合Kafka/" rel="prev" title="Flume 整合 Kafka">
+                Flume 整合 Kafka <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -694,7 +694,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -705,7 +705,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -716,7 +716,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

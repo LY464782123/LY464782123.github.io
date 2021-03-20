@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、流处理1.1 静态数据处理在流处理之前，数据通常存储在数据库，文件系统或其他形式的存储系统中。应用程序根据需要查询数据或计算数据。这就是传统的静态数据处理架构。Hadoop 采用 HDFS 进行数据存储，采用 MapReduce 进行数据查询或分析，这就是典型的静态数据处理架构。       1.2 流处理而流处理则是直接对运动中的数据的处理，在接收数据时直接计算数据。 大多数数据都是连续的流">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/01_data_at_rest_infrastructure.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/02_stream_processing_infrastructure.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-streaming-arch.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-streaming-flow.png">
-<meta property="og:updated_time" content="2021-03-17T15:06:16.256Z">
+<meta property="og:image" content="http://yoursite.com/images/01_data_at_rest_infrastructure.png">
+<meta property="og:image" content="http://yoursite.com/images/02_stream_processing_infrastructure.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-streaming-arch.png">
+<meta property="og:image" content="http://yoursite.com/images/spark-streaming-flow.png">
+<meta property="og:updated_time" content="2021-03-20T07:59:36.993Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Streaming与流处理">
 <meta name="twitter:description" content="一、流处理1.1 静态数据处理在流处理之前，数据通常存储在数据库，文件系统或其他形式的存储系统中。应用程序根据需要查询数据或计算数据。这就是传统的静态数据处理架构。Hadoop 采用 HDFS 进行数据存储，采用 MapReduce 进行数据查询或分析，这就是典型的静态数据处理架构。       1.2 流处理而流处理则是直接对运动中的数据的处理，在接收数据时直接计算数据。 大多数数据都是连续的流">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/01_data_at_rest_infrastructure.png">
+<meta name="twitter:image" content="http://yoursite.com/images/01_data_at_rest_infrastructure.png">
 
 
 
@@ -424,14 +424,14 @@
 
       
         <h2 id="一、流处理"><a href="#一、流处理" class="headerlink" title="一、流处理"></a>一、流处理</h2><h3 id="1-1-静态数据处理"><a href="#1-1-静态数据处理" class="headerlink" title="1.1 静态数据处理"></a>1.1 静态数据处理</h3><p>在流处理之前，数据通常存储在数据库，文件系统或其他形式的存储系统中。应用程序根据需要查询数据或计算数据。这就是传统的静态数据处理架构。Hadoop 采用 HDFS 进行数据存储，采用 MapReduce 进行数据查询或分析，这就是典型的静态数据处理架构。</p>
-<div align="center"> <img src="../pictures/01_data_at_rest_infrastructure.png"> </div>
+<div align="center"> <img src="/images/01_data_at_rest_infrastructure.png"> </div>
 
 
 
 <h3 id="1-2-流处理"><a href="#1-2-流处理" class="headerlink" title="1.2 流处理"></a>1.2 流处理</h3><p>而流处理则是直接对运动中的数据的处理，在接收数据时直接计算数据。</p>
 <p>大多数数据都是连续的流：传感器事件，网站上的用户活动，金融交易等等 ，所有这些数据都是随着时间的推移而创建的。</p>
 <p>接收和发送数据流并执行应用程序或分析逻辑的系统称为<strong>流处理器</strong>。流处理器的基本职责是确保数据有效流动，同时具备可扩展性和容错能力，Storm 和 Flink 就是其代表性的实现。</p>
-<div align="center"> <img src="../pictures/02_stream_processing_infrastructure.png"> </div>
+<div align="center"> <img src="/images/02_stream_processing_infrastructure.png"> </div>
 
 
 
@@ -450,10 +450,10 @@
 <li>能够和 Spark 其他模块无缝集成，将流处理与批处理完美结合；</li>
 <li>Spark Streaming 可以从 HDFS，Flume，Kafka，Twitter 和 ZeroMQ 读取数据，也支持自定义数据源。</li>
 </ul>
-<div align="center"> <img width="600px" src="../pictures/spark-streaming-arch.png"> </div>
+<div align="center"> <img width="600px" src="/images/spark-streaming-arch.png"> </div>
 
 <h3 id="2-2-DStream"><a href="#2-2-DStream" class="headerlink" title="2.2 DStream"></a>2.2 DStream</h3><p>Spark Streaming 提供称为离散流 (DStream) 的高级抽象，用于表示连续的数据流。 DStream 可以从来自 Kafka，Flume 和 Kinesis 等数据源的输入数据流创建，也可以由其他 DStream 转化而来。<strong>在内部，DStream 表示为一系列 RDD</strong>。</p>
-<div align="center"> <img width="600px" src="../pictures/spark-streaming-flow.png"> </div>
+<div align="center"> <img width="600px" src="/images/spark-streaming-flow.png"> </div>
 
 
 
@@ -518,8 +518,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Spark_Streaming基本操作/" rel="next" title="Spark Streaming 基本操作">
-                <i class="fa fa-chevron-left"></i> Spark Streaming 基本操作
+              <a href="/2021/03/17/Spark_RDD/" rel="next" title="弹性式数据集RDDs">
+                <i class="fa fa-chevron-left"></i> 弹性式数据集RDDs
               </a>
             
           </div>
@@ -528,8 +528,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/SparkSQL常用聚合函数/" rel="prev" title="聚合函数Aggregations">
-                聚合函数Aggregations <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/SparkSQL联结操作/" rel="prev" title="Spark SQL JOIN">
+                Spark SQL JOIN <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -612,7 +612,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -623,7 +623,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -634,7 +634,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

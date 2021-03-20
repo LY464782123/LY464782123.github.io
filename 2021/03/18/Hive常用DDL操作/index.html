@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、Database1.1 查看数据列表1show databases;     1.2 使用数据库1USE database_name; 1.3 新建数据库语法： 1234CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name   --DATABASE|SCHEMA 是等价的  [COMMENT database_comment] --数据库">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-show-database.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-external-table.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-select-emp.png">
-<meta property="og:updated_time" content="2021-03-18T01:54:00.706Z">
+<meta property="og:image" content="http://yoursite.com/images/hive-show-database.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-external-table.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-select-emp.png">
+<meta property="og:updated_time" content="2021-03-20T07:57:44.794Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive常用DDL操作">
 <meta name="twitter:description" content="一、Database1.1 查看数据列表1show databases;     1.2 使用数据库1USE database_name; 1.3 新建数据库语法： 1234CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name   --DATABASE|SCHEMA 是等价的  [COMMENT database_comment] --数据库">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/18/pictures/hive-show-database.png">
+<meta name="twitter:image" content="http://yoursite.com/images/hive-show-database.png">
 
 
 
@@ -423,7 +423,7 @@
 
       
         <h2 id="一、Database"><a href="#一、Database" class="headerlink" title="一、Database"></a>一、Database</h2><h3 id="1-1-查看数据列表"><a href="#1-1-查看数据列表" class="headerlink" title="1.1 查看数据列表"></a>1.1 查看数据列表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">databases</span>;</span><br></pre></td></tr></table></figure>
-<div align="center"> <img width="700px" src="../pictures/hive-show-database.png"> </div>
+<div align="center"> <img width="700px" src="/images/hive-show-database.png"> </div>
 
 <h3 id="1-2-使用数据库"><a href="#1-2-使用数据库" class="headerlink" title="1.2 使用数据库"></a>1.2 使用数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> database_name;</span><br></pre></td></tr></table></figure>
 <h3 id="1-3-新建数据库"><a href="#1-3-新建数据库" class="headerlink" title="1.3 新建数据库"></a>1.3 新建数据库</h3><p>语法：</p>
@@ -445,7 +445,7 @@
 <h3 id="2-2-内部表"><a href="#2-2-内部表" class="headerlink" title="2.2 内部表"></a>2.2 内部表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> emp(</span><br><span class="line">  empno <span class="built_in">INT</span>,</span><br><span class="line">  ename <span class="keyword">STRING</span>,</span><br><span class="line">  job <span class="keyword">STRING</span>,</span><br><span class="line">  mgr <span class="built_in">INT</span>,</span><br><span class="line">  hiredate <span class="built_in">TIMESTAMP</span>,</span><br><span class="line">  sal <span class="built_in">DECIMAL</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">  comm <span class="built_in">DECIMAL</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">  deptno <span class="built_in">INT</span>)</span><br><span class="line">  <span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">"\t"</span>;</span><br></pre></td></tr></table></figure>
 <h3 id="2-3-外部表"><a href="#2-3-外部表" class="headerlink" title="2.3 外部表"></a>2.3 外部表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> emp_external(</span><br><span class="line">  empno <span class="built_in">INT</span>,</span><br><span class="line">  ename <span class="keyword">STRING</span>,</span><br><span class="line">  job <span class="keyword">STRING</span>,</span><br><span class="line">  mgr <span class="built_in">INT</span>,</span><br><span class="line">  hiredate <span class="built_in">TIMESTAMP</span>,</span><br><span class="line">  sal <span class="built_in">DECIMAL</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">  comm <span class="built_in">DECIMAL</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">  deptno <span class="built_in">INT</span>)</span><br><span class="line">  <span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">"\t"</span></span><br><span class="line">  LOCATION <span class="string">'/hive/emp_external'</span>;</span><br></pre></td></tr></table></figure>
 <p>使用 <code>desc format  emp_external</code> 命令可以查看表的详细信息如下：</p>
-<div align="center"> <img width="700px" src="../pictures/hive-external-table.png"> </div>
+<div align="center"> <img width="700px" src="/images/hive-external-table.png"> </div>
 
 <h3 id="2-4-分区表"><a href="#2-4-分区表" class="headerlink" title="2.4 分区表"></a>2.4 分区表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> emp_partition(</span><br><span class="line">  empno <span class="built_in">INT</span>,</span><br><span class="line">  ename <span class="keyword">STRING</span>,</span><br><span class="line">  job <span class="keyword">STRING</span>,</span><br><span class="line">  mgr <span class="built_in">INT</span>,</span><br><span class="line">  hiredate <span class="built_in">TIMESTAMP</span>,</span><br><span class="line">  sal <span class="built_in">DECIMAL</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">  comm <span class="built_in">DECIMAL</span>(<span class="number">7</span>,<span class="number">2</span>)</span><br><span class="line">  )</span><br><span class="line">  PARTITIONED <span class="keyword">BY</span> (deptno <span class="built_in">INT</span>)   <span class="comment">-- 按照部门编号进行分区</span></span><br><span class="line">  <span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">"\t"</span></span><br><span class="line">  LOCATION <span class="string">'/hive/emp_partition'</span>;</span><br></pre></td></tr></table></figure>
 <h3 id="2-5-分桶表"><a href="#2-5-分桶表" class="headerlink" title="2.5 分桶表"></a>2.5 分桶表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> emp_bucket(</span><br><span class="line">  empno <span class="built_in">INT</span>,</span><br><span class="line">  ename <span class="keyword">STRING</span>,</span><br><span class="line">  job <span class="keyword">STRING</span>,</span><br><span class="line">  mgr <span class="built_in">INT</span>,</span><br><span class="line">  hiredate <span class="built_in">TIMESTAMP</span>,</span><br><span class="line">  sal <span class="built_in">DECIMAL</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">  comm <span class="built_in">DECIMAL</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">  deptno <span class="built_in">INT</span>)</span><br><span class="line">  CLUSTERED <span class="keyword">BY</span>(empno) SORTED <span class="keyword">BY</span>(empno <span class="keyword">ASC</span>) <span class="keyword">INTO</span> <span class="number">4</span> BUCKETS  <span class="comment">--按照员工编号散列到四个 bucket 中</span></span><br><span class="line">  <span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">"\t"</span></span><br><span class="line">  LOCATION <span class="string">'/hive/emp_bucket'</span>;</span><br></pre></td></tr></table></figure>
@@ -468,7 +468,7 @@
 <p>其中 emp.txt 的内容如下，你可以直接复制使用，也可以到本仓库的<a href="https://github.com/heibaiying/BigData-Notes/tree/master/resources" target="_blank" rel="noopener">resources</a> 目录下载：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">7369	SMITH	CLERK	7902	1980-12-17 00:00:00	800.00		20</span><br><span class="line">7499	ALLEN	SALESMAN	7698	1981-02-20 00:00:00	1600.00	300.00	30</span><br><span class="line">7521	WARD	SALESMAN	7698	1981-02-22 00:00:00	1250.00	500.00	30</span><br><span class="line">7566	JONES	MANAGER	7839	1981-04-02 00:00:00	2975.00		20</span><br><span class="line">7654	MARTIN	SALESMAN	7698	1981-09-28 00:00:00	1250.00	1400.00	30</span><br><span class="line">7698	BLAKE	MANAGER	7839	1981-05-01 00:00:00	2850.00		30</span><br><span class="line">7782	CLARK	MANAGER	7839	1981-06-09 00:00:00	2450.00		10</span><br><span class="line">7788	SCOTT	ANALYST	7566	1987-04-19 00:00:00	1500.00		20</span><br><span class="line">7839	KING	PRESIDENT		1981-11-17 00:00:00	5000.00		10</span><br><span class="line">7844	TURNER	SALESMAN	7698	1981-09-08 00:00:00	1500.00	0.00	30</span><br><span class="line">7876	ADAMS	CLERK	7788	1987-05-23 00:00:00	1100.00		20</span><br><span class="line">7900	JAMES	CLERK	7698	1981-12-03 00:00:00	950.00		30</span><br><span class="line">7902	FORD	ANALYST	7566	1981-12-03 00:00:00	3000.00		20</span><br><span class="line">7934	MILLER	CLERK	7782	1982-01-23 00:00:00	1300.00		10</span><br></pre></td></tr></table></figure>
 <p>加载后可查询表中数据：</p>
-<div align="center"> <img width="700px" src="../pictures/hive-select-emp.png"> </div>
+<div align="center"> <img width="700px" src="/images/hive-select-emp.png"> </div>
 
 
 
@@ -568,8 +568,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/18/Hive视图和索引/" rel="next" title="Hive 视图和索引">
-                <i class="fa fa-chevron-left"></i> Hive 视图和索引
+              <a href="/2021/03/18/HiveCLI和Beeline命令行的基本使用/" rel="next" title="Hive CLI和Beeline命令行的基本使用">
+                <i class="fa fa-chevron-left"></i> Hive CLI和Beeline命令行的基本使用
               </a>
             
           </div>
@@ -578,8 +578,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/18/HiveCLI和Beeline命令行的基本使用/" rel="prev" title="Hive CLI和Beeline命令行的基本使用">
-                Hive CLI和Beeline命令行的基本使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/18/Scala集合类型/" rel="prev" title="集合">
+                集合 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -662,7 +662,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -673,7 +673,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -684,7 +684,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

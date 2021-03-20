@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、hadoop yarn 简介Apache YARN (Yet Another Resource Negotiator)  是 hadoop 2.0 引入的集群资源管理系统。用户可以将各种服务框架部署在 YARN 上，由 YARN 进行统一地管理和资源分配。       二、YARN架构    1. ResourceManagerResourceManager 通常在独立的机器上以后台进程的形式">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/yarn-base.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/Figure3Architecture-of-YARN.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/yarn工作原理简图.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/yarn工作原理.png">
-<meta property="og:updated_time" content="2021-03-17T14:58:54.081Z">
+<meta property="og:image" content="http://yoursite.com/images/yarn-base.png">
+<meta property="og:image" content="http://yoursite.com/images/Figure3Architecture-of-YARN.png">
+<meta property="og:image" content="http://yoursite.com/images/yarn工作原理简图.png">
+<meta property="og:image" content="http://yoursite.com/images/yarn工作原理.png">
+<meta property="og:updated_time" content="2021-03-20T07:57:02.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="集群资源管理器——YARN">
 <meta name="twitter:description" content="一、hadoop yarn 简介Apache YARN (Yet Another Resource Negotiator)  是 hadoop 2.0 引入的集群资源管理系统。用户可以将各种服务框架部署在 YARN 上，由 YARN 进行统一地管理和资源分配。       二、YARN架构    1. ResourceManagerResourceManager 通常在独立的机器上以后台进程的形式">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/yarn-base.png">
+<meta name="twitter:image" content="http://yoursite.com/images/yarn-base.png">
 
 
 
@@ -424,11 +424,11 @@
 
       
         <h2 id="一、hadoop-yarn-简介"><a href="#一、hadoop-yarn-简介" class="headerlink" title="一、hadoop yarn 简介"></a>一、hadoop yarn 简介</h2><p><strong>Apache YARN</strong> (Yet Another Resource Negotiator)  是 hadoop 2.0 引入的集群资源管理系统。用户可以将各种服务框架部署在 YARN 上，由 YARN 进行统一地管理和资源分配。</p>
-<div align="center"> <img width="600px" src="../pictures/yarn-base.png"> </div>
+<div align="center"> <img width="600px" src="/images/yarn-base.png"> </div>
 
 
 
-<h2 id="二、YARN架构"><a href="#二、YARN架构" class="headerlink" title="二、YARN架构"></a>二、YARN架构</h2><div align="center"> <img width="600px" src="../pictures/Figure3Architecture-of-YARN.png"> </div>
+<h2 id="二、YARN架构"><a href="#二、YARN架构" class="headerlink" title="二、YARN架构"></a>二、YARN架构</h2><div align="center"> <img width="600px" src="/images/Figure3Architecture-of-YARN.png"> </div>
 
 <h3 id="1-ResourceManager"><a href="#1-ResourceManager" class="headerlink" title="1. ResourceManager"></a>1. ResourceManager</h3><p><code>ResourceManager</code> 通常在独立的机器上以后台进程的形式运行，它是整个集群资源的主要协调者和管理者。<code>ResourceManager</code> 负责给用户提交的所有应用程序分配资源，它根据应用程序优先级、队列容量、ACLs、数据位置等信息，做出决策，然后以共享的、安全的、多租户的方式制定分配策略，调度集群资源。</p>
 <h3 id="2-NodeManager"><a href="#2-NodeManager" class="headerlink" title="2. NodeManager"></a>2. NodeManager</h3><p><code>NodeManager</code> 是 YARN 集群中的每个具体节点的管理者。主要负责该节点内所有容器的生命周期的管理，监视资源和跟踪节点健康。具体如下：</p>
@@ -445,7 +445,7 @@
 <li>负责任务的容错。</li>
 </ul>
 <h3 id="4-Contain"><a href="#4-Contain" class="headerlink" title="4. Contain"></a>4. Contain</h3><p><code>Container</code> 是 YARN 中的资源抽象，它封装了某个节点上的多维度资源，如内存、CPU、磁盘、网络等。当 AM 向 RM 申请资源时，RM 为 AM 返回的资源是用 <code>Container</code> 表示的。YARN 会为每个任务分配一个 <code>Container</code>，该任务只能使用该 <code>Container</code> 中描述的资源。<code>ApplicationMaster</code> 可在 <code>Container</code> 内运行任何类型的任务。例如，<code>MapReduce ApplicationMaster</code> 请求一个容器来启动 map 或 reduce 任务，而 <code>Giraph ApplicationMaster</code> 请求一个容器来运行 Giraph 任务。</p>
-<h2 id="三、YARN工作原理简述"><a href="#三、YARN工作原理简述" class="headerlink" title="三、YARN工作原理简述"></a>三、YARN工作原理简述</h2><div align="center"> <img src="../pictures/yarn工作原理简图.png"> </div>
+<h2 id="三、YARN工作原理简述"><a href="#三、YARN工作原理简述" class="headerlink" title="三、YARN工作原理简述"></a>三、YARN工作原理简述</h2><div align="center"> <img src="/images/yarn工作原理简图.png"> </div>
 
 <ol>
 <li><p><code>Client</code> 提交作业到 YARN 上；</p>
@@ -457,7 +457,7 @@
 <li><p><code>Application Master</code> 通过获取到的 <code>Container</code> 资源执行分布式计算。</p>
 </li>
 </ol>
-<h2 id="四、YARN工作原理详述"><a href="#四、YARN工作原理详述" class="headerlink" title="四、YARN工作原理详述"></a>四、YARN工作原理详述</h2><div align="center"> <img width="600px" src="../pictures/yarn工作原理.png"> </div>
+<h2 id="四、YARN工作原理详述"><a href="#四、YARN工作原理详述" class="headerlink" title="四、YARN工作原理详述"></a>四、YARN工作原理详述</h2><div align="center"> <img width="600px" src="/images/yarn工作原理.png"> </div>
 
 
 
@@ -628,7 +628,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -639,7 +639,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -650,7 +650,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

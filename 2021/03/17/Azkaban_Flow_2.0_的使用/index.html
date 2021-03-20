@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、Flow 2.0 简介1.1 Flow 2.0 的产生Azkaban 目前同时支持 Flow 1.0 和 Flow2.0 ，但是官方文档上更推荐使用 Flow 2.0，因为 Flow 1.0 会在将来的版本被移除。Flow 2.0 的主要设计思想是提供 1.0 所没有的流级定义。用户可以将属于给定流的所有 job / properties 文件合并到单个流定义文件中，其内容采用 YAML 语法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/azkaban-simple.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/azkaban-simle-result.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/azkaban-embeded-flow.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/azkaban-embeded-success.png">
-<meta property="og:updated_time" content="2021-03-17T15:01:54.320Z">
+<meta property="og:image" content="http://yoursite.com/images/azkaban-simple.png">
+<meta property="og:image" content="http://yoursite.com/images/azkaban-simle-result.png">
+<meta property="og:image" content="http://yoursite.com/images/azkaban-embeded-flow.png">
+<meta property="og:image" content="http://yoursite.com/images/azkaban-embeded-success.png">
+<meta property="og:updated_time" content="2021-03-20T07:54:18.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Azkaban Flow 2.0的使用">
 <meta name="twitter:description" content="一、Flow 2.0 简介1.1 Flow 2.0 的产生Azkaban 目前同时支持 Flow 1.0 和 Flow2.0 ，但是官方文档上更推荐使用 Flow 2.0，因为 Flow 1.0 会在将来的版本被移除。Flow 2.0 的主要设计思想是提供 1.0 所没有的流级定义。用户可以将属于给定流的所有 job / properties 文件合并到单个流定义文件中，其内容采用 YAML 语法">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/azkaban-simple.png">
+<meta name="twitter:image" content="http://yoursite.com/images/azkaban-simple.png">
 
 
 
@@ -457,22 +457,22 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobA</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">"Hello Azkaban Flow 2.0."</span></span><br></pre></td></tr></table></figure>
 <p>在当前的版本中，Azkaban 同时支持 Flow 1.0 和 Flow 2.0，如果你希望以 2.0 的方式运行，则需要新建一个 <code>project</code> 文件，指明是使用的是 Flow 2.0：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">azkaban-flow-version: 2.0</span><br></pre></td></tr></table></figure>
-<h3 id="3-2-打包上传"><a href="#3-2-打包上传" class="headerlink" title="3.2 打包上传"></a>3.2 打包上传</h3><div align="center"> <img src="../pictures/azkaban-simple.png"> </div>
+<h3 id="3-2-打包上传"><a href="#3-2-打包上传" class="headerlink" title="3.2 打包上传"></a>3.2 打包上传</h3><div align="center"> <img src="/images/azkaban-simple.png"> </div>
 
 
 
 <h3 id="3-3-执行结果"><a href="#3-3-执行结果" class="headerlink" title="3.3 执行结果"></a>3.3 执行结果</h3><p>由于在 1.0 版本中已经介绍过 Web UI 的使用，这里就不再赘述。对于 1.0 和 2.0 版本，只有配置方式有所不同，其他上传执行的方式都是相同的。执行结果如下：</p>
-<div align="center"> <img src="../pictures/azkaban-simle-result.png"> </div>
+<div align="center"> <img src="/images/azkaban-simle-result.png"> </div>
 
 <h2 id="四、多任务调度"><a href="#四、多任务调度" class="headerlink" title="四、多任务调度"></a>四、多任务调度</h2><p>和 1.0 给出的案例一样，这里假设我们有五个任务（jobA——jobE）, D 任务需要在 A，B，C 任务执行完成后才能执行，而 E 任务则需要在 D 任务执行完成后才能执行，相关配置文件应如下。可以看到在 1.0 中我们需要分别定义五个配置文件，而在 2.0 中我们只需要一个配置文件即可完成配置。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobE</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">"This is job E"</span></span><br><span class="line">    <span class="comment"># jobE depends on jobD</span></span><br><span class="line">    <span class="attr">dependsOn:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">jobD</span></span><br><span class="line">    </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobD</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">"This is job D"</span></span><br><span class="line">    <span class="comment"># jobD depends on jobA、jobB、jobC</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">jobA</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">jobB</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">jobC</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobA</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">"This is job A"</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobB</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">"This is job B"</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobC</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">"This is job C"</span></span><br></pre></td></tr></table></figure>
 <h2 id="五、内嵌流"><a href="#五、内嵌流" class="headerlink" title="五、内嵌流"></a>五、内嵌流</h2><p>Flow2.0 支持在一个 Flow 中定义另一个 Flow，称为内嵌流或者子流。这里给出一个内嵌流的示例，其 <code>Flow</code> 配置如下：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobC</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">"This is job C"</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">embedded_flow</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">embedded_flow</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">flow</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">prop:</span> <span class="string">value</span></span><br><span class="line">    <span class="attr">nodes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobB</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">        <span class="attr">config:</span></span><br><span class="line">          <span class="attr">command:</span> <span class="string">echo</span> <span class="string">"This is job B"</span></span><br><span class="line">        <span class="attr">dependsOn:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">jobA</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobA</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">        <span class="attr">config:</span></span><br><span class="line">          <span class="attr">command:</span> <span class="string">echo</span> <span class="string">"This is job A"</span></span><br></pre></td></tr></table></figure>
 <p>内嵌流的 DAG 图如下：</p>
-<div align="center"> <img src="../pictures/azkaban-embeded-flow.png"> </div>
+<div align="center"> <img src="/images/azkaban-embeded-flow.png"> </div>
 
 <p>执行情况如下：</p>
-<div align="center"> <img src="../pictures/azkaban-embeded-success.png"> </div>
+<div align="center"> <img src="/images/azkaban-embeded-success.png"> </div>
 
 
 
@@ -630,7 +630,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -641,7 +641,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -652,7 +652,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

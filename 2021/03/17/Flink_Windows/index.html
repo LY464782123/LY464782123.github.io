@@ -87,16 +87,16 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、窗口概念在大多数场景下，我们需要统计的数据流都是无界的，因此我们无法等待整个数据流终止后才进行统计。通常情况下，我们只需要对某个时间范围或者数量范围内的数据进行统计分析：如每隔五分钟统计一次过去一小时内所有商品的点击量；或者每发生1000次点击后，都去统计一下每个商品点击率的占比。在 Flink 中，我们使用窗口 (Window) 来实现这类功能。按照统计维度的不同，Flink 中的窗口可以分">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-tumbling-windows.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-window-word-count.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-sliding-windows.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-session-windows.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-non-windowed.png">
-<meta property="og:updated_time" content="2021-03-17T14:03:10.964Z">
+<meta property="og:image" content="http://yoursite.com/images/flink-tumbling-windows.png">
+<meta property="og:image" content="http://yoursite.com/images/flink-window-word-count.png">
+<meta property="og:image" content="http://yoursite.com/images/flink-sliding-windows.png">
+<meta property="og:image" content="http://yoursite.com/images/flink-session-windows.png">
+<meta property="og:image" content="http://yoursite.com/images/flink-non-windowed.png">
+<meta property="og:updated_time" content="2021-03-20T07:55:49.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flink Windows">
 <meta name="twitter:description" content="一、窗口概念在大多数场景下，我们需要统计的数据流都是无界的，因此我们无法等待整个数据流终止后才进行统计。通常情况下，我们只需要对某个时间范围或者数量范围内的数据进行统计分析：如每隔五分钟统计一次过去一小时内所有商品的点击量；或者每发生1000次点击后，都去统计一下每个商品点击率的占比。在 Flink 中，我们使用窗口 (Window) 来实现这类功能。按照统计维度的不同，Flink 中的窗口可以分">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/flink-tumbling-windows.png">
+<meta name="twitter:image" content="http://yoursite.com/images/flink-tumbling-windows.png">
 
 
 
@@ -427,31 +427,31 @@
         <h2 id="一、窗口概念"><a href="#一、窗口概念" class="headerlink" title="一、窗口概念"></a>一、窗口概念</h2><p>在大多数场景下，我们需要统计的数据流都是无界的，因此我们无法等待整个数据流终止后才进行统计。通常情况下，我们只需要对某个时间范围或者数量范围内的数据进行统计分析：如每隔五分钟统计一次过去一小时内所有商品的点击量；或者每发生1000次点击后，都去统计一下每个商品点击率的占比。在 Flink 中，我们使用窗口 (Window) 来实现这类功能。按照统计维度的不同，Flink 中的窗口可以分为 时间窗口 (Time Windows) 和 计数窗口 (Count Windows) 。</p>
 <h2 id="二、Time-Windows"><a href="#二、Time-Windows" class="headerlink" title="二、Time Windows"></a>二、Time Windows</h2><p>Time Windows 用于以时间为维度来进行数据聚合，具体分为以下四类：</p>
 <h3 id="2-1-Tumbling-Windows"><a href="#2-1-Tumbling-Windows" class="headerlink" title="2.1 Tumbling Windows"></a>2.1 Tumbling Windows</h3><p>滚动窗口 (Tumbling Windows) 是指彼此之间没有重叠的窗口。例如：每隔1小时统计过去1小时内的商品点击量，那么 1 天就只能分为 24 个窗口，每个窗口彼此之间是不存在重叠的，具体如下：</p>
-<div align="center"> <img width="600px" src="../pictures/flink-tumbling-windows.png"> </div>
+<div align="center"> <img width="600px" src="/images/flink-tumbling-windows.png"> </div>
 
 
 <p>这里我们以词频统计为例，给出一个具体的用例，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</span><br><span class="line"><span class="comment">// 接收socket上的数据输入</span></span><br><span class="line">DataStreamSource&lt;String&gt; streamSource = env.socketTextStream(<span class="string">"hadoop001"</span>, <span class="number">9999</span>, <span class="string">"\n"</span>, <span class="number">3</span>);</span><br><span class="line">streamSource.flatMap(<span class="keyword">new</span> FlatMapFunction&lt;String, Tuple2&lt;String, Long&gt;&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">flatMap</span><span class="params">(String value, Collector&lt;Tuple2&lt;String, Long&gt;&gt; out)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String[] words = value.split(<span class="string">"\t"</span>);</span><br><span class="line">        <span class="keyword">for</span> (String word : words) &#123;</span><br><span class="line">            out.collect(<span class="keyword">new</span> Tuple2&lt;&gt;(word, <span class="number">1L</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).keyBy(<span class="number">0</span>).timeWindow(Time.seconds(<span class="number">3</span>)).sum(<span class="number">1</span>).print(); <span class="comment">//每隔3秒统计一次每个单词出现的数量</span></span><br><span class="line">env.execute(<span class="string">"Flink Streaming"</span>);</span><br></pre></td></tr></table></figure>
 <p>测试结果如下：</p>
-<div align="center"> <img src="../pictures/flink-window-word-count.png"> </div>
+<div align="center"> <img src="/images/flink-window-word-count.png"> </div>
 
 
 
 
 <h3 id="2-2-Sliding-Windows"><a href="#2-2-Sliding-Windows" class="headerlink" title="2.2 Sliding Windows"></a>2.2 Sliding Windows</h3><p>滑动窗口用于滚动进行聚合分析，例如：每隔 6 分钟统计一次过去一小时内所有商品的点击量，那么统计窗口彼此之间就是存在重叠的，即 1天可以分为 240 个窗口。图示如下：</p>
-<div align="center"> <img width="600px" src="../pictures/flink-sliding-windows.png"> </div>
+<div align="center"> <img width="600px" src="/images/flink-sliding-windows.png"> </div>
 
 
 <p>可以看到 window 1 - 4 这四个窗口彼此之间都存在着时间相等的重叠部分。想要实现滑动窗口，只需要在使用 timeWindow 方法时额外传递第二个参数作为滚动时间即可，具体如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 每隔3秒统计一次过去1分钟内的数据</span></span><br><span class="line">timeWindow(Time.minutes(<span class="number">1</span>),Time.seconds(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
 <h3 id="2-3-Session-Windows"><a href="#2-3-Session-Windows" class="headerlink" title="2.3 Session Windows"></a>2.3 Session Windows</h3><p>当用户在进行持续浏览时，可能每时每刻都会有点击数据，例如在活动区间内，用户可能频繁的将某类商品加入和移除购物车，而你只想知道用户本次浏览最终的购物车情况，此时就可以在用户持有的会话结束后再进行统计。想要实现这类统计，可以通过 Session Windows 来进行实现。</p>
-<div align="center"> <img width="600px" src="../pictures/flink-session-windows.png"> </div>
+<div align="center"> <img width="600px" src="/images/flink-session-windows.png"> </div>
 
 
 <p>具体的实现代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以处理时间为衡量标准，如果10秒内没有任何数据输入，就认为会话已经关闭，此时触发统计</span></span><br><span class="line">window(ProcessingTimeSessionWindows.withGap(Time.seconds(<span class="number">10</span>)))</span><br><span class="line"><span class="comment">// 以事件时间为衡量标准    </span></span><br><span class="line">window(EventTimeSessionWindows.withGap(Time.seconds(<span class="number">10</span>)))</span><br></pre></td></tr></table></figure>
 <h3 id="2-4-Global-Windows"><a href="#2-4-Global-Windows" class="headerlink" title="2.4 Global Windows"></a>2.4 Global Windows</h3><p>最后一个窗口是全局窗口， 全局窗口会将所有 key 相同的元素分配到同一个窗口中，其通常配合触发器 (trigger) 进行使用。如果没有相应触发器，则计算将不会被执行。</p>
-<div align="center"> <img width="600px" src="../pictures/flink-non-windowed.png"> </div>
+<div align="center"> <img width="600px" src="/images/flink-non-windowed.png"> </div>
 
 
 <p>这里继续以上面词频统计的案例为例，示例代码如下：</p>
@@ -517,8 +517,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Flink状态管理与检查点机制/" rel="next" title="Flink 状态管理">
-                <i class="fa fa-chevron-left"></i> Flink 状态管理
+              <a href="/2021/03/17/Flink开发环境搭建/" rel="next" title="Flink 开发环境搭建">
+                <i class="fa fa-chevron-left"></i> Flink 开发环境搭建
               </a>
             
           </div>
@@ -527,8 +527,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/Flink核心概念综述/" rel="prev" title="Flink 核心概念综述">
-                Flink 核心概念综述 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/Flink_Data_Transformation/" rel="prev" title="Flink Transformation">
+                Flink Transformation <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -611,7 +611,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -622,7 +622,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -633,7 +633,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

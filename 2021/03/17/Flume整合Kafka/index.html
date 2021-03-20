@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、背景先说一下，为什么要使用 Flume + Kafka？ 以实时流处理项目为例，由于采集的数据量可能存在峰值和峰谷，假设是一个电商项目，那么峰值通常出现在秒杀时，这时如果直接将 Flume 聚合后的数据输入到 Storm 等分布式计算框架中，可能就会超过集群的处理能力，这时采用 Kafka 就可以起到削峰的作用。Kafka 天生为大数据场景而设计，具有高吞吐的特性，能很好地抗住峰值数据的冲击。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flume-kafka.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flume-kafka-01.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flume-kafka-2.png">
-<meta property="og:updated_time" content="2021-03-17T14:07:09.712Z">
+<meta property="og:image" content="http://yoursite.com/images/flume-kafka.png">
+<meta property="og:image" content="http://yoursite.com/images/flume-kafka-01.png">
+<meta property="og:image" content="http://yoursite.com/images/flume-kafka-2.png">
+<meta property="og:updated_time" content="2021-03-20T07:55:36.857Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flume 整合 Kafka">
 <meta name="twitter:description" content="一、背景先说一下，为什么要使用 Flume + Kafka？ 以实时流处理项目为例，由于采集的数据量可能存在峰值和峰谷，假设是一个电商项目，那么峰值通常出现在秒杀时，这时如果直接将 Flume 聚合后的数据输入到 Storm 等分布式计算框架中，可能就会超过集群的处理能力，这时采用 Kafka 就可以起到削峰的作用。Kafka 天生为大数据场景而设计，具有高吞吐的特性，能很好地抗住峰值数据的冲击。">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/flume-kafka.png">
+<meta name="twitter:image" content="http://yoursite.com/images/flume-kafka.png">
 
 
 
@@ -424,7 +424,7 @@
       
         <h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>先说一下，为什么要使用 Flume + Kafka？</p>
 <p>以实时流处理项目为例，由于采集的数据量可能存在峰值和峰谷，假设是一个电商项目，那么峰值通常出现在秒杀时，这时如果直接将 Flume 聚合后的数据输入到 Storm 等分布式计算框架中，可能就会超过集群的处理能力，这时采用 Kafka 就可以起到削峰的作用。Kafka 天生为大数据场景而设计，具有高吞吐的特性，能很好地抗住峰值数据的冲击。</p>
-<div align="center"> <img src="../pictures/flume-kafka.png"> </div>
+<div align="center"> <img src="/images/flume-kafka.png"> </div>
 
 
 
@@ -439,10 +439,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">a1.sources = s1</span><br><span class="line">a1.channels = c1</span><br><span class="line">a1.sinks = k1                                                                                         </span><br><span class="line"></span><br><span class="line">a1.sources.s1.type=exec</span><br><span class="line">a1.sources.s1.command=tail -F /tmp/kafka.log</span><br><span class="line">a1.sources.s1.channels=c1 </span><br><span class="line"></span><br><span class="line">#设置Kafka接收器</span><br><span class="line">a1.sinks.k1.type= org.apache.flume.sink.kafka.KafkaSink</span><br><span class="line">#设置Kafka地址</span><br><span class="line">a1.sinks.k1.brokerList=hadoop001:9092</span><br><span class="line">#设置发送到Kafka上的主题</span><br><span class="line">a1.sinks.k1.topic=flume-kafka</span><br><span class="line">#设置序列化方式</span><br><span class="line">a1.sinks.k1.serializer.class=kafka.serializer.StringEncoder</span><br><span class="line">a1.sinks.k1.channel=c1     </span><br><span class="line"></span><br><span class="line">a1.channels.c1.type=memory</span><br><span class="line">a1.channels.c1.capacity=10000</span><br><span class="line">a1.channels.c1.transactionCapacity=100</span><br></pre></td></tr></table></figure>
 <h3 id="5-启动Flume"><a href="#5-启动Flume" class="headerlink" title="5. 启动Flume"></a>5. 启动Flume</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flume-ng agent \</span><br><span class="line">--conf conf \</span><br><span class="line">--conf-file /usr/app/apache-flume-1.6.0-cdh5.15.2-bin/examples/exec-memory-kafka.properties \</span><br><span class="line">--name a1 -Dflume.root.logger=INFO,console</span><br></pre></td></tr></table></figure>
 <h3 id="6-测试"><a href="#6-测试" class="headerlink" title="6. 测试"></a>6. 测试</h3><p>向监听的 <code>/tmp/kafka.log</code> 文件中追加内容，查看 Kafka 消费者的输出：</p>
-<div align="center"> <img src="../pictures/flume-kafka-01.png"> </div>
+<div align="center"> <img src="/images/flume-kafka-01.png"> </div>
 
 <p>可以看到 <code>flume-kafka</code> 主题的消费端已经收到了对应的消息：</p>
-<div align="center"> <img src="../pictures/flume-kafka-2.png"> </div>
+<div align="center"> <img src="/images/flume-kafka-2.png"> </div>
 
       
     </div>
@@ -499,8 +499,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Flink_Data_Sink/" rel="next" title="Flink Sink">
-                <i class="fa fa-chevron-left"></i> Flink Sink
+              <a href="/2021/03/17/Flink_Data_Source/" rel="next" title="Flink Data Source">
+                <i class="fa fa-chevron-left"></i> Flink Data Source
               </a>
             
           </div>
@@ -593,7 +593,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -604,7 +604,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -615,7 +615,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

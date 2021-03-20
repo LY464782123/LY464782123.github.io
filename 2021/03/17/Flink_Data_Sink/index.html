@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、Data Sinks在使用 Flink 进行数据处理时，数据经 Data Source 流入，然后通过系列 Transformations 的转化，最终可以通过 Sink 将计算结果进行输出，Flink Data Sinks 就是用于定义数据流最终的输出位置。Flink 提供了几个较为简单的 Sink API 用于日常的开发，具体如下： 1.1 writeAsTextwriteAsText 用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-kafka-producer-consumer.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-richsink.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/flink-mysql-sink.png">
-<meta property="og:updated_time" content="2021-03-17T14:02:09.038Z">
+<meta property="og:image" content="http://yoursite.com/images/flink-kafka-producer-consumer.png">
+<meta property="og:image" content="http://yoursite.com/images/flink-richsink.png">
+<meta property="og:image" content="http://yoursite.com/images/flink-mysql-sink.png">
+<meta property="og:updated_time" content="2021-03-20T07:55:54.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flink Sink">
 <meta name="twitter:description" content="一、Data Sinks在使用 Flink 进行数据处理时，数据经 Data Source 流入，然后通过系列 Transformations 的转化，最终可以通过 Sink 将计算结果进行输出，Flink Data Sinks 就是用于定义数据流最终的输出位置。Flink 提供了几个较为简单的 Sink API 用于日常的开发，具体如下： 1.1 writeAsTextwriteAsText 用">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/flink-kafka-producer-consumer.png">
+<meta name="twitter:image" content="http://yoursite.com/images/flink-kafka-producer-consumer.png">
 
 
 
@@ -465,12 +465,12 @@
 <h3 id="3-3-启动消费者"><a href="#3-3-启动消费者" class="headerlink" title="3.3 启动消费者"></a>3.3 启动消费者</h3><p>启动一个 Kafka 消费者，用于查看 Flink 程序的输出情况：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server hadoop001:<span class="number">9092</span> --topic flink-stream-out-topic</span><br></pre></td></tr></table></figure>
 <h3 id="3-4-测试结果"><a href="#3-4-测试结果" class="headerlink" title="3.4 测试结果"></a>3.4 测试结果</h3><p>在 Kafka 生产者上发送消息到 Flink 程序，观察 Flink 程序转换后的输出情况，具体如下：</p>
-<div align="center"> <img src="../pictures/flink-kafka-producer-consumer.png"> </div>
+<div align="center"> <img src="/images/flink-kafka-producer-consumer.png"> </div>
 
 
 <p>可以看到 Kafka 生成者发出的数据已经被 Flink 程序正常接收到，并经过转换后又输出到 Kafka 对应的 Topic 上。</p>
 <h2 id="四、自定义-Sink"><a href="#四、自定义-Sink" class="headerlink" title="四、自定义 Sink"></a>四、自定义 Sink</h2><p>除了使用内置的第三方连接器外，Flink 还支持使用自定义的 Sink 来满足多样化的输出需求。想要实现自定义的 Sink ，需要直接或者间接实现 SinkFunction 接口。通常情况下，我们都是实现其抽象类 RichSinkFunction，相比于 SinkFunction ，其提供了更多的与生命周期相关的方法。两者间的关系如下：</p>
-<div align="center"> <img src="../pictures/flink-richsink.png"> </div>
+<div align="center"> <img src="/images/flink-richsink.png"> </div>
 
 
 <p>这里我们以自定义一个 FlinkToMySQLSink 为例，将计算结果写出到 MySQL 数据库中，具体步骤如下：</p>
@@ -481,7 +481,7 @@
 <h3 id="4-3-使用自定义-Sink"><a href="#4-3-使用自定义-Sink" class="headerlink" title="4.3 使用自定义 Sink"></a>4.3 使用自定义 Sink</h3><p>想要使用自定义的 Sink，同样是需要调用 addSink 方法，具体如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</span><br><span class="line">Date date = <span class="keyword">new</span> Date(System.currentTimeMillis());</span><br><span class="line">DataStreamSource&lt;Employee&gt; streamSource = env.fromElements(</span><br><span class="line">    <span class="keyword">new</span> Employee(<span class="string">"hei"</span>, <span class="number">10</span>, date),</span><br><span class="line">    <span class="keyword">new</span> Employee(<span class="string">"bai"</span>, <span class="number">20</span>, date),</span><br><span class="line">    <span class="keyword">new</span> Employee(<span class="string">"ying"</span>, <span class="number">30</span>, date));</span><br><span class="line">streamSource.addSink(<span class="keyword">new</span> FlinkToMySQLSink());</span><br><span class="line">env.execute();</span><br></pre></td></tr></table></figure>
 <h3 id="4-4-测试结果"><a href="#4-4-测试结果" class="headerlink" title="4.4 测试结果"></a>4.4 测试结果</h3><p>启动程序，观察数据库写入情况：</p>
-<div align="center"> <img src="../pictures/flink-mysql-sink.png"> </div>
+<div align="center"> <img src="/images/flink-mysql-sink.png"> </div>
 
 
 <p>数据库成功写入，代表自定义 Sink 整合成功。</p>
@@ -549,8 +549,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Flink_Data_Source/" rel="next" title="Flink Data Source">
-                <i class="fa fa-chevron-left"></i> Flink Data Source
+              <a href="/2021/03/17/Flink_Data_Transformation/" rel="next" title="Flink Transformation">
+                <i class="fa fa-chevron-left"></i> Flink Transformation
               </a>
             
           </div>
@@ -559,8 +559,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/Flume整合Kafka/" rel="prev" title="Flume 整合 Kafka">
-                Flume 整合 Kafka <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/Flink_Data_Source/" rel="prev" title="Flink Data Source">
+                Flink Data Source <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -643,7 +643,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -654,7 +654,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -665,7 +665,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

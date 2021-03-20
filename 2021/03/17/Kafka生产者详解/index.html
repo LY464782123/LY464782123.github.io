@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、生产者发送消息的过程首先介绍一下 Kafka 生产者发送消息的过程：  Kafka 会将发送消息包装为 ProducerRecord 对象， ProducerRecord 对象包含了目标主题和要发送的内容，同时还可以指定键和分区。在发送 ProducerRecord 对象前，生产者会先把键和值对象序列化成字节数组，这样它们才能够在网络上传输。 接下来，数据被传给分区器。如果之前已经在 Prod">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/kafka-send-messgaes.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/kafka-simple-producer.png">
-<meta property="og:updated_time" content="2021-03-17T10:58:58.425Z">
+<meta property="og:image" content="http://yoursite.com/images/kafka-send-messgaes.png">
+<meta property="og:image" content="http://yoursite.com/images/kafka-simple-producer.png">
+<meta property="og:updated_time" content="2021-03-20T07:58:20.086Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka生产者详解">
 <meta name="twitter:description" content="一、生产者发送消息的过程首先介绍一下 Kafka 生产者发送消息的过程：  Kafka 会将发送消息包装为 ProducerRecord 对象， ProducerRecord 对象包含了目标主题和要发送的内容，同时还可以指定键和分区。在发送 ProducerRecord 对象前，生产者会先把键和值对象序列化成字节数组，这样它们才能够在网络上传输。 接下来，数据被传给分区器。如果之前已经在 Prod">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/kafka-send-messgaes.png">
+<meta name="twitter:image" content="http://yoursite.com/images/kafka-send-messgaes.png">
 
 
 
@@ -427,7 +427,7 @@
 <li>接下来，数据被传给分区器。如果之前已经在 ProducerRecord 对象里指定了分区，那么分区器就不会再做任何事情。如果没有指定分区 ，那么分区器会根据 ProducerRecord 对象的键来选择一个分区，紧接着，这条记录被添加到一个记录批次里，这个批次里的所有消息会被发送到相同的主题和分区上。有一个独立的线程负责把这些记录批次发送到相应的 broker 上。</li>
 <li>服务器在收到这些消息时会返回一个响应。如果消息成功写入 Kafka，就返回一个 RecordMetaData 对象，它包含了主题和分区信息，以及记录在分区里的偏移量。如果写入失败，则会返回一个错误。生产者在收到错误之后会尝试重新发送消息，如果达到指定的重试次数后还没有成功，则直接抛出异常，不再重试。</li>
 </ul>
-<div align="center"> <img src="../pictures/kafka-send-messgaes.png"> </div>
+<div align="center"> <img src="/images/kafka-send-messgaes.png"> </div>
 
 <h2 id="二、创建生产者"><a href="#二、创建生产者" class="headerlink" title="二、创建生产者"></a>二、创建生产者</h2><h3 id="2-1-项目依赖"><a href="#2-1-项目依赖" class="headerlink" title="2.1 项目依赖"></a>2.1 项目依赖</h3><p>本项目采用 Maven 构建，想要调用 Kafka 生产者 API，需要导入 <code>kafka-clients</code> 依赖，如下：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.kafka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>kafka-clients<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -450,7 +450,7 @@
 <h4 id="3-启动消费者"><a href="#3-启动消费者" class="headerlink" title="3. 启动消费者"></a>3. 启动消费者</h4><p> 启动一个控制台消费者用于观察写入情况，启动命令如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> bin/kafka-console-consumer.sh --bootstrap-server hadoop001:9092 --topic Hello-Kafka --from-beginning</span></span><br></pre></td></tr></table></figure>
 <h4 id="4-运行项目"><a href="#4-运行项目" class="headerlink" title="4. 运行项目"></a>4. 运行项目</h4><p>此时可以看到消费者控制台，输出如下，这里 <code>kafka-console-consumer</code> 只会打印出值信息，不会打印出键信息。</p>
-<div align="center"> <img src="../pictures/kafka-simple-producer.png"> </div>
+<div align="center"> <img src="/images/kafka-simple-producer.png"> </div>
 
 
 
@@ -557,8 +557,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Kafka深入理解分区副本机制/" rel="next" title="深入理解Kafka副本机制">
-                <i class="fa fa-chevron-left"></i> 深入理解Kafka副本机制
+              <a href="/2021/03/17/Kafka消费者详解/" rel="next" title="Kafka消费者详解">
+                <i class="fa fa-chevron-left"></i> Kafka消费者详解
               </a>
             
           </div>
@@ -567,8 +567,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/Kafka消费者详解/" rel="prev" title="Kafka消费者详解">
-                Kafka消费者详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/Sqoop简介与安装/" rel="prev" title="Sqoop 简介与安装">
+                Sqoop 简介与安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -651,7 +651,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -662,7 +662,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -673,7 +673,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

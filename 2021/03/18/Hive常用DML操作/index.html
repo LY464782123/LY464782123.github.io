@@ -87,18 +87,18 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、加载文件数据到表1.1 语法12LOAD DATA [LOCAL] INPATH &apos;filepath&apos; [OVERWRITE] INTO TABLE tablename [PARTITION (partcol1=val1, partcol2=val2 ...)]  LOCAL 关键字代表从本地文件系统加载文件，省略则代表从 HDFS 上加载文件：   从本地文件系统加载文件时， filepat">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-emp-ptn.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-emp.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-emp-deptno-20.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-emp-deptno-20-30.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-emp-ts.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-emp-ts-2.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/18/pictures/hive-ouput.png">
-<meta property="og:updated_time" content="2021-03-18T01:54:19.277Z">
+<meta property="og:image" content="http://yoursite.com/images/hive-emp-ptn.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-emp.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-emp-deptno-20.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-emp-deptno-20-30.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-emp-ts.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-emp-ts-2.png">
+<meta property="og:image" content="http://yoursite.com/images/hive-ouput.png">
+<meta property="og:updated_time" content="2021-03-20T07:57:51.258Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive 常用DML操作">
 <meta name="twitter:description" content="一、加载文件数据到表1.1 语法12LOAD DATA [LOCAL] INPATH &apos;filepath&apos; [OVERWRITE] INTO TABLE tablename [PARTITION (partcol1=val1, partcol2=val2 ...)]  LOCAL 关键字代表从本地文件系统加载文件，省略则代表从 HDFS 上加载文件：   从本地文件系统加载文件时， filepat">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/18/pictures/hive-emp-ptn.png">
+<meta name="twitter:image" content="http://yoursite.com/images/hive-emp-ptn.png">
 
 
 
@@ -459,7 +459,7 @@
 <p>emp.txt 文件可在本仓库的 resources 目录中下载</p>
 </blockquote>
 <p>加载后表中数据如下,分区列 deptno 全部赋值成 20：</p>
-<div align="center"> <img src="../pictures/hive-emp-ptn.png"> </div>
+<div align="center"> <img src="/images/hive-emp-ptn.png"> </div>
 
 <h2 id="二、查询结果插入到表"><a href="#二、查询结果插入到表" class="headerlink" title="二、查询结果插入到表"></a>二、查询结果插入到表</h2><h3 id="2-1-语法"><a href="#2-1-语法" class="headerlink" title="2.1 语法"></a>2.1 语法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> tablename1 [<span class="keyword">PARTITION</span> (partcol1=val1, partcol2=val2 ...) [<span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>]]   </span><br><span class="line">select_statement1 <span class="keyword">FROM</span> from_statement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">TABLE</span> tablename1 [<span class="keyword">PARTITION</span> (partcol1=val1, partcol2=val2 ...)] </span><br><span class="line">select_statement1 <span class="keyword">FROM</span> from_statement;</span><br></pre></td></tr></table></figure>
 <ul>
@@ -524,7 +524,7 @@
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> emp(</span><br><span class="line">    empno <span class="built_in">INT</span>,</span><br><span class="line">    ename <span class="keyword">STRING</span>,</span><br><span class="line">    job <span class="keyword">STRING</span>,</span><br><span class="line">    mgr <span class="built_in">INT</span>,</span><br><span class="line">    hiredate <span class="built_in">TIMESTAMP</span>,</span><br><span class="line">    sal <span class="built_in">DECIMAL</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">    comm <span class="built_in">DECIMAL</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">    deptno <span class="built_in">INT</span>)</span><br><span class="line">    <span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">"\t"</span>;</span><br><span class="line">    </span><br><span class="line"> <span class="comment">-- 加载数据到 emp 表中 这里直接从本地加载</span></span><br><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">"/usr/file/emp.txt"</span> <span class="keyword">into</span> <span class="keyword">table</span> emp;</span><br></pre></td></tr></table></figure>
 <p>​    完成后 <code>emp</code> 表中数据如下：</p>
-<div align="center"> <img src="../pictures/hive-emp.png"> </div>
+<div align="center"> <img src="/images/hive-emp.png"> </div>
 
 <ol start="2">
 <li>为清晰演示，先清空 <code>emp_ptn</code> 表中加载的数据：</li>
@@ -535,14 +535,14 @@
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> emp_ptn <span class="keyword">PARTITION</span> (deptno=<span class="number">20</span>) </span><br><span class="line"><span class="keyword">SELECT</span> empno,ename,job,mgr,hiredate,sal,comm <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> deptno=<span class="number">20</span>;</span><br></pre></td></tr></table></figure>
 <p>​    完成后 <code>emp_ptn</code> 表中数据如下：</p>
-<div align="center"> <img src="../pictures/hive-emp-deptno-20.png"> </div>
+<div align="center"> <img src="/images/hive-emp-deptno-20.png"> </div>
 
 <ol start="4">
 <li>接着演示动态分区：</li>
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 由于我们只有一个分区，且还是动态分区，所以需要关闭严格默认。因为在严格模式下，用户必须至少指定一个静态分区</span></span><br><span class="line"><span class="keyword">set</span> hive.exec.dynamic.partition.mode=nonstrict;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 动态分区   此时查询语句的最后一列为动态分区列，即 deptno</span></span><br><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> emp_ptn <span class="keyword">PARTITION</span> (deptno) </span><br><span class="line"><span class="keyword">SELECT</span> empno,ename,job,mgr,hiredate,sal,comm,deptno <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> deptno=<span class="number">30</span>;</span><br></pre></td></tr></table></figure>
 <p>​    完成后 <code>emp_ptn</code> 表中数据如下：</p>
-<div align="center"> <img src="../pictures/hive-emp-deptno-20-30.png"> </div>
+<div align="center"> <img src="/images/hive-emp-deptno-20-30.png"> </div>
 
 
 
@@ -568,12 +568,12 @@
 <p><strong>3. 插入测试数据</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">TABLE</span> emp_ts  <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="string">"ming"</span>),(<span class="number">2</span>,<span class="string">"hong"</span>);</span><br></pre></td></tr></table></figure>
 <p>插入数据依靠的是 MapReduce 作业，执行成功后数据如下：</p>
-<div align="center"> <img src="../pictures/hive-emp-ts.png"> </div>
+<div align="center"> <img src="/images/hive-emp-ts.png"> </div>
 
 <p><strong>4. 测试更新和删除</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--更新数据</span></span><br><span class="line"><span class="keyword">UPDATE</span> emp_ts <span class="keyword">SET</span> ename = <span class="string">"lan"</span>  <span class="keyword">WHERE</span>  empno=<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--删除数据</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> emp_ts <span class="keyword">WHERE</span> empno=<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
 <p>更新和删除数据依靠的也是 MapReduce 作业，执行成功后数据如下：</p>
-<div align="center"> <img src="../pictures/hive-emp-ts-2.png"> </div>
+<div align="center"> <img src="/images/hive-emp-ts-2.png"> </div>
 
 
 <h2 id="五、查询结果写出到文件系统"><a href="#五、查询结果写出到文件系统" class="headerlink" title="五、查询结果写出到文件系统"></a>五、查询结果写出到文件系统</h2><h3 id="5-1-语法"><a href="#5-1-语法" class="headerlink" title="5.1 语法"></a>5.1 语法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> OVERWRITE [<span class="keyword">LOCAL</span>] <span class="keyword">DIRECTORY</span> directory1</span><br><span class="line">  [<span class="keyword">ROW</span> <span class="keyword">FORMAT</span> row_format] [<span class="keyword">STORED</span> <span class="keyword">AS</span> file_format] </span><br><span class="line">  <span class="keyword">SELECT</span> ... <span class="keyword">FROM</span> ...</span><br></pre></td></tr></table></figure>
@@ -589,7 +589,7 @@
 <h3 id="5-2-示例"><a href="#5-2-示例" class="headerlink" title="5.2 示例"></a>5.2 示例</h3><p>这里我们将上面创建的 <code>emp_ptn</code> 表导出到本地文件系统，语句如下：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">LOCAL</span> <span class="keyword">DIRECTORY</span> <span class="string">'/usr/file/ouput'</span></span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span></span><br><span class="line"><span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\t'</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> emp_ptn;</span><br></pre></td></tr></table></figure>
 <p>导出结果如下：</p>
-<div align="center"> <img src="../pictures/hive-ouput.png"> </div>
+<div align="center"> <img src="/images/hive-ouput.png"> </div>
 
 
 
@@ -665,8 +665,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/18/Hive分区表和分桶表/" rel="prev" title>
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/18/Hive分区表和分桶表/" rel="prev" title="Hive分区表和分桶表">
+                Hive分区表和分桶表 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -749,7 +749,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -760,7 +760,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -771,7 +771,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

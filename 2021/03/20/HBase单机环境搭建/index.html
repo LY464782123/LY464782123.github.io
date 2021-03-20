@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="环境搭建,HBase,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、安装前置条件说明1.1 JDK版本说明HBase 需要依赖 JDK 环境，同时 HBase 2.0+ 以上版本不再支持 JDK 1.7 ，需要安装 JDK 1.8+ 。JDK 安装方式见本仓库：  Linux 环境下 JDK 安装  1.2 Standalone模式和伪集群模式的区别 在 Standalone 模式下，所有守护进程都运行在一个 jvm 进程/实例中； 在伪分布模式下，HBase">
+<meta name="keywords" content="环境搭建,HBase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBase基本环境搭建">
+<meta property="og:url" content="http://yoursite.com/2021/03/20/HBase单机环境搭建/index.html">
+<meta property="og:site_name" content="菜鸟@进阶记">
+<meta property="og:description" content="一、安装前置条件说明1.1 JDK版本说明HBase 需要依赖 JDK 环境，同时 HBase 2.0+ 以上版本不再支持 JDK 1.7 ，需要安装 JDK 1.8+ 。JDK 安装方式见本仓库：  Linux 环境下 JDK 安装  1.2 Standalone模式和伪集群模式的区别 在 Standalone 模式下，所有守护进程都运行在一个 jvm 进程/实例中； 在伪分布模式下，HBase">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/hbase-web-ui.png">
+<meta property="og:image" content="http://yoursite.com/images/hbase-60010.png">
+<meta property="og:updated_time" content="2021-03-20T10:42:40.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HBase基本环境搭建">
+<meta name="twitter:description" content="一、安装前置条件说明1.1 JDK版本说明HBase 需要依赖 JDK 环境，同时 HBase 2.0+ 以上版本不再支持 JDK 1.7 ，需要安装 JDK 1.8+ 。JDK 安装方式见本仓库：  Linux 环境下 JDK 安装  1.2 Standalone模式和伪集群模式的区别 在 Standalone 模式下，所有守护进程都运行在一个 jvm 进程/实例中； 在伪分布模式下，HBase">
+<meta name="twitter:image" content="http://yoursite.com/images/hbase-web-ui.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+  (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/20/HBase单机环境搭建/">
+
+
+
+
+
+  <title>HBase基本环境搭建 | 菜鸟@进阶记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+   <a href="https://github.com/LY464782123"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">菜鸟@进阶记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-edit"></i> <br>
+            
+            笔记
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-codes">
+          <a href="/codes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br>
+            
+            编程
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-search"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/20/HBase单机环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.刘">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜鸟@进阶记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HBase基本环境搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-20T16:48:57+08:00">
+                2021-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/03/20/HBase单机环境搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/20/HBase单机环境搭建/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、安装前置条件说明"><a href="#一、安装前置条件说明" class="headerlink" title="一、安装前置条件说明"></a>一、安装前置条件说明</h2><h3 id="1-1-JDK版本说明"><a href="#1-1-JDK版本说明" class="headerlink" title="1.1 JDK版本说明"></a>1.1 JDK版本说明</h3><p>HBase 需要依赖 JDK 环境，同时 HBase 2.0+ 以上版本不再支持 JDK 1.7 ，需要安装 JDK 1.8+ 。JDK 安装方式见本仓库：</p>
+<blockquote>
+<p><a href="https://github.com/heibaiying/BigData-Notes/blob/master/notes/installation/Linux下JDK安装.md" target="_blank" rel="noopener">Linux 环境下 JDK 安装</a></p>
+</blockquote>
+<h3 id="1-2-Standalone模式和伪集群模式的区别"><a href="#1-2-Standalone模式和伪集群模式的区别" class="headerlink" title="1.2 Standalone模式和伪集群模式的区别"></a>1.2 Standalone模式和伪集群模式的区别</h3><ul>
+<li>在 <code>Standalone</code> 模式下，所有守护进程都运行在一个 <code>jvm</code> 进程/实例中；</li>
+<li>在伪分布模式下，HBase 仍然在单个主机上运行，但是每个守护进程 (HMaster，HRegionServer 和 ZooKeeper) 则分别作为一个单独的进程运行。</li>
+</ul>
+<p><strong>说明：两种模式任选其一进行部署即可，对于开发测试来说区别不大。</strong></p>
+<h2 id="二、Standalone-模式"><a href="#二、Standalone-模式" class="headerlink" title="二、Standalone 模式"></a>二、Standalone 模式</h2><h3 id="2-1-下载并解压"><a href="#2-1-下载并解压" class="headerlink" title="2.1 下载并解压"></a>2.1 下载并解压</h3><p>从<a href="https://hbase.apache.org/downloads.html" target="_blank" rel="noopener">官方网站</a> 下载所需要版本的二进制安装包，并进行解压：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -zxvf hbase-2.1.4-bin.tar.gz</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-配置环境变量"><a href="#2-2-配置环境变量" class="headerlink" title="2.2 配置环境变量"></a>2.2 配置环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/profile</span></span><br></pre></td></tr></table></figure>
+<p>添加环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HBASE_HOME=/usr/app/hbase-2.1.4</span><br><span class="line">export PATH=$HBASE_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>使得配置的环境变量生效：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">source</span> /etc/profile</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-进行HBase相关配置"><a href="#2-3-进行HBase相关配置" class="headerlink" title="2.3 进行HBase相关配置"></a>2.3 进行HBase相关配置</h3><p>修改安装目录下的 <code>conf/hbase-env.sh</code>,指定 JDK 的安装路径：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> The java implementation to use.  Java 1.8+ required.</span></span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_201</span><br></pre></td></tr></table></figure>
+<p>修改安装目录下的 <code>conf/hbase-site.xml</code>，增加如下配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:///home/hbase/rootdir<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.property.dataDir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/home/zookeeper/dataDir<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.unsafe.stream.capability.enforce<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>hbase.rootdir</code>: 配置 hbase 数据的存储路径；</p>
+<p><code>hbase.zookeeper.property.dataDir</code>: 配置 zookeeper 数据的存储路径；</p>
+<p><code>hbase.unsafe.stream.capability.enforce</code>: 使用本地文件系统存储，不使用 HDFS 的情况下需要禁用此配置，设置为 false。</p>
+<h3 id="2-4-启动HBase"><a href="#2-4-启动HBase" class="headerlink" title="2.4 启动HBase"></a>2.4 启动HBase</h3><p>由于已经将 HBase 的 bin 目录配置到环境变量，直接使用以下命令启动：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> start-hbase.sh</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-5-验证启动是否成功"><a href="#2-5-验证启动是否成功" class="headerlink" title="2.5 验证启动是否成功"></a>2.5 验证启动是否成功</h3><p>验证方式一 ：使用 <code>jps</code> 命令查看 HMaster 进程是否启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 hbase-2.1.4]# jps</span><br><span class="line">16336 Jps</span><br><span class="line">15500 HMaster</span><br></pre></td></tr></table></figure>
+<p>验证方式二 ：访问 HBaseWeb UI 页面，默认端口为 <code>16010</code> 。</p>
+<div align="center"> <img src="/images/hbase-web-ui.png"> </div>
+
+
+<h2 id="三、伪集群模式安装（Pseudo-Distributed）"><a href="#三、伪集群模式安装（Pseudo-Distributed）" class="headerlink" title="三、伪集群模式安装（Pseudo-Distributed）"></a>三、伪集群模式安装（Pseudo-Distributed）</h2><h3 id="3-1-Hadoop单机伪集群安装"><a href="#3-1-Hadoop单机伪集群安装" class="headerlink" title="3.1 Hadoop单机伪集群安装"></a>3.1 Hadoop单机伪集群安装</h3><p>这里我们采用 HDFS 作为 HBase 的存储方案，需要预先安装 Hadoop。Hadoop 的安装方式单独整理至：</p>
+<blockquote>
+<p><a href="https://github.com/heibaiying/BigData-Notes/blob/master/notes/installation/Hadoop单机版本环境搭建.md" target="_blank" rel="noopener">Hadoop 单机伪集群搭建</a></p>
+</blockquote>
+<h3 id="3-2-Hbase版本选择"><a href="#3-2-Hbase版本选择" class="headerlink" title="3.2 Hbase版本选择"></a>3.2 Hbase版本选择</h3><p>HBase 的版本必须要与 Hadoop 的版本兼容，不然会出现各种 Jar 包冲突。这里我 Hadoop 安装的版本为 <code>hadoop-2.6.0-cdh5.15.2</code>，为保持版本一致，选择的 HBase 版本为 <code>hbase-1.2.0-cdh5.15.2</code> 。所有软件版本如下：</p>
+<ul>
+<li>Hadoop 版本： hadoop-2.6.0-cdh5.15.2</li>
+<li>HBase 版本： hbase-1.2.0-cdh5.15.2</li>
+<li>JDK 版本：JDK 1.8</li>
+</ul>
+<h3 id="3-3-软件下载解压"><a href="#3-3-软件下载解压" class="headerlink" title="3.3 软件下载解压"></a>3.3 软件下载解压</h3><p>下载后进行解压，下载地址：<a href="http://archive.cloudera.com/cdh5/cdh/5/" target="_blank" rel="noopener">http://archive.cloudera.com/cdh5/cdh/5/</a>    </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -zxvf hbase-1.2.0-cdh5.15.2.tar.gz</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-4-配置环境变量"><a href="#3-4-配置环境变量" class="headerlink" title="3.4 配置环境变量"></a>3.4 配置环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/profile</span></span><br></pre></td></tr></table></figure>
+<p>添加环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HBASE_HOME=/usr/app/hbase-1.2.0-cdh5.15.2</span><br><span class="line">export PATH=$HBASE_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>使得配置的环境变量生效：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">source</span> /etc/profile</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-5-进行HBase相关配置"><a href="#3-5-进行HBase相关配置" class="headerlink" title="3.5 进行HBase相关配置"></a>3.5 进行HBase相关配置</h3><p>1.修改安装目录下的 <code>conf/hbase-env.sh</code>,指定 JDK 的安装路径：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> The java implementation to use.  Java 1.7+ required.</span></span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_201</span><br></pre></td></tr></table></figure>
+<p>2.修改安装目录下的 <code>conf/hbase-site.xml</code>，增加如下配置 (hadoop001 为主机名)：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!--指定 HBase 以分布式模式运行--&gt;</span>   </span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!--指定 HBase 数据存储路径为 HDFS 上的 hbase 目录,hbase 目录不需要预先创建，程序会自动创建--&gt;</span>   </span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop001:8020/hbase<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--指定 zookeeper 数据的存储位置--&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.property.dataDir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/home/zookeeper/dataDir<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.修改安装目录下的 <code>conf/regionservers</code>，指定 region  servers 的地址，修改后其内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop001</span><br></pre></td></tr></table></figure>
+<h3 id="3-6-启动"><a href="#3-6-启动" class="headerlink" title="3.6 启动"></a>3.6 启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> bin/start-hbase.sh</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-7-验证启动是否成功"><a href="#3-7-验证启动是否成功" class="headerlink" title="3.7 验证启动是否成功"></a>3.7 验证启动是否成功</h3><p>验证方式一 ：使用 <code>jps</code> 命令查看进程。其中 <code>HMaster</code>，<code>HRegionServer</code> 是 HBase 的进程，<code>HQuorumPeer</code> 是 HBase 内置的 Zookeeper 的进程，其余的为 HDFS 和 YARN 的进程。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop001 conf]# jps</span><br><span class="line">28688 NodeManager</span><br><span class="line">25824 GradleDaemon</span><br><span class="line">10177 Jps</span><br><span class="line">22083 HRegionServer</span><br><span class="line">20534 DataNode</span><br><span class="line">20807 SecondaryNameNode</span><br><span class="line">18744 Main</span><br><span class="line">20411 NameNode</span><br><span class="line">21851 HQuorumPeer</span><br><span class="line">28573 ResourceManager</span><br><span class="line">21933 HMaster</span><br></pre></td></tr></table></figure>
+<p>验证方式二 ：访问 HBase Web UI 界面，需要注意的是 1.2 版本的 HBase 的访问端口为 <code>60010</code></p>
+<div align="center"> <img src="/images/hbase-60010.png"> </div>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+        	-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------
+        </div>
+    
+    
+    	<div style="text-align:left;color: #ccc;font-size:12px;">
+    		作者：Mr.刘 <br>
+    		来源：GitHub <br>
+			原文：https://ly464782123.github.io <br>
+			版权声明：本文为博主原创文章，转载请附上博文链接,谢谢(*￣︶￣)！
+    	</div>
+    
+</div>
+      </div>
+    
+
+    
+      <div>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/环境搭建/" rel="tag"># 环境搭建</a>
+          
+            <a href="/tags/HBase/" rel="tag"># HBase</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/20/Hadoop集群环境搭建/" rel="next" title="Hadoop集群环境搭建">
+                <i class="fa fa-chevron-left"></i> Hadoop集群环境搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/20/HBase集群环境搭建/" rel="prev" title="HBase集群环境配置">
+                HBase集群环境配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.gif" alt="Mr.刘">
+            
+              <p class="site-author-name" itemprop="name">Mr.刘</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">95</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LY464782123" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:464782123@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、安装前置条件说明"><span class="nav-number">1.</span> <span class="nav-text">一、安装前置条件说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-JDK版本说明"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 JDK版本说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Standalone模式和伪集群模式的区别"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Standalone模式和伪集群模式的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Standalone-模式"><span class="nav-number">2.</span> <span class="nav-text">二、Standalone 模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-下载并解压"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 下载并解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-配置环境变量"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-进行HBase相关配置"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 进行HBase相关配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-启动HBase"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 启动HBase</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-验证启动是否成功"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 验证启动是否成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、伪集群模式安装（Pseudo-Distributed）"><span class="nav-number">3.</span> <span class="nav-text">三、伪集群模式安装（Pseudo-Distributed）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Hadoop单机伪集群安装"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Hadoop单机伪集群安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Hbase版本选择"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Hbase版本选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-软件下载解压"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 软件下载解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-配置环境变量"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-进行HBase相关配置"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 进行HBase相关配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-启动"><span class="nav-number">3.6.</span> <span class="nav-text">3.6 启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-验证启动是否成功"><span class="nav-number">3.7.</span> <span class="nav-text">3.7 验证启动是否成功</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.刘</span>
+
+  
+  
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  <!--<div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>-->
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访问数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'nMqf9jn6wQxm15s5uFHXVJFE-gzGzoHsz',
+        appKey: '3tyIVLem7Iy9uN4vY8BjbLlG',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/clickLove.js"></script>

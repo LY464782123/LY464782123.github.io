@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="环境搭建,HBase,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、集群规划这里搭建一个 3 节点的 HBase 集群，其中三台主机上均为 Regin Server。同时为了保证高可用，除了在 hadoop001 上部署主 Master 服务外，还在 hadoop002 上部署备用的 Master 服务。Master 服务由 Zookeeper 集群进行协调管理，如果主 Master 不可用，则备用 Master 会成为新的主 Master。     二、前置">
+<meta name="keywords" content="环境搭建,HBase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBase集群环境配置">
+<meta property="og:url" content="http://yoursite.com/2021/03/20/HBase集群环境搭建/index.html">
+<meta property="og:site_name" content="菜鸟@进阶记">
+<meta property="og:description" content="一、集群规划这里搭建一个 3 节点的 HBase 集群，其中三台主机上均为 Regin Server。同时为了保证高可用，除了在 hadoop001 上部署主 Master 服务外，还在 hadoop002 上部署备用的 Master 服务。Master 服务由 Zookeeper 集群进行协调管理，如果主 Master 不可用，则备用 Master 会成为新的主 Master。     二、前置">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/hbase集群规划.png">
+<meta property="og:image" content="http://yoursite.com/images/hbase-集群搭建1.png">
+<meta property="og:image" content="http://yoursite.com/images/hbase-集群搭建2.png">
+<meta property="og:updated_time" content="2021-03-20T10:43:04.188Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HBase集群环境配置">
+<meta name="twitter:description" content="一、集群规划这里搭建一个 3 节点的 HBase 集群，其中三台主机上均为 Regin Server。同时为了保证高可用，除了在 hadoop001 上部署主 Master 服务外，还在 hadoop002 上部署备用的 Master 服务。Master 服务由 Zookeeper 集群进行协调管理，如果主 Master 不可用，则备用 Master 会成为新的主 Master。     二、前置">
+<meta name="twitter:image" content="http://yoursite.com/images/hbase集群规划.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+  (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/20/HBase集群环境搭建/">
+
+
+
+
+
+  <title>HBase集群环境配置 | 菜鸟@进阶记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+   <a href="https://github.com/LY464782123"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">菜鸟@进阶记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-edit"></i> <br>
+            
+            笔记
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-codes">
+          <a href="/codes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br>
+            
+            编程
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-search"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/20/HBase集群环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.刘">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜鸟@进阶记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HBase集群环境配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-20T16:48:57+08:00">
+                2021-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/notes/HBase/" itemprop="url" rel="index">
+                    <span itemprop="name">HBase</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/03/20/HBase集群环境搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/20/HBase集群环境搭建/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、集群规划"><a href="#一、集群规划" class="headerlink" title="一、集群规划"></a>一、集群规划</h2><p>这里搭建一个 3 节点的 HBase 集群，其中三台主机上均为 <code>Regin Server</code>。同时为了保证高可用，除了在 hadoop001 上部署主 <code>Master</code> 服务外，还在 hadoop002 上部署备用的 <code>Master</code> 服务。Master 服务由 Zookeeper 集群进行协调管理，如果主 <code>Master</code> 不可用，则备用 <code>Master</code> 会成为新的主 <code>Master</code>。</p>
+<div align="center"> <img src="/images/hbase集群规划.png"> </div>
+
+<h2 id="二、前置条件"><a href="#二、前置条件" class="headerlink" title="二、前置条件"></a>二、前置条件</h2><p>HBase 的运行需要依赖 Hadoop 和 JDK(<code>HBase 2.0+</code> 对应 <code>JDK 1.8+</code>) 。同时为了保证高可用，这里我们不采用 HBase 内置的 Zookeeper 服务，而采用外置的 Zookeeper 集群。相关搭建步骤可以参阅：</p>
+<ul>
+<li><a href="https://github.com/heibaiying/BigData-Notes/blob/master/notes/installation/Linux下JDK安装.md" target="_blank" rel="noopener">Linux 环境下 JDK 安装</a></li>
+<li><a href="https://github.com/heibaiying/BigData-Notes/blob/master/notes/installation/Zookeeper单机环境和集群环境搭建.md" target="_blank" rel="noopener">Zookeeper 单机环境和集群环境搭建</a></li>
+<li><a href="https://github.com/heibaiying/BigData-Notes/blob/master/notes/installation/Hadoop集群环境搭建.md" target="_blank" rel="noopener">Hadoop 集群环境搭建</a></li>
+</ul>
+<h2 id="三、集群搭建"><a href="#三、集群搭建" class="headerlink" title="三、集群搭建"></a>三、集群搭建</h2><h3 id="3-1-下载并解压"><a href="#3-1-下载并解压" class="headerlink" title="3.1 下载并解压"></a>3.1 下载并解压</h3><p>下载并解压，这里我下载的是 CDH 版本 HBase，下载地址为：<a href="http://archive.cloudera.com/cdh5/cdh/5/" target="_blank" rel="noopener">http://archive.cloudera.com/cdh5/cdh/5/</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -zxvf hbase-1.2.0-cdh5.15.2.tar.gz</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-2-配置环境变量"><a href="#3-2-配置环境变量" class="headerlink" title="3.2 配置环境变量"></a>3.2 配置环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/profile</span></span><br></pre></td></tr></table></figure>
+<p>添加环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HBASE_HOME=usr/app/hbase-1.2.0-cdh5.15.2</span><br><span class="line">export PATH=$HBASE_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>使得配置的环境变量立即生效：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">source</span> /etc/profile</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-3-集群配置"><a href="#3-3-集群配置" class="headerlink" title="3.3 集群配置"></a>3.3 集群配置</h3><p>进入 <code>${HBASE_HOME}/conf</code> 目录下，修改配置：</p>
+<h4 id="1-hbase-env-sh"><a href="#1-hbase-env-sh" class="headerlink" title="1. hbase-env.sh"></a>1. hbase-env.sh</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 配置JDK安装位置</span></span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_201</span><br><span class="line"><span class="meta">#</span><span class="bash"> 不使用内置的zookeeper服务</span></span><br><span class="line">export HBASE_MANAGES_ZK=false</span><br></pre></td></tr></table></figure>
+<h4 id="2-hbase-site-xml"><a href="#2-hbase-site-xml" class="headerlink" title="2. hbase-site.xml"></a>2. hbase-site.xml</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定 hbase 以分布式集群的方式运行 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定 hbase 在 HDFS 上的存储位置 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop001:8020/hbase<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定 zookeeper 的地址--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop001:2181,hadoop002:2181,hadoop003:2181<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-regionservers"><a href="#3-regionservers" class="headerlink" title="3. regionservers"></a>3. regionservers</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hadoop001</span><br><span class="line">hadoop002</span><br><span class="line">hadoop003</span><br></pre></td></tr></table></figure>
+<h4 id="4-backup-masters"><a href="#4-backup-masters" class="headerlink" title="4. backup-masters"></a>4. backup-masters</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop002</span><br></pre></td></tr></table></figure>
+<p><code>backup-masters</code> 这个文件是不存在的，需要新建，主要用来指明备用的 master 节点，可以是多个，这里我们以 1 个为例。</p>
+<h3 id="3-4-HDFS客户端配置"><a href="#3-4-HDFS客户端配置" class="headerlink" title="3.4 HDFS客户端配置"></a>3.4 HDFS客户端配置</h3><p>这里有一个可选的配置：如果您在 Hadoop 集群上进行了 HDFS 客户端配置的更改，比如将副本系数 <code>dfs.replication</code> 设置成 5，则必须使用以下方法之一来使 HBase 知道，否则 HBase 将依旧使用默认的副本系数 3 来创建文件：</p>
+<blockquote>
+<ol>
+<li>Add a pointer to your <code>HADOOP_CONF_DIR</code> to the <code>HBASE_CLASSPATH</code> environment variable in <em>hbase-env.sh</em>.</li>
+<li>Add a copy of <em>hdfs-site.xml</em> (or <em>hadoop-site.xml</em>) or, better, symlinks, under <em>${HBASE_HOME}/conf</em>, or</li>
+<li>if only a small set of HDFS client configurations, add them to <em>hbase-site.xml</em>.</li>
+</ol>
+</blockquote>
+<p>以上是官方文档的说明，这里解释一下：</p>
+<p><strong>第一种</strong> ：将 Hadoop 配置文件的位置信息添加到 <code>hbase-env.sh</code> 的 <code>HBASE_CLASSPATH</code> 属性，示例如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export HBASE_CLASSPATH=usr/app/hadoop-2.6.0-cdh5.15.2/etc/hadoop</span><br></pre></td></tr></table></figure>
+<p><strong>第二种</strong> ：将 Hadoop 的 <code>hdfs-site.xml</code> 或 <code>hadoop-site.xml</code> 拷贝到  <code>${HBASE_HOME}/conf</code> 目录下，或者通过符号链接的方式。如果采用这种方式的话，建议将两者都拷贝或建立符号链接，示例如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 拷贝</span></span><br><span class="line">cp core-site.xml hdfs-site.xml /usr/app/hbase-1.2.0-cdh5.15.2/conf/</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用符号链接</span></span><br><span class="line">ln -s   /usr/app/hadoop-2.6.0-cdh5.15.2/etc/hadoop/core-site.xml</span><br><span class="line">ln -s   /usr/app/hadoop-2.6.0-cdh5.15.2/etc/hadoop/hdfs-site.xml</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：<code>hadoop-site.xml</code> 这个配置文件现在叫做 <code>core-site.xml</code></p>
+</blockquote>
+<p><strong>第三种</strong> ：如果你只有少量更改，那么直接配置到 <code>hbase-site.xml</code> 中即可。</p>
+<h3 id="3-5-安装包分发"><a href="#3-5-安装包分发" class="headerlink" title="3.5 安装包分发"></a>3.5 安装包分发</h3><p>将 HBase 的安装包分发到其他服务器，分发后建议在这两台服务器上也配置一下 HBase 的环境变量。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -r /usr/app/hbase-1.2.0-cdh5.15.2/  hadoop002:usr/app/</span><br><span class="line">scp -r /usr/app/hbase-1.2.0-cdh5.15.2/  hadoop003:usr/app/</span><br></pre></td></tr></table></figure>
+<h2 id="四、启动集群"><a href="#四、启动集群" class="headerlink" title="四、启动集群"></a>四、启动集群</h2><h3 id="4-1-启动ZooKeeper集群"><a href="#4-1-启动ZooKeeper集群" class="headerlink" title="4.1 启动ZooKeeper集群"></a>4.1 启动ZooKeeper集群</h3><p>分别到三台服务器上启动 ZooKeeper 服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-启动Hadoop集群"><a href="#4-2-启动Hadoop集群" class="headerlink" title="4.2 启动Hadoop集群"></a>4.2 启动Hadoop集群</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动dfs服务</span></span><br><span class="line">start-dfs.sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动yarn服务</span></span><br><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-启动HBase集群"><a href="#4-3-启动HBase集群" class="headerlink" title="4.3 启动HBase集群"></a>4.3 启动HBase集群</h3><p>进入 hadoop001 的 <code>${HBASE_HOME}/bin</code>，使用以下命令启动 HBase 集群。执行此命令后，会在 hadoop001 上启动 <code>Master</code> 服务，在 hadoop002 上启动备用 <code>Master</code> 服务，在 <code>regionservers</code> 文件中配置的所有节点启动 <code>region server</code> 服务。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-hbase.sh</span><br></pre></td></tr></table></figure>
+<h3 id="4-5-查看服务"><a href="#4-5-查看服务" class="headerlink" title="4.5 查看服务"></a>4.5 查看服务</h3><p>访问 HBase 的 Web-UI 界面，这里我安装的 HBase 版本为 1.2，访问端口为 <code>60010</code>，如果你安装的是 2.0 以上的版本，则访问端口号为 <code>16010</code>。可以看到 <code>Master</code> 在 hadoop001 上，三个 <code>Regin Servers</code> 分别在 hadoop001，hadoop002，和 hadoop003 上，并且还有一个 <code>Backup Matser</code> 服务在 hadoop002 上。</p>
+<div align="center"> <img src="/images/hbase-集群搭建1.png"> </div><br><br><br><br>hadoop002 上的 HBase 出于备用状态：<br><br><br><br><br><div align="center"> <img src="/images/hbase-集群搭建2.png"> </div>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+        	-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------
+        </div>
+    
+    
+    	<div style="text-align:left;color: #ccc;font-size:12px;">
+    		作者：Mr.刘 <br>
+    		来源：GitHub <br>
+			原文：https://ly464782123.github.io <br>
+			版权声明：本文为博主原创文章，转载请附上博文链接,谢谢(*￣︶￣)！
+    	</div>
+    
+</div>
+      </div>
+    
+
+    
+      <div>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/环境搭建/" rel="tag"># 环境搭建</a>
+          
+            <a href="/tags/HBase/" rel="tag"># HBase</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/20/HBase单机环境搭建/" rel="next" title="HBase基本环境搭建">
+                <i class="fa fa-chevron-left"></i> HBase基本环境搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/20/Linux环境下Hive的安装部署/" rel="prev" title="Linux环境下Hive的安装">
+                Linux环境下Hive的安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.gif" alt="Mr.刘">
+            
+              <p class="site-author-name" itemprop="name">Mr.刘</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">95</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LY464782123" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:464782123@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、集群规划"><span class="nav-number">1.</span> <span class="nav-text">一、集群规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、前置条件"><span class="nav-number">2.</span> <span class="nav-text">二、前置条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、集群搭建"><span class="nav-number">3.</span> <span class="nav-text">三、集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-下载并解压"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 下载并解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-配置环境变量"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-集群配置"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 集群配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-hbase-env-sh"><span class="nav-number">3.3.1.</span> <span class="nav-text">1. hbase-env.sh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-hbase-site-xml"><span class="nav-number">3.3.2.</span> <span class="nav-text">2. hbase-site.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-regionservers"><span class="nav-number">3.3.3.</span> <span class="nav-text">3. regionservers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-backup-masters"><span class="nav-number">3.3.4.</span> <span class="nav-text">4. backup-masters</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-HDFS客户端配置"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 HDFS客户端配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-安装包分发"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 安装包分发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、启动集群"><span class="nav-number">4.</span> <span class="nav-text">四、启动集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-启动ZooKeeper集群"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 启动ZooKeeper集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-启动Hadoop集群"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 启动Hadoop集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-启动HBase集群"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 启动HBase集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-查看服务"><span class="nav-number">4.4.</span> <span class="nav-text">4.5 查看服务</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.刘</span>
+
+  
+  
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  <!--<div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>-->
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访问数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'nMqf9jn6wQxm15s5uFHXVJFE-gzGzoHsz',
+        appKey: '3tyIVLem7Iy9uN4vY8BjbLlG',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/clickLove.js"></script>

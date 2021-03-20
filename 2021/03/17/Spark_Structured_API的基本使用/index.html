@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="菜鸟@进阶记">
 <meta property="og:description" content="一、创建DataFrame和Dataset1.1 创建DataFrameSpark 中所有功能的入口点是 SparkSession，可以使用 SparkSession.builder() 创建。创建后应用程序就可以从现有 RDD，Hive 表或 Spark 数据源创建 DataFrame。示例如下： 123456val spark = SparkSession.builder().appName(">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2021/03/17/pictures/spark-sql-shell.png">
-<meta property="og:updated_time" content="2021-03-17T15:07:41.352Z">
+<meta property="og:image" content="http://yoursite.com/images/spark-sql-shell.png">
+<meta property="og:updated_time" content="2021-03-20T07:59:56.790Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Structured API基本使用">
 <meta name="twitter:description" content="一、创建DataFrame和Dataset1.1 创建DataFrameSpark 中所有功能的入口点是 SparkSession，可以使用 SparkSession.builder() 创建。创建后应用程序就可以从现有 RDD，Hive 表或 Spark 数据源创建 DataFrame。示例如下： 123456val spark = SparkSession.builder().appName(">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/17/pictures/spark-sql-shell.png">
+<meta name="twitter:image" content="http://yoursite.com/images/spark-sql-shell.png">
 
 
 
@@ -423,7 +423,7 @@
         <h2 id="一、创建DataFrame和Dataset"><a href="#一、创建DataFrame和Dataset" class="headerlink" title="一、创建DataFrame和Dataset"></a>一、创建DataFrame和Dataset</h2><h3 id="1-1-创建DataFrame"><a href="#1-1-创建DataFrame" class="headerlink" title="1.1 创建DataFrame"></a>1.1 创建DataFrame</h3><p>Spark 中所有功能的入口点是 <code>SparkSession</code>，可以使用 <code>SparkSession.builder()</code> 创建。创建后应用程序就可以从现有 RDD，Hive 表或 Spark 数据源创建 DataFrame。示例如下：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().appName(<span class="string">"Spark-SQL"</span>).master(<span class="string">"local[2]"</span>).getOrCreate()</span><br><span class="line"><span class="keyword">val</span> df = spark.read.json(<span class="string">"/usr/file/json/emp.json"</span>)</span><br><span class="line">df.show()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建议在进行 spark SQL 编程前导入下面的隐式转换，因为 DataFrames 和 dataSets 中很多操作都依赖了隐式转换</span></span><br><span class="line"><span class="keyword">import</span> spark.implicits._</span><br></pre></td></tr></table></figure>
 <p>可以使用 <code>spark-shell</code> 进行测试，需要注意的是 <code>spark-shell</code> 启动后会自动创建一个名为 <code>spark</code> 的 <code>SparkSession</code>，在命令行中可以直接引用即可：</p>
-<div align="center"> <img src="../pictures/spark-sql-shell.png"> </div>
+<div align="center"> <img src="/images/spark-sql-shell.png"> </div>
 
 <p><br></p>
 <h3 id="1-2-创建Dataset"><a href="#1-2-创建Dataset" class="headerlink" title="1.2 创建Dataset"></a>1.2 创建Dataset</h3><p>Spark 支持由内部数据集和外部数据集来创建 DataSet，其创建方式分别如下：</p>
@@ -507,8 +507,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/17/Spark_Transformation和Action算子/" rel="next" title="Transformation 和 Action 常用算子">
-                <i class="fa fa-chevron-left"></i> Transformation 和 Action 常用算子
+              <a href="/2021/03/17/Spark_Streaming整合Kafka/" rel="next" title="Spark Streaming 整合 Kafka">
+                <i class="fa fa-chevron-left"></i> Spark Streaming 整合 Kafka
               </a>
             
           </div>
@@ -517,8 +517,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/17/Spark_Streaming整合Kafka/" rel="prev" title="Spark Streaming 整合 Kafka">
-                Spark Streaming 整合 Kafka <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/17/Spark_Streaming整合Flume/" rel="prev" title="Spark Streaming 整合 Flume">
+                Spark Streaming 整合 Flume <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -601,7 +601,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -612,7 +612,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -623,7 +623,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
